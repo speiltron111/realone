@@ -1,0 +1,113 @@
+.mobile-sticky-bar {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  z-index: 9;
+  transition: all .4s ease;
+	transform: translateY(100%);
+}
+
+.mobile-sticky-bar.active {
+	transform: translateY(0);
+}
+
+.mobile-sticky-bar .page-width {
+  padding: 0;
+}
+
+.mobile-sticky-bar--border {
+  border-top: .1rem solid rgb(var(--color-icon-social));
+}
+
+.mobile-sticky-bar--grid-border .grid__item:not(:first-child) {
+  border-left: .1rem solid rgb(var(--color-icon-social));
+}
+
+.mobile-sticky-bar .grid {
+  margin: 0;
+  flex-wrap: nowrap;
+}
+
+.mobile-sticky-bar .grid--col .grid__item {
+  margin: 0;
+  max-width: 100%;
+  transition: all var(--duration-default);
+}
+
+.mobile-sticky-bar .grid--1-col .grid__item {
+  width: 100%;
+}
+
+.mobile-sticky-bar .grid--2-col .grid__item {
+  width: 50%;
+}
+
+.mobile-sticky-bar .grid--3-col .grid__item {
+  width: 33.33%;
+}
+
+.mobile-sticky-bar .grid--4-col .grid__item {
+  width: 25%;
+}
+
+.mobile-sticky-bar .grid--5-col .grid__item {
+  width: 20%;
+}
+
+.mobile-sticky-bar .grid__item {
+  padding: 1.1rem 0;
+  padding: .5rem 0;
+}
+
+.mobile-sticky-bar .grid__item,
+.mobile-sticky-bar .link:not(.predictive-search__item) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mobile-sticky-bar .link svg,
+.mobile-sticky-bar .header__search .icon.icon-search {
+  height: 1.6rem;
+  width: auto;
+}
+
+.mobile-sticky-bar .link:not(.predictive-search__item) {
+  min-width: 4.4rem;
+  height: 4.4rem;
+  text-decoration: none;
+}
+
+.mobile-sticky-bar .cart-count {
+  display: flex;
+  font-weight: 500;
+  font-size: 1.6rem;
+  line-height: 1.38;
+  margin-left: 1rem;
+}
+
+.mobile-sticky-bar .field__input:focus ~ .field__label,
+.mobile-sticky-bar .field__input:not(:placeholder-shown) ~ .field__label,
+.mobile-sticky-bar .field__input:autofill ~ .field__label {
+  top: -0.4rem;
+}
+
+@media screen and (max-width: 749px) {
+  .mobile-sticky-bar .cart-count {
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    margin-left: .6rem;
+  }
+}
+
+.mobile-sticky-bar .header__search .predictive-search {
+  transform: translateY(-100%);
+	top: 0px;
+	max-height: 50dvh!important;
+}
+
+.mobile-sticky-bar .header__search details .search-modal {
+	height: 100%;
+}

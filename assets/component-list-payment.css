@@ -1,0 +1,22 @@
+.list-payment {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin: -0.5rem;
+  padding-left: 0;
+}
+
+.list-payment__item {
+  align-items: center;
+  display: flex;
+  padding: 0.5rem;
+}
+
+.list-payment__item>svg {
+  height: 3rem;
+  width: auto;
+}
+
+.list-payment__item>svg>title+path {
+  display: none;
+}

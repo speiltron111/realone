@@ -1,0 +1,86 @@
+.breadcrumbs {
+	margin-bottom: 5rem;
+}
+
+.breadcrumbs.mb-3 {
+	margin-bottom: 3rem;
+}
+
+.breadcrumbs__list {
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.breadcrumbs__item {
+	display: flex;
+	text-align: center;
+}
+
+.breadcrumbs__item:not(:last-child):after {
+    content: '/';
+    display: inline-block;
+    position: relative;
+    line-height: 1.6;
+    margin: 0 .4rem;
+    vertical-align: middle;
+}
+
+.breadcrumbs__link {
+    line-height: 1.6;
+    color: currentColor;
+    text-decoration: none;
+    transition: all var(--duration-default);
+}
+
+.breadcrumbs__link:empty {
+    display: none;
+}
+.breadcrumbs__item:has(.breadcrumbs__link:empty):not(:last-child):after {
+    display: none;
+}
+.color-general-heading .breadcrumbs__link[aria-current=page] {
+  color: rgb(var(--color-general-heading));
+}
+
+.breadcrumbs__link p {
+    margin: 0;
+}
+
+a.breadcrumbs__link:hover {
+    color: rgb(var(--color-hover-link));
+    text-decoration: underline;
+}
+
+.breadcrumbs__link[aria-current="page"] {
+	color: rgba(var(--color-general-main-text));
+}
+
+.color-text-secondary .breadcrumbs__link[aria-current="page"],
+.color-text-secondary a.breadcrumbs__link:hover,
+.color-text-secondary .breadcrumbs__link[aria-current="page"]:hover {
+    color: rgb(var(--color-general-secondary-text));
+}
+
+.light .breadcrumbs__link[aria-current="page"]:not(:hover) {
+    color: rgb(var(--color-general-secondary-text));
+}
+
+@media screen and (max-width: 1200px) {
+    .breadcrumbs {
+        margin-bottom: 3.5rem;
+    }
+}
+  
+@media screen and (max-width: 749px) {
+    .breadcrumbs {
+        margin-top: 2rem;
+    }
+}
+
+.breadcrumbs.focused-active-link li:last-of-type .breadcrumbs__link[aria-current="page"]>p,
+.breadcrumbs.focused-active-link li:last-of-type .breadcrumbs__link[aria-current="page"] {
+	color: rgb(var(--color-hover-link));
+}

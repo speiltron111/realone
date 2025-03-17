@@ -1,0 +1,152 @@
+.image-with-text .countdown-bar {
+	display: flex;
+	align-items: center;
+}
+
+.image-with-text .countdown-bar > div {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.image-with-text .countdown-bar > div:not(:first-of-type) {
+	padding-left: 2rem;
+	margin-left: 2rem;
+
+}
+
+@media screen and (max-width: 749px) {
+	.image-with-text .countdown-bar > div:not(:first-of-type) {
+			padding-left: 1.5rem;
+			margin-left: 1.5rem;
+	}
+}
+
+.image-with-text .countdown-bar__number {
+	width: 100%;
+	text-align: center;
+	font-weight: 600;
+	font-size: 30px;
+	position: relative;
+}
+
+.image-with-text .countdown-bar .weight-bold {
+	font-weight: 700;
+}
+.image-with-text .countdown-bar .weight-semi-bold {
+	font-weight: 600;
+}
+.image-with-text .countdown-bar .weight-medium {
+	font-weight: 500;
+}
+.image-with-text .countdown-bar .weight-normal {
+	font-weight: 400;
+}
+.image-with-text .countdown-bar .weight-light {
+	font-weight: 300;
+}
+
+@media screen and (max-width: 749px) {
+	.image-with-text .countdown-bar__number {
+			font-size: calc(30px * .8);
+	}
+}
+
+.image-with-text .countdown-bar__title {
+	font-weight: 500;
+}
+
+.image-with-text .countdown-bar > div:not(:first-of-type) .countdown-bar__number:before {
+	content: ':';
+	position: absolute;
+	left: -2rem;
+	transform: translateX(-50%);
+	display: block;
+}
+
+@media screen and (max-width: 749px) {
+	.image-with-text .countdown-bar > div:not(:first-of-type) .countdown-bar__number:before {
+			left: -1.5rem;
+	}
+}
+
+/* Product countdown */
+.product .countdown-bar {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	flex-wrap: wrap;
+}
+
+.product .countdown-bar > div {
+	display: flex;
+	align-items: center;
+}
+
+.product .countdown-bar__items {
+	border: 0.1rem solid rgb(var(--color-general-main-text));
+	border-radius: 0.5rem;
+	padding: 1.2rem 1.7rem;
+	font-weight: 700;
+	gap: 1.25rem;
+	flex-wrap: wrap;
+}
+.product .contdown-bar__label {
+	font-weight: 500;
+}
+.product .countdown-bar__title,
+.product .contdown-bar__label {
+	word-break: break-word;
+}
+
+.product .countdown-bar__items .countdown-bar__item:not(:first-of-type) {
+	position: relative;
+}
+
+.product .countdown-bar__items .countdown-bar__item:not(:first-of-type) .countdown-bar__number:before {
+	content: ':';
+	position: relative;
+	display: inline-block;
+	margin-right: 1rem;
+} 
+
+/* style-1 */
+.product .countdown-bar.style-1 {
+	flex-direction: column;
+	gap: 0;
+	align-items: start;
+}
+
+.product .countdown-bar.style-1 .contdown-bar__label {
+	position: relative;
+	font-size: 1.4rem;
+	max-width: 26.5rem;
+	padding: 0 0.5rem;
+	margin-left: 1.5rem;
+	margin-bottom: -1.3rem;
+  background: rgb(var(--color-general-bg));
+}
+
+.product .countdown-bar.style-1 .countdown-bar__items {
+	border-radius: 1rem;
+	font-size: 2rem;
+	line-height: 1.2;
+	padding: 2.1rem 2rem 1.3rem;
+}
+
+/* simple style */
+.countdown-bar.simple {
+	justify-content: space-between;
+}
+
+.countdown-bar.simple .contdown-bar__label {
+  font-size: var(--font-heading-5-size);
+	font-weight: 400;
+}
+
+.countdown-bar.simple .countdown-bar__items {
+	padding: 0;
+	border: unset;
+	font-size: 1.4rem;
+	font-weight: 400;
+}

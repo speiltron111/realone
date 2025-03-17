@@ -1,0 +1,38 @@
+.main-collection__list li {
+    transition: all .3s ease;
+    list-style: none;
+}
+
+.navigation-layout ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding-left: 4rem;
+}
+
+.navigation-layout li:not(:first-child) {
+    margin-left: 2rem;
+}
+
+.navigation-layout li {
+    color: #B9BCC1;
+    cursor: pointer;
+    transition: color .3s ease;
+    line-height: 1;
+}
+
+.navigation-layout li:hover {
+    color: rgb(var(--color-general-main-text));
+}
+
+.navigation-layout li.active  {
+    color: rgb(var(--color-general-main-text));
+}
+
+.filter-style-5 .navigation-layout ul {
+	padding-left: 0;
+}
+
+.filter-style-5 .mobile-facets__open-wrapper .mobile-facets__sort {
+	display: none;
+}

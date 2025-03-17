@@ -1,0 +1,309 @@
+.section-header:not(.shopify-section-header-hidden) .megam-style-1 .list-menu.list-menu--inline li:hover .header__submenu.header__submenu-main.on-hover {
+    opacity: 1;
+    pointer-events: all;
+    z-index: 11;
+    visibility: visible;
+    display: grid!important;
+}
+
+.megam-style-1 ul > li:hover .header__submenu-img--portrait.on-hover .menu-drawer__image img,
+.megam-style-1 ul > li:hover .header__submenu-img--landscape.on-hover .menu-drawer__image img {
+  display: block;
+  max-width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center center;
+  opacity: 0;
+  transform: translateY(4rem);
+  border-radius: 20rem;
+}
+
+.megam-style-1 ul > li:hover .header__submenu-img--adapt.on-hover .menu-drawer__image img,
+.megam-style-1 ul > li:hover .header__submenu-img--landscape.on-hover .menu-drawer__image img {
+  display: block;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center center;
+  opacity: 0;
+  transform: translateY(4rem);
+  border-radius: 20rem;
+}
+
+.megam-style-1 .menu-drawer__image img {
+  border-radius: 20rem;
+}
+
+.megam-style-1 > ul > li:hover .header__submenu-main.on-hover > ul > li {
+    opacity: 0;
+    transform: translateY(4rem);
+}
+
+.megam-style-1 > ul > li:hover .header__submenu-main.on-hover > ul > li:nth-child(1) {
+    animation: .4s fadeIn .1s forwards;
+}
+.megam-style-1 > ul > li:hover .header__submenu-main.on-hover > ul > li:nth-child(2) {
+    animation: .4s fadeIn .2s forwards;
+}
+.megam-style-1 > ul > li:hover .header__submenu-main.on-hover > ul > li:nth-child(3) {
+    animation: .4s fadeIn .3s forwards;
+}
+.megam-style-1 > ul > li:hover .header__submenu-main.on-hover > ul > li:nth-child(4) {
+    animation: .4s fadeIn .4s forwards;
+}
+.megam-style-1 > ul > li:hover .header__submenu-main.on-hover > ul > li:nth-child(5) {
+    animation: .4s fadeIn .5s forwards;
+}
+.megam-style-1 > ul > li:hover .header__submenu-main.on-hover > ul > li:nth-child(6) {
+    animation: .4s fadeIn .6s forwards;
+}
+.megam-style-1 > ul > li:hover .header__submenu-main.on-hover > ul > li:nth-child(7) {
+    animation: .4s fadeIn .7s forwards;
+}
+.megam-style-1 > ul > li:hover .header__submenu-main.on-hover > ul > li:nth-child(8) {
+    animation: .4s fadeIn .8s forwards;
+}
+.megam-style-1 > ul > li:hover .header__submenu-main.on-hover > ul > li:nth-child(9) {
+    animation: .4s fadeIn .9s forwards;
+}
+
+.megam-style-1 ul > li:hover .header__submenu-img--portrait.on-hover .menu-drawer__image img,
+.megam-style-1 ul > li:hover .header__submenu-img--adapt.on-hover .menu-drawer__image img,
+.megam-style-1 ul > li:hover .header__submenu-img--landscape.on-hover .menu-drawer__image img {
+    animation: .4s fadeIn .7s forwards;
+}
+
+.megam-style-1 ul > li:hover .header__submenu-img--portrait.on-hover ul:hover + .menu-drawer__image img,
+.megam-style-1 ul > li:hover .header__submenu-img--adapt.on-hover ul:hover + .menu-drawer__image img,
+.megam-style-1 ul > li:hover .header__submenu-img--landscape.on-hover ul:hover + .menu-drawer__image img {
+    transform: translateY(0);
+    animation: 1s fadeInScroll forwards;
+}
+
+@keyframes fadeIn { 
+  0% {
+    opacity: 0;
+    transform: translateY(4rem);
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScroll { 
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.megam-style-2 .header__submenu.header__submenu-main,
+.megam-style-2 .header__submenu.header__submenu-main.header__submenu-img {
+    display: block;
+    width: fit-content;
+}
+
+@media screen and (max-width: 1366px) {
+    .megam-style-2 .header__submenu.header__submenu-main.header__submenu-img {
+        max-width: calc(100vw - 10rem);
+    }
+}
+
+.megam-style-2 .header__submenu.header__submenu-main > ul {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 3rem;
+}
+
+
+.megam-style-2 .header__submenu.header__submenu-main > ul.cols-2 li {
+    width: calc(100% / 2 - 1.5rem);
+}
+
+.megam-style-2 .header__submenu.header__submenu-main > ul.cols-3 > li {
+    width: calc(100% / 3 - 2rem );
+}
+
+.megam-style-2 .header__submenu.header__submenu-main > ul.cols-2 > li:nth-child(even) {
+    margin-right: 0;
+}
+
+.megam-style-2 .header__submenu.header__submenu-main > ul.cols-3 > li:nth-child(3n+3) {
+    margin-right: 0;
+}
+
+.megam-style-2 .header__submenu.header__submenu-main > variant-megamenu-img {
+    display: none;
+}
+
+
+.header__menu-item.mm-style-2 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.megam-style-2 .header__submenu .header__menu-item {
+    padding: 0;
+}
+
+.header__menu-item.mm-style-2 img {
+    width: 100%;
+    margin-bottom: 3rem;
+    object-fit: cover;
+}
+
+
+.megam-style-3 .header__submenu.header__submenu-main {
+    display: flex;
+    align-items: center;
+}
+
+.megam-style-3 .header__submenu.header__submenu-main > ul {
+    width: 55%;
+}
+.megam-style-3 .header__submenu.header__submenu-main > .mm-collections {
+    width: 45%;
+}
+
+.megam-style-3 .header__submenu .header__submenu .header__menu-item {
+    font-size: 2.4rem;
+}
+
+.megam-style-3 .header__submenu .header__submenu li:not(:last-child) {
+    margin-bottom: 1.5rem;
+}
+
+.mm-collections {
+    display: flex;
+    justify-content: space-between;
+}
+
+.mm-collections .mm-collections__link {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: calc(50% - 1.5rem);
+    text-decoration: none;
+}
+
+.mm-collections .mm-collections__link img {
+    width: 100%;
+    margin-bottom: 2rem;
+    object-fit: cover
+}
+
+.mm-collections .mm-collections__title {
+    width: calc(100% - 6rem);
+    transition: all .3s ease;
+    text-transform: none;
+    font-size: 1.8rem;
+}
+
+.mm-collections .mm-collections__arrow {
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 3rem;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: transparent;
+    border: .1rem solid;
+    transition: all .3s ease;
+}
+
+.mm-collections .mm-collections__link:hover .mm-collections__arrow {
+	background-color: rgb(var(--color-hover-link));
+	border-color: rgb(var(--color-hover-link));
+}
+
+.mm-collections.color-text-secondary .mm-collections__link:hover .mm-collections__arrow * {
+  color: rgb(var(--color-general-secondary-text));
+}
+.mm-collections.color-text-main .mm-collections__link:hover .mm-collections__arrow * {
+    color: rgb(var(--color-hover-link-secondary));
+}
+
+.megam-style-3 .header__submenu.header__submenu-main.on-hover {
+    left: auto;
+}
+
+@media screen and (max-width: 2266px) {
+    .megam-style-3 .header__submenu.header__submenu-main {
+        max-width: 100%;
+        left: calc(0rem - var(--body-border-size) + 1.1rem);
+        right: 0;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .megam-style-3 .header__submenu.header__submenu-main > ul {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.list-menu.list-menu--inline li .header__submenu.header__submenu-main.header-shadow {
+    box-shadow: 0px .8rem 20px -10px rgb(0 0 0 / 20%);
+}
+
+.megam-style-1 .header__submenu.header__submenu-main.on-hover:after,
+.megam-style-2 .header__submenu.header__submenu-main.on-hover:after,
+.megam-style-3 .header__submenu.header__submenu-main.on-hover:after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 3.2rem;
+    background-color: transparent;
+    position: absolute;
+    left: 0;
+    top: -3.2rem;
+    z-index: 20;
+}
+
+.megam-style-1 .header__submenu.header__submenu-main.on-hover:after {
+    height: 4.5rem;
+    top: -4.5rem;
+}
+
+.megam-style-2 .header__submenu.header__submenu-main.on-hover:after {
+    height: 3.5rem;
+    top: -3.5rem;
+}
+
+.header-overlay {
+    position: absolute;
+    top: 100%;
+    left: -50%;
+    width: 100vw;
+    height: 100vh;
+    transform: scaleX(2);
+    background-color: rgb(var(--color-general-main-text),.3);
+    opacity: 0;
+    visibility: hidden;
+    transition: all .3s ease;
+    pointer-events: none;
+}
+
+.list-menu.list-menu--inline li:hover .header-overlay,
+.list-menu.list-menu--inline li details[open] .header-overlay {
+    opacity: 1!important;
+    visibility: visible;
+}

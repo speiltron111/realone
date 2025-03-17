@@ -1,0 +1,26 @@
+.discounts {
+  font-size: 1.4rem;
+}
+
+.discounts__discount {
+  display: flex;
+  align-items: center;
+  line-height: 1.5;
+}
+
+.discounts__discount--end {
+  justify-content: flex-end;
+}
+
+@media screen and (max-width: 749px) {
+	.style-4 .discounts__discount--end {
+		justify-content: flex-start;
+	}
+}
+
+.discounts__discount > .icon {
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-right: 0.7rem;
+	border-radius: 0;
+}
