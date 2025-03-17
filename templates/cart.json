@@ -1,0 +1,88 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "cart-items": {
+      "type": "main-cart-items",
+      "blocks": {
+        "subtotal_6XNQWh": {
+          "type": "subtotal",
+          "settings": {
+            "show_subtotal_title": false,
+            "total_price_color": "#000000",
+            "font_weight": "weight-medium",
+            "note_size": "body-fs-small"
+          }
+        },
+        "buttons_NtUHB6": {
+          "type": "buttons",
+          "settings": {
+            "button_style": "btn_secondary",
+            "button_type": "button",
+            "show_clear_cart": true,
+            "button_stylec": "btn_secondary",
+            "button_typec": "button_outline"
+          }
+        }
+      },
+      "block_order": [
+        "subtotal_6XNQWh",
+        "buttons_NtUHB6"
+      ],
+      "settings": {
+        "style": "",
+        "heading_letter_spacing": 0,
+        "heading_style": "",
+        "text": "",
+        "text_color_2": "",
+        "banner_top_padding": 100,
+        "banner_bottom_padding": 100,
+        "show_cart_breadcrumbs": true,
+        "cart_style": "style-1",
+        "font_family": "heading-font",
+        "font_size": "h5",
+        "font_style": "",
+        "show_secondary_image": false,
+        "add_img_padding": false,
+        "product_bg": "#f9f5f0",
+        "img_borders": false,
+        "portrait_image": true,
+        "show_vendor": true,
+        "show_details": true,
+        "show_cart_account": true,
+        "show_cart_continue_btn": false,
+        "show_cart_continue_empty": true,
+        "price_font_weight": "normal",
+        "items_label": "",
+        "label_style": "uppercase",
+        "label_font_size": "fs-small",
+        "label_font_weight": "bold",
+        "picker_font_size": 16,
+        "picker_font_weight": "400",
+        "button_style": "btn_secondary",
+        "button_type": "button",
+        "show_cart_note": true,
+        "show_product": false,
+        "product": "cascade-earrings",
+        "heading_size": "h3",
+        "p_font_family": "body-font",
+        "pre_price": "Gift box |",
+        "upsell_bg": "#f7f7f7",
+        "summary_bg": "#f9f5f0",
+        "top_padding": 0,
+        "bottom_padding": 130,
+        "empty_cart_style": ""
+      }
+    }
+  },
+  "order": [
+    "cart-items"
+  ]
+}

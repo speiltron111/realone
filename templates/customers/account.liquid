@@ -1,0 +1,139 @@
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+
+<div class="customer account style-1" style="--acc-padding-top: {{ settings.account_padding_top}}rem;--acc-padding-bottom: {{ settings.account_padding_bottom}}rem">
+  
+  <aside class="sidebar {% if settings.theme_animations != 'no-animation' %} aside-text scroll-animation{% endif %}">
+    <h2 class="h4">{{ 'customer.account.title' | t }}</h2>
+    <ul>
+      <li>
+        <a class="active" href="{{ routes.account_url }}">
+          {{ 'customer.orders.title' | t }}
+        </a>
+      </li>
+      <li>
+        <a href="{{ routes.account_addresses_url }}">
+          {{ 'customer.account.view_addresses' | t }}
+        </a>
+      </li>
+      <li>
+        <a href="{{ routes.account_logout_url }}">
+          {{ 'customer.log_out' | t }}
+        </a>
+      </li>
+    </ul>
+  </aside>
+
+  <div class="account-block {% if settings.theme_animations != 'no-animation' %} aside-text scroll-animation{% endif %}">
+    <div>
+      <h1 class="h2">{{ 'customer.orders.title' | t }}</h1>
+
+      {% paginate customer.orders by 20 %}
+        {%- if customer.orders.size > 0 -%}
+          <table role="table" class="order-history">
+            <caption class="visually-hidden">{{ 'customer.orders.title' | t }}</caption>
+            <thead role="rowgroup">
+              <tr role="row">
+                <th id="ColumnOrder" scope="col" role="columnheader">{{ 'customer.orders.order_number' | t }}</th>
+                <th id="ColumnDate" scope="col" role="columnheader">{{ 'customer.orders.date' | t }}</th>
+                <th id="ColumnPayment" scope="col" role="columnheader">{{ 'customer.orders.payment_status' | t }}</th>
+                <th id="ColumnFulfillment" scope="col" role="columnheader">{{ 'customer.orders.fulfillment_status' | t }}</th>
+                <th id="ColumnTotal" scope="col" role="columnheader">{{ 'customer.orders.total' | t }}</th>
+              </tr>
+            </thead>
+            <tbody role="rowgroup">
+              {%- for order in customer.orders -%}
+                <tr role="row">
+                  <td
+                    id="RowOrder"
+                    role="cell"
+                    headers="ColumnOrder"
+                    data-label="{{ 'customer.orders.order_number' | t }}">
+                    <a href="{{ order.customer_url }}" aria-label="{{ 'customer.orders.order_number_link' | t: number: order.name }}">
+                      {{ order.name }}
+                    </a>
+                  </td>
+                  <td headers="RowOrder ColumnDate" role="cell" data-label="{{ 'customer.orders.date' | t }}">
+                    {{ order.created_at | time_tag: format: 'date' }}
+                  </td>
+                  <td headers="RowOrder ColumnPayment" role="cell" data-label="{{ 'customer.orders.payment_status' | t }}">
+                    {{ order.financial_status_label }}
+                  </td>
+                  <td headers="RowOrder ColumnFulfillment" role="cell" data-label="{{ 'customer.orders.fulfillment_status' | t }}">
+                    {{ order.fulfillment_status_label }}
+                  </td>
+                  <td headers="RowOrder ColumnTotal" role="cell" data-label="{{ 'customer.orders.total' | t }}">
+                    {{ order.total_price | money_with_currency }}</td>
+                </tr>
+              {%- endfor -%}
+            </tbody>
+          </table>
+        {%- else -%}
+          <p>{{ 'customer.orders.none' | t }}</p>
+        {%- endif -%}
+
+        {%- if paginate.pages > 1 -%}
+          {%- if paginate.parts.size > 0 -%}
+            <nav class="pagination" role="navigation" aria-label="{{ 'general.pagination.label' | t }}">
+              <ul role="list">
+              {%- if paginate.previous -%}
+                <li>
+                  <a href="{{ paginate.previous.url }}" aria-label="{{ 'general.pagination.previous' | t }}">
+                    <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor">
+                    </svg>
+                  </a>
+                </li>
+              {%- endif -%}
+
+              {%- for part in paginate.parts -%}
+                <li>
+                  {%- if part.is_link -%}
+                    <a href="{{ part.url }}" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">{{ part.title }}</a>
+                  {%- else -%}
+                    {%- if part.title == paginate.current_page -%}
+                      <span aria-current="page" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">{{ part.title }}</span>
+                    {%- else -%}
+                      <span>{{ part.title }}</span>
+                    {%- endif -%}
+                  {%- endif -%}
+                </li>
+              {%- endfor -%}
+
+              {%- if paginate.next -%}
+                <li>
+                  <a href="{{ paginate.next.url }}" aria-label="{{ 'general.pagination.next' | t }}" >
+                    <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor">
+                    </svg>
+                  </a>
+                </li>
+              {%- endif -%}
+              </ul>
+            </nav>
+          {%- endif -%}
+        {%- endif -%}
+      {% endpaginate %}
+    </div>
+  </div>
+
+</div>
+
+{%- if customer.orders.size <= 2 -%}
+  <style>
+    .empty-history-spacer {
+      position: relative;
+      z-index: 1;
+      {%- if customer.orders.size == 0 -%}
+        padding-bottom: 20rem;
+      {%-  else -%}
+        padding-bottom: 15rem;
+      {%- endif -%}
+    }
+    @media only screen and (max-width: 549px) {
+      .empty-history-spacer {
+        display: none;
+      }
+    }
+  </style>
+  <div class="empty-history-spacer"></div> 
+{%- endif -%}

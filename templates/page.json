@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "main": {
+      "type": "default-page",
+      "settings": {
+        "show_page_breadcrumbs": true,
+        "text_color": "color-text-main",
+        "section_top_padding": 80,
+        "section_bottom_padding": 90,
+        "color_bg": "rgba(0,0,0,0)"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

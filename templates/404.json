@@ -1,0 +1,20 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-404",
+      "settings": {
+        "color_header": "color-text-main",
+        "heading_weight": "var(--font-heading-weight)",
+        "color_subtitle": "color-text-main",
+        "color_rte": "color-text-main",
+        "text": "<p>Please make sure the web address is correct, or try the <a href=\"/\"><strong>Home page</strong></a></p>",
+        "heading_font": "hf-body",
+        "add_image_for_text": true,
+        "color_bg": "#edece9"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

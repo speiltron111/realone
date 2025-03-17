@@ -1,0 +1,222 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "title": "<p>Contact<\/p>",
+        "title_text": "",
+        "title_color": "",
+        "description": "",
+        "enable_description_max_width": false,
+        "description_max_width": 520,
+        "banner_padding_top": 90,
+        "banner_padding_bottom": 90,
+        "show_page_breadcrumbs": true,
+        "heading_letter_spacing": 0,
+        "heading_style": "",
+        "text_color": "dark",
+        "image_full_width": false,
+        "content_padding_top": 90,
+        "content_padding_bottom": 90,
+        "color_bg": "rgba(0,0,0,0)"
+      }
+    },
+    "contact-info": {
+      "type": "image-with-text",
+      "blocks": {
+        "245d1567-7cb5-4910-b00c-733456366e86": {
+          "type": "heading",
+          "settings": {
+            "heading": "<p>Get in Touch<\/p>",
+            "title_font": "heading-font",
+            "heading_size": "h2",
+            "heading_letter_spacing": 0,
+            "custom_heading_weight": "weight-normal",
+            "enable_custom_heading_size": false,
+            "custom_heading_size": 72
+          }
+        },
+        "28a4f9bb-b47a-44fa-938f-7c5da637ed5d": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Call or email us with your questions.<\/p>",
+            "text_block_size": "",
+            "enable_custom_text_border": false,
+            "top_space": "",
+            "enable_custom_text_size": false,
+            "text_font": "hf-body",
+            "custom_text_size": 18,
+            "custom_text_weight": "weight-normal",
+            "text_font_strong": "heading-font",
+            "custom_text_size_strong": 18,
+            "custom_text_weight_strong": "weight-bold",
+            "custom_description_color": ""
+          }
+        },
+        "a11b72b5-89ec-4ecf-828f-5af5297c2706": {
+          "type": "contact_info",
+          "settings": {
+            "contact_title": "Phone",
+            "contact_label": "+91 - 0123456789",
+            "contact_link": "tel:+91 - 0123456789"
+          }
+        },
+        "a6424df5-f706-4939-b0fa-9f5689742989": {
+          "type": "contact_info",
+          "settings": {
+            "contact_title": "Email",
+            "contact_label": "care@abode.com",
+            "contact_link": "mailto:care@abode.com"
+          }
+        },
+        "779c2ffb-1010-4965-9f4f-3cc513cf7ec7": {
+          "type": "contact_info",
+          "settings": {
+            "contact_title": "Address",
+            "contact_label": "24 Heaven Rd, Abode St., Birch Avenue",
+            "contact_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "245d1567-7cb5-4910-b00c-733456366e86",
+        "28a4f9bb-b47a-44fa-938f-7c5da637ed5d",
+        "a11b72b5-89ec-4ecf-828f-5af5297c2706",
+        "a6424df5-f706-4939-b0fa-9f5689742989",
+        "779c2ffb-1010-4965-9f4f-3cc513cf7ec7"
+      ],
+      "settings": {
+        "height": "medium",
+        "image_padding": "",
+        "layout": "image_first",
+        "layout_mobile": "image_first",
+        "column_width": 50,
+        "media_radius": 0,
+        "enable_video_url": false,
+        "video_url": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
+        "enable_video_looping": false,
+        "text_color": "dark",
+        "text_position": "center",
+        "align_content": "left",
+        "text_position_image": "normal",
+        "content_paddings": "",
+        "content_color_bg": "",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "color_bg": "#e2d5c5",
+        "full_width": true,
+        "top_line": false,
+        "bottom_line": false
+      }
+    },
+    "form": {
+      "type": "contact-form",
+      "blocks": {
+        "ed2d5136-f084-4eed-9fb3-53726d76cd5b": {
+          "type": "select",
+          "settings": {
+            "select_option": "Option name 1"
+          }
+        },
+        "ab5d44b3-9b0c-42c9-9c51-23c42d60d254": {
+          "type": "select",
+          "settings": {
+            "select_option": "Option name 2"
+          }
+        },
+        "b93e0fe5-8735-46da-8b8c-b511eca22705": {
+          "type": "select",
+          "settings": {
+            "select_option": "Option name 3"
+          }
+        },
+        "6c1a3fa6-4351-4f77-84ce-f1f547aa06c1": {
+          "type": "select",
+          "settings": {
+            "select_option": "Option name 4"
+          }
+        }
+      },
+      "block_order": [
+        "ed2d5136-f084-4eed-9fb3-53726d76cd5b",
+        "ab5d44b3-9b0c-42c9-9c51-23c42d60d254",
+        "b93e0fe5-8735-46da-8b8c-b511eca22705",
+        "6c1a3fa6-4351-4f77-84ce-f1f547aa06c1"
+      ],
+      "settings": {
+        "heading": "<p>Write to Us<\/p>",
+        "description": "",
+        "contact_info": "",
+        "heading_text_align": "center",
+        "header_position": "header_top",
+        "show_name": true,
+        "name_required": true,
+        "show_phone": true,
+        "phone_required": true,
+        "show_select": true,
+        "first_select": "I need help with",
+        "show_comment": true,
+        "comment_required": true,
+        "button_align": "center",
+        "button_label": "Send",
+        "button_style": "button-secondary",
+        "button_type": "button",
+        "form_info": "Fields marked with a * are compulsory",
+        "section_top_padding": 140,
+        "section_bottom_padding": 140,
+        "color_bg": ""
+      }
+    },
+    "bf19adaf-7b31-49a2-a0e4-d79cb782d620": {
+      "type": "showcase",
+      "blocks": {
+        "template--15894029697276__bf19adaf-7b31-49a2-a0e4-d79cb782d620-1687776704b6b5a1b3-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "<p>Showcase<\/p>",
+            "heading_color": "color-general-heading"
+          }
+        },
+        "template--15894029697276__bf19adaf-7b31-49a2-a0e4-d79cb782d620-1687776704b6b5a1b3-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>",
+            "text_color": "color-text-main"
+          }
+        },
+        "template--15894029697276__bf19adaf-7b31-49a2-a0e4-d79cb782d620-1687776704b6b5a1b3-2": {
+          "type": "button",
+          "settings": {
+            "button_label": "Button label",
+            "button_link": "#",
+            "button_style": "btn_primary",
+            "button_type": "inline_button"
+          }
+        }
+      },
+      "block_order": [
+        "template--15894029697276__bf19adaf-7b31-49a2-a0e4-d79cb782d620-1687776704b6b5a1b3-0",
+        "template--15894029697276__bf19adaf-7b31-49a2-a0e4-d79cb782d620-1687776704b6b5a1b3-1",
+        "template--15894029697276__bf19adaf-7b31-49a2-a0e4-d79cb782d620-1687776704b6b5a1b3-2"
+      ],
+      "settings": {
+        "layout": "text_first",
+        "image_link": "",
+        "image_link_2": "",
+        "image_link_3": "",
+        "gap_mobile": false,
+        "enable_max_width": false,
+        "heading_max_width": 360,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "color_bg": "#edece9"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "contact-info",
+    "form",
+    "bf19adaf-7b31-49a2-a0e4-d79cb782d620"
+  ]
+}

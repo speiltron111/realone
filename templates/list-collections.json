@@ -1,0 +1,255 @@
+{
+  "sections": {
+    "collection-list-banner": {
+      "type": "banner",
+      "settings": {
+        "show_title": true,
+        "title": "<p>Collections<\/p>",
+        "heading_letter_spacing": 0,
+        "heading_color": "color-text-secondary",
+        "heading_style": "",
+        "text": "",
+        "text_color_2": "",
+        "enable_custom_heading_size": false,
+        "custom_heading_size": 72,
+        "show_description": false,
+        "description": "",
+        "description_color": "color-text-secondary",
+        "show_button": false,
+        "button_label": "Button label",
+        "button_link": "",
+        "button_style": "btn_primary",
+        "button_type": "inline_button",
+        "show_breadcrumb": true,
+        "breadcrumb_color": "color-text-secondary",
+        "horizontal_align": "center",
+        "enable_max_width": false,
+        "heading_max_width": 360,
+        "horizontal_content_align": "content-center",
+        "show_image": true,
+        "image_size": "image-cover",
+        "image_position_mobile": "cover",
+        "image_overlay_opacity": 40,
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "color_bg": ""
+      }
+    },
+    "collection-list-main": {
+      "type": "main-list-collections",
+      "settings": {
+        "enable_breadcrumb": false,
+        "title": "Collections",
+        "sort": "products_high",
+        "collections_per_page": 4,
+        "load_pagination": "pagination",
+        "load_more_label": "Show More",
+        "load_more_button_style": "btn_primary",
+        "button_type_lm": "button",
+        "image_ratio": "75",
+        "full_width": false,
+        "grid_scheme": "columns-2",
+        "col_1_style": "",
+        "card_hover": "",
+        "card_heading_color": "color-text-main",
+        "card_heading_style": "",
+        "card_heading_size": "h6",
+        "card_heading_weight": "weight-medium",
+        "product_style": "style-1",
+        "p_image_ratio": "portrait",
+        "show_secondary_image": false,
+        "show_add_to_card": true,
+        "zoom_image": false,
+        "show_image_outline": false,
+        "section_show_badges": true,
+        "show_quick_view": true,
+        "product_info_align": "center",
+        "heading_font": "hf-heading",
+        "heading_style": "",
+        "heading_color": "color-text-main",
+        "p_heading_size": "large",
+        "p_button_style": "btn_primary",
+        "columns_gap": "offset-col-lg-2",
+        "columns_gap_mb": "offset-col-sm-2",
+        "rows_gap": "offset-row-lg-5",
+        "rows_gap_mb": "offset-row-sm-5",
+        "show_button": false,
+        "button_label": "Button label",
+        "button_style": "btn_secondary",
+        "button_type": "button",
+        "padding_top": 130,
+        "padding_bottom": 140
+      }
+    },
+    "collection-list-trending-collections": {
+      "type": "trending-collections",
+      "blocks": {
+        "163777285036948319-0": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": ""
+          }
+        },
+        "163777285036948319-1": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": ""
+          }
+        },
+        "163777285036948319-2": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": ""
+          }
+        },
+        "631d9c6b-e330-454e-b5f6-ea9739ab5df7": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": ""
+          }
+        }
+      },
+      "block_order": [
+        "163777285036948319-0",
+        "163777285036948319-1",
+        "163777285036948319-2",
+        "631d9c6b-e330-454e-b5f6-ea9739ab5df7"
+      ],
+      "settings": {
+        "title": "Trending Now",
+        "description": "<p>Pair text with an image to focus on your chosen product or collection.<\/p>",
+        "color_text": "text-main",
+        "text": "",
+        "text_color_2": "",
+        "align_heading_mobile": "",
+        "show_view_all": true,
+        "button_label": "SHOP ALL FAVOURITES",
+        "button_url": "",
+        "button_style": "btn_primary",
+        "button_type": "button_underline",
+        "card_hover": "",
+        "image_ratio": "portrait",
+        "collection_info_align": "left",
+        "heading_style": "",
+        "heading_size": "h5",
+        "heading_weight": "weight-medium",
+        "slides_range": 2.6,
+        "arrow_style": "arrow",
+        "arrows_position": "below-content",
+        "align_navigation_mobile": "mobile-flex-start",
+        "padding_top": 140,
+        "padding_bottom": 140,
+        "color_bg": "#e2d5c5"
+      }
+    },
+    "collection-list-image-banner": {
+      "type": "image-banner",
+      "blocks": {
+        "16373194884688b861-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "<p>Image with text overlay<\/p>",
+            "heading_font": "heading-font",
+            "heading_size": "h2",
+            "heading_letter_spacing": 0,
+            "text_color": "color-text-secondary",
+            "text": "",
+            "text_color_2": ""
+          }
+        },
+        "16373194884688b861-2": {
+          "type": "buttons",
+          "settings": {
+            "button_label": "Button label",
+            "button_link": "",
+            "button_style": "btn_secondary",
+            "button_type": "inline_button",
+            "button_label2": "Button label",
+            "button_link2": "",
+            "button_style2": "btn_secondary",
+            "button_type2": "button_underline"
+          }
+        }
+      },
+      "block_order": [
+        "16373194884688b861-0",
+        "16373194884688b861-2"
+      ],
+      "settings": {
+        "enable_custom_image_height": false,
+        "image_height": 55,
+        "adapt_height_first_image": true,
+        "desktop_text_box_position": "center",
+        "image_overlay_opacity": 40,
+        "image_paralax": false,
+        "heading_max_width": 780,
+        "stack_images_on_mobile": true,
+        "show_text_below": false,
+        "section_top_padding": 0,
+        "section_bottom_padding": 0,
+        "color_bg": ""
+      }
+    },
+    "collection-list-news": {
+      "type": "featured-blog",
+      "settings": {
+        "heading": "<p>Design Inspirations<\/p>",
+        "subtext": "",
+        "heading_align": "left",
+        "heading_align_mb": "mobile-left",
+        "show_view_all": true,
+        "view_all_label": "Button label",
+        "button_style_h": "btn_primary",
+        "button_type_h": "inline_button",
+        "blog": "news",
+        "post_limit": 3,
+        "col_in_row": "col-3",
+        "col_in_row_mobile": "col-sm-2",
+        "columns_gap": "offset-col-lg-2",
+        "columns_gap_mb": "offset-col-sm-2",
+        "add_posts_slider_d": false,
+        "slides_range_d": 3,
+        "show_arrows": false,
+        "add_posts_slider": true,
+        "slides_range": 1.4,
+        "card_style": "style-1",
+        "show_image": true,
+        "image_ratio": "square",
+        "media_radius": 0,
+        "card_hover": "",
+        "show_badge": false,
+        "heading_font": "hf-body",
+        "heading_style": "",
+        "heading_color": "color-text-main",
+        "heading_size": "h4",
+        "heading_font_weight": "500",
+        "gap": "",
+        "heading_font_weight_hover": false,
+        "show_date": false,
+        "show_author": false,
+        "show_above_heading": false,
+        "show_description": true,
+        "description_width": 800,
+        "description_size": "",
+        "description_color": "color-text-main",
+        "show_comments": false,
+        "show_read_more": true,
+        "button_label": "Continue reading",
+        "button_style": "btn_primary",
+        "button_type": "inline_button",
+        "button_space": "",
+        "section_top_padding": 140,
+        "section_bottom_padding": 140,
+        "color_bg": "",
+        "top_line": false
+      }
+    }
+  },
+  "order": [
+    "collection-list-banner",
+    "collection-list-main",
+    "collection-list-trending-collections",
+    "collection-list-image-banner",
+    "collection-list-news"
+  ]
+}

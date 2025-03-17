@@ -1,0 +1,71 @@
+{
+  "sections": {
+    "16391457021e421f20": {
+      "type": "banner",
+      "settings": {
+        "show_title": true,
+        "title": "<p>Blog</p>",
+        "heading_color": "color-text-secondary",
+        "enable_custom_heading_size": false,
+        "custom_heading_size": 72,
+        "show_description": false,
+        "description": "",
+        "description_color": "color-text-secondary",
+        "show_button": false,
+        "button_label": "Button label",
+        "button_link": "",
+        "button_style": "btn_primary",
+        "button_type": "inline_button",
+        "show_breadcrumb": true,
+        "breadcrumb_color": "color-text-secondary",
+        "horizontal_align": "center",
+        "enable_max_width": false,
+        "heading_max_width": 360,
+        "horizontal_content_align": "content-center",
+        "show_image": true,
+        "image_size": "image-cover",
+        "image_position_mobile": "cover",
+        "image_overlay_opacity": 40,
+        "padding_top": 110,
+        "padding_bottom": 115,
+        "color_bg": ""
+      }
+    },
+    "main": {
+      "type": "main-blog",
+      "settings": {
+        "show_title": false,
+        "show_breadcrumb": false,
+        "grid_scheme": "columns-3",
+        "blog_count": 3,
+        "load_pagination": "load",
+        "load_more_label": "SHOW MORE",
+        "load_more_button_style": "btn_secondary",
+        "button_type_lm": "button",
+        "card_style": "style-1",
+        "show_image": true,
+        "image_ratio": "portrait",
+        "show_badge": false,
+        "heading_font": "hf-body",
+        "heading_size": "h4",
+        "show_date": false,
+        "show_author": false,
+        "show_above_heading": false,
+        "show_description": true,
+        "description_size": "",
+        "show_comments": false,
+        "show_read_more": false,
+        "button_label": "Continue reading",
+        "button_style": "btn_primary",
+        "button_type": "button_underline",
+        "padding_top": 140,
+        "padding_bottom": 140,
+        "section_bg": "#fbf9f4"
+      }
+    }
+  },
+  "order": [
+    "16391457021e421f20",
+    "main"
+  ]
+}

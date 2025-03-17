@@ -1,0 +1,300 @@
+{% layout none %}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <script src="{{ 'vendor/qrcode.js' | shopify_asset_url }}" defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="{{ settings.color_background }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
+
+    {%- unless settings.type_header_font.system? -%}
+      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    {%- endunless -%}
+
+    {%- assign formatted_initial_value = gift_card.initial_value | money_without_trailing_zeros | strip_html -%}
+
+    <title>{{ 'gift_cards.issued.title' | t: value: formatted_initial_value, shop: shop.name }}</title>
+
+    <meta name="description" content="{{ 'gift_cards.issued.subtext' | t }}">
+
+    {{ content_for_header }}
+    
+    {%- liquid
+      assign header_font_bold = settings.type_header_font | font_modify: 'weight', 'bold'
+      assign header_font_italic = settings.type_header_font | font_modify: 'style', 'italic'
+      assign header_font_bold_italic = settings.header_font_bold | font_modify: 'style', 'italic'
+
+      assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
+      assign body_font_italic = settings.type_body_font | font_modify: 'style', 'italic'
+      assign body_font_bold_italic = settings.body_font_bold | font_modify: 'style', 'italic'
+    %}
+
+    {% style %}
+
+      {{ settings.type_header_font | font_face: font_display: 'swap' }}
+      {{ header_font_bold | font_face: font_display: 'swap' }}
+      {{ header_font_italic | font_face: font_display: 'swap' }}
+      {{ header_font_bold_italic | font_face: font_display: 'swap' }}
+
+      {{ settings.type_body_font | font_face: font_display: 'swap' }}
+      {{ body_font_bold | font_face: font_display: 'swap' }}
+      {{ body_font_italic | font_face: font_display: 'swap' }}
+      {{ body_font_bold_italic | font_face: font_display: 'swap' }}
+
+      :root {
+
+        --font-heading-family: {{ settings.type_header_font.family }}, {{ settings.type_header_font.fallback_families }};
+        --font-heading-style: {{ settings.type_header_font.style }};
+        --font-heading-weight: {{ settings.type_header_font.weight }};
+
+				--heading-font-weignt: {{ settings.header_header_font_weight }};
+        --section-heading-font-weight: {{ settings.section_header_font_weight }};
+				--font-heading-1-size: {{ settings.heading_1_size | divided_by: 10.00 }}rem;
+        --font-heading-1-size-mb: {{ settings.heading_1_size_mb | divided_by: 10.00 }}rem;
+        --font-heading-2-size: {{ settings.heading_2_size | divided_by: 10.00 }}rem;
+        --font-heading-2-size-mb: {{ settings.heading_2_size_mb | divided_by: 10.00 }}rem;
+        --font-heading-3-size: {{ settings.heading_3_size | divided_by: 10.00 }}rem;
+        --font-heading-3-size-mb: {{ settings.heading_3_size_mb | divided_by: 10.00 }}rem;
+        --font-heading-4-size: {{ settings.heading_4_size | divided_by: 10.00 }}rem;
+        --font-heading-4-size-mb: {{ settings.heading_4_size_mb | divided_by: 10.00 }}rem;
+        --font-heading-5-size: {{ settings.heading_5_size | divided_by: 10.00 }}rem;
+        --font-heading-5-size-mb: {{ settings.heading_5_size_mb | divided_by: 10.00 }}rem;
+        --font-heading-6-size: {{ settings.heading_6_size | divided_by: 10.00 }}rem;
+        --font-heading-6-size-mb: {{ settings.heading_6_size_mb | divided_by: 10.00 }}rem;
+        --font-body-size: {{ settings.body_font_size | divided_by: 10.00 }}rem;
+
+        --font-badge-size: {{ settings.badges_font_size | divided_by: 10.00 }}rem;
+
+        --font-body-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+        --font-body-style: {{ settings.type_body_font.style }};
+        --font-body-weight: {{ settings.type_body_font.weight }};
+        --color-general-main-text: {{ settings.color_general_main_text | color_extract: 'red' }}, {{ settings.color_general_main_text | color_extract: 'green' }}, {{ settings.color_general_main_text | color_extract: 'blue' }};
+        --color-general-secondary-text: {{ settings.color_general_secondary_text | color_extract: 'red' }}, {{ settings.color_general_secondary_text | color_extract: 'green' }}, {{ settings.color_general_secondary_text | color_extract: 'blue' }};
+        
+        --color-general-heading: {{ settings.color_general_heading | color_extract: 'red' }}, {{ settings.color_general_heading | color_extract: 'green' }}, {{ settings.color_general_heading | color_extract: 'blue' }};
+        --color-general-catalog: {{ settings.color_general_catalog_text | color_extract: 'red' }}, {{ settings.color_general_catalog_text | color_extract: 'green' }}, {{ settings.color_general_catalog_text | color_extract: 'blue' }};
+        
+        --color-general-bg: {{ settings.color_general_main_bg | color_extract: 'red' }}, {{ settings.color_general_main_bg | color_extract: 'green' }}, {{ settings.color_general_main_bg | color_extract: 'blue' }};        
+        --gradient-general-bg: {% if settings.color_general_main_bg_gradient != blank %}{{ settings.color_general_main_bg_gradient }}{% else %}{{ settings.color_general_main_bg }}{% endif %};
+        
+        --color-general-section-bg: {{ settings.color_general_section_bg | color_extract: 'red' }}, {{ settings.color_general_section_bg | color_extract: 'green' }}, {{ settings.color_general_section_bg | color_extract: 'blue' }};
+        --gradient-general-section-bg: {% if settings.color_general_section_bg_gradient != blank %}{{ settings.color_general_section_bg_gradient }}{% else %}{{ settings.color_general_section_bg }}{% endif %};
+        
+        --color-general-section-bg-2: {{ settings.color_general_section_bg_2 | color_extract: 'red' }}, {{ settings.color_general_section_bg_2 | color_extract: 'green' }}, {{ settings.color_general_section_bg_2 | color_extract: 'blue' }};
+        --gradient-general-section-bg-2: {% if settings.color_general_section_bg_2_gradient != blank %}{{ settings.color_general_section_bg_2_gradient }}{% else %}{{ settings.color_general_section_bg_2 }}{% endif %};
+        
+        --color-general-section-bg-3: {{ settings.color_general_section_bg_3 | color_extract: 'red' }}, {{ settings.color_general_section_bg_3 | color_extract: 'green' }}, {{ settings.color_general_section_bg_3 | color_extract: 'blue' }};
+        --gradient-general-section-bg-3: {% if settings.color_general_section_bg_3_gradient != blank %}{{ settings.color_general_section_bg_3_gradient }}{% else %}{{ settings.color_general_section_bg_3 }}{% endif %};
+        
+        --color-general-section-bg-4: {{ settings.color_general_section_bg_4 | color_extract: 'red' }}, {{ settings.color_general_section_bg_4 | color_extract: 'green' }}, {{ settings.color_general_section_bg_4 | color_extract: 'blue' }};
+        --gradient-general-section-bg-4: {% if settings.color_general_section_bg_4_gradient != blank %}{{ settings.color_general_section_bg_4_gradient }}{% else %}{{ settings.color_general_section_bg_4 }}{% endif %};
+        
+        --color-general-link: {{ settings.color_general_link | color_extract: 'red' }}, {{ settings.color_general_link | color_extract: 'green' }}, {{ settings.color_general_link | color_extract: 'blue' }};
+
+        --color-border-page: {{ settings.color_page_border | color_extract: 'red' }}, {{ settings.color_page_border | color_extract: 'green' }}, {{ settings.color_page_border | color_extract: 'blue' }};
+
+        --color-prod-preview-price: {{ settings.color_product_preview_price | color_extract: 'red' }}, {{ settings.color_product_preview_price | color_extract: 'green' }}, {{ settings.color_product_preview_price | color_extract: 'blue' }};
+        --color-prod-note: {{ settings.color_product_note | color_extract: 'red' }}, {{ settings.color_product_note | color_extract: 'green' }}, {{ settings.color_product_note | color_extract: 'blue' }};
+
+        --color-label-text: {{ settings.color_label_text | color_extract: 'red' }}, {{ settings.color_label_text | color_extract: 'green' }}, {{ settings.color_label_text | color_extract: 'blue' }};
+        --color-label-bg: {{ settings.color_label_bg | color_extract: 'red' }}, {{ settings.color_label_bg | color_extract: 'green' }}, {{ settings.color_label_bg | color_extract: 'blue' }};
+        --color-label-bg-gradient:  {{ settings.color_label_bg_gradient }};
+				
+        --color-label-text--sale: {{ settings.color_label_sale_text | color_extract: 'red' }}, {{ settings.color_label_sale_text | color_extract: 'green' }}, {{ settings.color_label_sale_text | color_extract: 'blue' }};
+        --color-label-bg--sale: {{ settings.color_label_sale_bg | color_extract: 'red' }}, {{ settings.color_label_sale_bg | color_extract: 'green' }}, {{ settings.color_label_sale_bg | color_extract: 'blue' }};
+				--color-label-bg-gradient--sale:  {{ settings.color_label_sale_bg_gradient }};
+
+        --color-label-text--sold: {{ settings.color_label_sold_text | color_extract: 'red' }}, {{ settings.color_label_sold_text | color_extract: 'green' }}, {{ settings.color_label_sold_text | color_extract: 'blue' }};
+        --color-label-bg--sold: {{ settings.color_label_sold_bg | color_extract: 'red' }}, {{ settings.color_label_sold_bg | color_extract: 'green' }}, {{ settings.color_label_sold_bg | color_extract: 'blue' }};
+				--color-label-bg-gradient--sold:  {{ settings.color_label_sold_bg_gradient }};
+				
+        --color-btn-main-text: {{ settings.color_primery_button_text | color_extract: 'red' }}, {{ settings.color_primery_button_text | color_extract: 'green' }}, {{ settings.color_primery_button_text | color_extract: 'blue' }};
+        --color-btn-main-bg: {{ settings.color_primery_button_bg | color_extract: 'red' }}, {{ settings.color_primery_button_bg | color_extract: 'green' }}, {{ settings.color_primery_button_bg | color_extract: 'blue' }};
+        --color-btn-main-bg-gradient: {{ settings.color_primery_button_bg_gradient }};
+				--color-btn-main-border: {{ settings.color_primery_button_border | color_extract: 'red' }}, {{ settings.color_primery_button_border | color_extract: 'green' }}, {{ settings.color_primery_button_border | color_extract: 'blue' }};
+
+        --color-btn-second-text: {{ settings.color_secondary_button_text | color_extract: 'red' }}, {{ settings.color_secondary_button_text | color_extract: 'green' }}, {{ settings.color_secondary_button_text | color_extract: 'blue' }};
+        --color-btn-second-bg: {{ settings.color_secondary_button_bg | color_extract: 'red' }}, {{ settings.color_secondary_button_bg | color_extract: 'green' }}, {{ settings.color_secondary_button_bg | color_extract: 'blue' }};
+        --color-btn-second-bg-gradient: {{ settings.color_secondary_button_bg_gradient }};
+				--color-btn-second-border: {{ settings.color_secondary_button_border | color_extract: 'red' }}, {{ settings.color_secondary_button_border | color_extract: 'green' }}, {{ settings.color_secondary_button_border | color_extract: 'blue' }};
+        
+        --color-icon-social: {{ settings.color_icons_social | color_extract: 'red' }}, {{ settings.color_icons_social | color_extract: 'green' }}, {{ settings.color_icons_social | color_extract: 'blue' }};
+
+        --color-hover-link: {{ settings.color_events_link_hover | color_extract: 'red' }}, {{ settings.color_events_link_hover | color_extract: 'green' }}, {{ settings.color_events_link_hover | color_extract: 'blue' }};
+        --color-hover-btn-text: {{ settings.color_events_button_text_hover | color_extract: 'red' }}, {{ settings.color_events_button_text_hover | color_extract: 'green' }}, {{ settings.color_events_button_text_hover | color_extract: 'blue' }};
+        --color-hover-btn-bg: {{ settings.color_events_button_bg_hover | color_extract: 'red' }}, {{ settings.color_events_button_bg_hover | color_extract: 'green' }}, {{ settings.color_events_button_bg_hover | color_extract: 'blue' }};
+        --color-hover-btn-bg-gradient: {{ settings.color_events_button_bg_hover_gradient }};
+        --color-hover-btn-border: {{ settings.color_events_border_hover | color_extract: 'red' }}, {{ settings.color_events_border_hover | color_extract: 'green' }}, {{ settings.color_events_border_hover | color_extract: 'blue' }};
+        --page-width: {{ settings.page_width | divided_by: 10 }}rem;
+
+        --buttons-font-size: {{ settings.buttons_font_size | divided_by: 10.00 }}rem;
+        --buttons-underline-font-size: {{ settings.buttons_underline_font_size | divided_by: 10.00 }}rem;
+        --buttons-font-width: {{ settings.button_font_width }};
+        --buttons-text-transform: {{ settings.button_text_transform }};
+        --buttons-radius: {{ settings.buttons_radius }}px;
+        --budges-radius: {{ settings.budges_radius }}px;
+        --buttons-border-size: {{ settings.buttons_border_thickness }}px;
+      }
+
+      {% if settings.gift_card_style == "style-1" %}
+        html {
+          background-color: #EDECE9;
+        }
+      {% elsif settings.gift_card_style == "style-2" %}
+        html {
+          background-color: #E2EDED;
+        }
+      {% else %}
+        html {
+          background-color: #F1E9E7;
+        }
+      {% endif %} 
+
+    {% endstyle %}
+
+    {%- unless settings.type_body_font.system? -%}
+      {% comment %}theme-check-disable AssetPreload{% endcomment %}
+      <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>
+      {% comment %}theme-check-enable AssetPreload{% endcomment %}
+    {%- endunless -%}
+    {%- unless settings.type_header_font.system? -%}
+      {% comment %}theme-check-disable AssetPreload{% endcomment %}
+      <link rel="preload" as="font" href="{{ settings.type_header_font | font_url }}" type="font/woff2" crossorigin>
+      {% comment %}theme-check-enable AssetPreload{% endcomment %}
+    {%- endunless -%}
+
+    {{ 'template-giftcard.css' | asset_url | stylesheet_tag }}
+  </head>
+
+  <body class="gradient">
+    <header class="gift-card__title">
+      <div class="gift-card__title-wrapper">
+        <span class="h3">
+          {{ shop.name }}
+        </span>
+        <h1 class="gift-card__heading">
+          {{ 'gift_cards.issued.subtext' | t }}
+        </h1>
+        <div class="gift-card__price">
+          <p>
+            {% if settings.currency_code_enabled %}
+              {{ gift_card.initial_value | money_with_currency }}
+            {% else %}
+              {{ gift_card.initial_value | money }}
+            {% endif %}
+          </p>
+          {%- if gift_card.enabled == false or gift_card.expired -%}
+            <p class="gift-card__label badge">{{ 'gift_cards.issued.expired' | t }}</p>
+          {%- endif -%}
+        </div>
+  
+        {% if settings.currency_code_enabled %}
+          {%- assign gift_card_balance = gift_card.balance | money_with_currency -%}
+        {% else %}
+          {%- assign gift_card_balance = gift_card.balance | money -%}
+        {% endif %}
+        {%- if gift_card.balance != gift_card.initial_value -%}
+          <p class="gift-card__label caption-large">{{ 'gift_cards.issued.remaining_html' | t: balance: gift_card_balance }}</p>
+        {%- endif -%}
+      </div>
+    </header>
+
+    <main class="gift-card">
+      <div class="gift-card__wrapper">
+        <div class="gift-card__image-wrapper">
+          {% if gift_card.product.variants %}
+          {% for variant in gift_card.product.variants %}
+            {%- liquid
+              assign variantPrice = variant.price | money
+              assign pagePrice = gift_card.initial_value | money
+            -%}
+            {% if variantPrice == pagePrice and variant.featured_media != blank %}
+          		<img src="{{ variant | image_url: width: 750 }}" alt="{{ shop.name }}" class="gift-card__image" height="{{ 570 | divided_by: 1.5 }}" width="570" loading="lazy">
+          	{% elsif variantPrice == pagePrice and variant.featured_media == blank %}
+          		<img src="{{ 'gift-card/card.svg' | shopify_asset_url }}" alt="{{ shop.name }}" class="gift-card__image" height="{{ 570 | divided_by: 1.5 }}" width="570" loading="lazy">
+            {%- endif -%}
+          {% endfor %}
+          {% else %}
+            <img src="{{ 'gift-card/card.svg' | shopify_asset_url }}" alt="{{ shop.name }}" class="gift-card__image" height="{{ 570 | divided_by: 1.5 }}" width="570" loading="lazy">
+          {% endif %}
+        </div>
+        <div class="gift-card__info-wrapper">
+          <div class="gift-card__qr-code" data-identifier="{{ gift_card.qr_identifier }}"></div>
+          <div class="gift-card__information">
+            <input type="text"
+              class="gift-card__number"
+              value="{{ gift_card.code | format_code }}"
+              aria-label="{{ 'gift_cards.issued.gift_card_code' | t }}"
+              readonly>
+            <div class="gift-card__copy-code no-print">
+              <button class="link gift-card__copy-link">
+                <svg width="17" height="20" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4.6001 2.8V13.6C4.6001 14.0774 4.78974 14.5352 5.12731 14.8728C5.46487 15.2104 5.92271 15.4 6.4001 15.4H13.6001C14.0775 15.4 14.5353 15.2104 14.8729 14.8728C15.2105 14.5352 15.4001 14.0774 15.4001 13.6V5.7178C15.4001 5.478 15.3521 5.24063 15.2591 5.01962C15.166 4.79861 15.0298 4.59842 14.8583 4.4308L11.8748 1.513C11.5385 1.18419 11.0869 1.00006 10.6166 1H6.4001C5.92271 1 5.46487 1.18964 5.12731 1.52721C4.78974 1.86477 4.6001 2.32261 4.6001 2.8V2.8Z" stroke="#333941" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M11.8 15.4V17.2C11.8 17.6774 11.6104 18.1352 11.2728 18.4728C10.9352 18.8104 10.4774 19 10 19H2.8C2.32261 19 1.86477 18.8104 1.52721 18.4728C1.18964 18.1352 1 17.6774 1 17.2V7.3C1 6.82261 1.18964 6.36477 1.52721 6.02721C1.86477 5.68964 2.32261 5.5 2.8 5.5H4.6" stroke="#333941" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                
+                {{ 'gift_cards.issued.copy_code' | t }}
+              </button>
+              <span class="gift-card__copy-success form__message" role="status"></span>
+              <template>
+                {%- render 'icon-success' -%}{{ 'gift_cards.issued.copy_code_success' | t }}
+              </template>
+            </div>
+            {%- if gift_card.pass_url -%}
+              <a href="{{ gift_card.pass_url }}" class="gift_card__apple-wallet no-print">
+                <img src="{{ 'gift-card/add-to-apple-wallet.svg' | shopify_asset_url }}" width="120" height="40" alt="{{ 'gift_cards.issued.add_to_apple_wallet' | t }}" loading="lazy">
+              </a>
+            {%- endif -%}
+            <div class="gift-card__buttons no-print">
+              <button class="button button-secondary{% unless settings.gift_card_style == "style-1" %} btn-bg-transparent{% endunless %} {% if settings.color_events_button_bg_hover_gradient != blank %} gradient--hover {% endif %}" onclick="window.print();">
+                {{ 'gift_cards.issued.print_gift_card' | t }}
+              </button>
+
+              <a href="{{ shop.url }}" class="link" target="_blank" rel="noopener" aria-describedby="a11y-new-window-message">
+                {{ 'gift_cards.issued.shop_link' | t }}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div hidden>
+      <span id="a11y-new-window-message">{{ 'accessibility.link_messages.new_window' | t }}</span>
+    </div>
+  </body>
+</html>
+
+<script>
+  let string = { qrImageAlt: {{ 'gift_cards.issued.qr_image_alt' | t | json }} };
+  document.addEventListener('DOMContentLoaded', function() {
+   new QRCode( document.querySelector('.gift-card__qr-code'), {
+    text: document.querySelector('.gift-card__qr-code').dataset.identifier,
+    width: 120,
+    height: 120,
+    imageAltText: string.qrImageAlt
+    });
+  });
+
+  let template = document.getElementsByTagName("template")[0];
+  let clonedTemplate = template.content.cloneNode(true);
+
+  let isMessageDisplayed = false
+  document
+  .querySelector('.gift-card__copy-link')
+  .addEventListener('click', () => {
+    navigator.clipboard.writeText(document.querySelector('.gift-card__number').value).then(function () {
+      if (!isMessageDisplayed) {
+        document.querySelector('.gift-card__copy-success').appendChild(clonedTemplate);
+        isMessageDisplayed = true
+      }
+    });
+  });
+</script>

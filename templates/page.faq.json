@@ -1,0 +1,143 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-banner",
+      "settings": {
+        "show_banner_title": true,
+        "show_banner_description": false,
+        "banner_description": "",
+        "show_banner_breadcrumbs": true,
+        "show_banner_breadcrumbs_under": false,
+        "banner_color_text": "text-main",
+        "show_page_content": false,
+        "show_banner_image": true,
+        "image_overlay_opacity": 0,
+        "section_padding_top": 80,
+        "section_padding_bottom": 100,
+        "banner_color": "default"
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "17d58741-dee8-4b7f-a759-1d9a11601cf1": {
+          "type": "heading",
+          "settings": {
+            "section_title": "Ordering"
+          }
+        },
+        "70a48eda-1534-4233-9485-2bfed1ed7870": {
+          "type": "item",
+          "settings": {
+            "item_heading": "When will my order ship?",
+            "text": "<p>Our team needs 1-2 business days to pack and ship your full order. For larger items, we ask that you allow 3-4 business days. Orders placed after 1:00 pm EST on Friday — or over the weekend — will ship on the next business day.</p>"
+          }
+        },
+        "b9b659d5-e6db-4ba8-9165-161039ba3083": {
+          "type": "item",
+          "settings": {
+            "item_heading": "Where do you ship to?",
+            "text": "<p>We ship worldwide. Please note international delivery times will vary depending on location and may attract import costs if outside the USA.</p>"
+          }
+        },
+        "7f1b3918-4e28-4716-b78c-575653d78563": {
+          "type": "item",
+          "settings": {
+            "item_heading": "I have a question about my order, who can I talk to?",
+            "text": "<p>Please use the contact form on the Contact Us page to send us your queries.</p>"
+          }
+        },
+        "87f48c38-4d43-46d8-81b5-5d0570f55f74": {
+          "type": "heading",
+          "settings": {
+            "section_title": "Product"
+          }
+        },
+        "34b55194-6ea0-4fca-96e8-0f0db0c43df7": {
+          "type": "item",
+          "settings": {
+            "item_heading": "How are the product materials sourced?",
+            "text": "<p>We source all our product materials ethically and in an environment-friendly manner. Most of the items are sourced locally to help other small businesses and support local artists.</p>"
+          }
+        },
+        "80d983bf-9367-41aa-9e0a-93ee3568d9b6": {
+          "type": "item",
+          "settings": {
+            "item_heading": "How accurate are the colors shown in your photos?",
+            "text": "<p>The colors shown in our product photos on the product detail pages are highly accurate. But please note that there are small variations in lot-batches of a few products due to which the colors will have slight variations.</p>"
+          }
+        },
+        "30761ed9-97f0-4257-b835-5d612acff9dd": {
+          "type": "heading",
+          "settings": {
+            "section_title": "Returns"
+          }
+        },
+        "13b914e7-33bc-46ab-b6ad-828ba19cd180": {
+          "type": "item",
+          "settings": {
+            "item_heading": "What is your return policy?",
+            "text": "<p>Please refer to the Returns & Exchanges page for our return policy.</p>"
+          }
+        },
+        "0268c8ca-b2c1-4d39-9280-c424caaba8c9": {
+          "type": "item",
+          "settings": {
+            "item_heading": "My item arrived damaged. What should I do?",
+            "text": "<p>We take the utmost care in our packaging and delivery and rarely items may be damaged in transit. If your item does arrive damaged, let us know by sending us a message via our contact page.</p>"
+          }
+        },
+        "f94f75f2-0d3d-452f-9805-4d7d22f84816": {
+          "type": "heading",
+          "settings": {
+            "section_title": "Payment"
+          }
+        },
+        "9f855550-f8e6-47cf-bd7c-af208dce60df": {
+          "type": "item",
+          "settings": {
+            "item_heading": "Do you offer cash on delivery?",
+            "text": "<p>Unfortunately, we don’t offer cash on delivery. But we have a lot of options that allow flexible payments and vouchsafe your money in case you need to initiate a return due to product faults.</p>"
+          }
+        },
+        "96e3fbe9-2042-4d8c-ac98-18e79c2cc22d": {
+          "type": "item",
+          "settings": {
+            "item_heading": "Can I use Afterpay for products that will ship to California?",
+            "text": "<p>Yes! We’ve partnered with Afterpay to provide flexi-payment for customers all over the globe. </p>"
+          }
+        }
+      },
+      "block_order": [
+        "17d58741-dee8-4b7f-a759-1d9a11601cf1",
+        "70a48eda-1534-4233-9485-2bfed1ed7870",
+        "b9b659d5-e6db-4ba8-9165-161039ba3083",
+        "7f1b3918-4e28-4716-b78c-575653d78563",
+        "87f48c38-4d43-46d8-81b5-5d0570f55f74",
+        "34b55194-6ea0-4fca-96e8-0f0db0c43df7",
+        "80d983bf-9367-41aa-9e0a-93ee3568d9b6",
+        "30761ed9-97f0-4257-b835-5d612acff9dd",
+        "13b914e7-33bc-46ab-b6ad-828ba19cd180",
+        "0268c8ca-b2c1-4d39-9280-c424caaba8c9",
+        "f94f75f2-0d3d-452f-9805-4d7d22f84816",
+        "9f855550-f8e6-47cf-bd7c-af208dce60df",
+        "96e3fbe9-2042-4d8c-ac98-18e79c2cc22d"
+      ],
+      "settings": {
+        "faq_style": "style-1",
+        "heading_align": "",
+        "heading_color": "color-general-heading",
+        "item_heading_color": "color-text-main",
+        "text_color": "color-text-main",
+        "show_all_items": false,
+        "padding_top": 140,
+        "padding_bottom": 140,
+        "color_bg": "rgba(0,0,0,0)"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "faq"
+  ]
+}
