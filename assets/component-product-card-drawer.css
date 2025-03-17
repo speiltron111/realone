@@ -1,0 +1,92 @@
+.product-card-drawer.card-wrapper {
+	display: flex;
+	gap: 1.5rem;
+}
+
+.product-card-drawer .card--product {
+	width: 35%;
+}
+
+.product-card-drawer .card-information {
+	width: 65%;
+	max-width: 18rem;
+}
+
+.product-card-drawer.card-wrapper .card-information {
+	margin: 0;
+}
+
+.product-card-drawer.card-wrapper .card-information .card-information__wrapper .price {
+	margin-top: 1rem;
+}
+
+.product-card-drawer .card-information__text {
+	font-size: 1.6rem;
+	line-height: 1.2;
+	font-family: var(--font-heading-family);
+}
+
+.product-card-drawer.card-wrapper .card-information__wrapper nav.card-navigation {
+	position: static;
+	margin-top: 1rem;
+	opacity: 1;
+}
+
+.product-card-drawer .link {
+	padding: 0;
+	text-transform: capitalize;
+	text-align: left;
+}
+
+.product-card-drawer .card-information__text:hover {
+	color: rgb(var(--color-hover-link));
+}
+
+.cart-notification .card-navigation .form {
+	display: block;
+}
+
+.product-card-drawer .price-item {
+  color: rgba(var(--color-general-main-text), 1);
+}
+
+.product-card-drawer .button-add-card[disabled] {
+	cursor: not-allowed;
+	opacity: .5;
+}
+
+.product-card-drawer .button-add-card {
+	position: relative;
+}
+.product-card-drawer .loading.button-add-card {
+	opacity: .3;
+	cursor: not-allowed;
+}
+
+
+.product-card-drawer .loading-overlay {
+	display: none;
+	left: 50%;
+}
+
+.product-card-drawer .loading  .loading-overlay {
+	display: inline-block;
+}
+
+.d-product-style-1.product-card-drawer .price-item {
+	color: rgb(var(--color-prod-preview-price));
+	font-size: 1.4rem;
+}
+
+.product-card-drawer .card-information .price--on-sale .price__sale .price-item--regular{
+	display: none;
+}
+
+.product-card-drawer.card-wrapper .media svg {
+	object-fit: cover;
+  object-position: center center;
+}
+
+.product-card-drawer .card--text-only:has(.placeholder):before {
+	content: unset;
+}

@@ -1,0 +1,48 @@
+.scroll-to-top {
+    position: fixed;
+    right: 3.6rem;
+    bottom: 3.6rem;
+    z-index: 4;
+}
+.scroll-to-top__button.button-style--square:before {
+	border-radius: unset;
+}
+.scroll-to-top__button {
+    width: 4.4rem;
+    height: 4.4rem;
+    padding: 0;
+    min-width: unset;
+    min-height: unset;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transform: translateY(10rem);
+}
+
+.active .scroll-to-top__button {
+    transform: translateY(0);
+}
+
+.scroll-to-top__button .icon-caret {
+    transform: rotate(180deg);
+    width: 1.6rem;
+    height: auto;
+}
+
+.scroll-to-top__button.button-style--round {
+    border-radius: 50%;
+}
+
+@media screen and (max-width: 749px) {
+    .scroll-to-top {
+        right: 2rem;
+        bottom: 2rem;
+    }
+}
+
+.scroll-to-top__button.gradient {
+	position: relative;
+	background: transparent;
+	border-color: transparent;
+}

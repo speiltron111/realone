@@ -1,0 +1,169 @@
+.variant-swatch {
+	display: block;
+	overflow: hidden;
+}
+
+.variant-swatch__wrapper {
+	display: flex;
+	z-index: 1;
+	box-sizing: border-box;
+}
+
+.variant-swatch__option-wrapper {
+	display: flex;
+	align-items: center;
+}
+
+.product.grid-item,
+.collection__item {
+	overflow: hidden;
+}
+
+.variant-swatch__option-wrapper:not(:first-child) {
+	margin-top: 1rem;
+}
+
+.left .variant-swatch__input {
+	margin-left: 0;
+}
+
+.center .variant-swatch__option-wrapper {
+	justify-content: center;
+}
+
+.center .variant-swatch__input:not(.swiper-initialized) .variant-swatch__wrapper {
+	justify-content: center;
+}
+
+.right .variant-swatch__input {
+	margin-right: 0;
+}
+
+.right .variant-swatch__option-wrapper {
+	justify-content: end;
+}
+
+.right .variant-swatch__input:not(.swiper-initialized) .variant-swatch__wrapper {
+	justify-content: right;
+}
+
+
+.variant-swatch__input:not(.swiper-initialized) .variant-swatch__wrapper {
+	gap: 1rem .6rem;
+}
+
+.variant-swatch__input:not(.swiper-initialized) {
+	gap: 1rem .6rem;
+}
+
+.variant-swatch__input + .variant-swatch__input {
+	margin-top: 1rem;
+}
+
+.variant-swatch__label-wrapper.swiper-slide {
+	width: auto;
+}
+
+.variant-swatch__label-wrapper {
+	display: inline-block;
+	font-size: 1.2rem;
+	cursor: pointer;
+}
+
+.variant-swatch__label {
+	padding: .8rem 1rem;
+	border: .2rem solid rgba(var(--color-general-main-text), .3);
+	box-sizing: border-box;
+}
+
+.variant-swatch__label-wrapper--swatch {
+	border: .15rem solid rgba(var(--color-general-main-text), .3);
+}
+
+.disabled.variant-swatch__label-wrapper {
+	text-decoration: line-through;
+}
+
+.checked .variant-swatch__label-wrapper--swatch,
+.checked .variant-swatch__label {
+	border-color: rgba(var(--color-general-main-text), 1);
+}
+
+.variant-swatch__label-wrapper--swatch {
+	border-color: transparent;
+	padding: .4rem;
+	border-radius: 50%;
+}
+
+.variant-swatch__label-wrapper--swatch.checked {
+	border-color: rgba(var(--color-general-main-text), 1);
+}
+
+@media (hover: hover) {
+	.variant-swatch__label-wrapper--swatch:hover,
+	.variant-swatch__label-wrapper:hover {
+		border-color: rgba(var(--color-general-main-text), 1);
+	}
+}
+
+/* swatch lives in its own file for reusability of the swatch in swatch-input and dropdown */
+.swatch {
+	--swatch-input--size: 2.4rem;
+  --swatch--size: var(--swatch-input--size, 4.4rem);
+  --swatch--border-radius: var(--swatch-input--border-radius, 50%);
+
+  display: block;
+	position: relative;
+  width: var(--swatch--size);
+	overflow: hidden;
+  max-width: 100%;
+  aspect-ratio: 1 / 1;
+  background: var(--swatch--background);
+  background-position: var(--swatch-focal-point, initial);
+  background-size: cover;
+  background-origin: border-box;
+  border: 0.1rem solid currentColor;
+  border-radius: var(--swatch--border-radius);
+}
+
+.swatch--square {
+  --swatch--border-radius: var(--swatch-input--border-radius, 0.2rem);
+}
+
+.swatch--unavailable {
+  border-style: dashed;
+  border-color: rgba(var(--color-foreground), 0.5);
+}
+
+.variant-swatch__label-wrapper.disabled .swatch::before,
+.variant-swatch__label-wrapper.disabled .swatch::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(250, 250, 250, 0.5);
+}
+
+/* Display crossed out line over swatch when input is disabled */
+.variant-swatch__label-wrapper.disabled .swatch::after,
+.variant-swatch__label-wrapper.disabled .swatch::after {
+  /* Diagonal of a square = length of the side * sqrt(2)  */
+  --diagonal--size: calc(var(--swatch-input--size) * 1.414);
+  --crossed-line--size: 0.1rem;
+  --crossed-line--color: rgb(0, 0, 0);
+
+  content: '';
+  position: absolute;
+  bottom: calc(var(--crossed-line--size) * -0.5);
+  left: 0;
+  width: var(--diagonal--size);
+  height: var(--crossed-line--size);
+  background-color: var(--crossed-line--color);
+  transform: rotate(-45deg);
+  transform-origin: left;
+}
+
+@media screen and (min-width: 750px) {
+	.swatch {
+		--swatch--size: 2.4rem;
+	}
+}

@@ -1,0 +1,34 @@
+.product-grid .grid__item {
+  padding-bottom: 2rem;
+}
+
+.product-grid.negative-margin {
+  margin-bottom: -2rem;
+}
+
+.recently-viewed-grid .card-information {
+	margin: 0;
+	padding: 2rem;
+} 
+
+.recently-viewed-grid .p-style-5 .card-information {
+	padding: 0;
+}
+
+.recently-viewed-grid .p-style-5 .card-navigation {
+	justify-content: center;
+}
+
+@media screen and (min-width: 750px) {
+  .product-grid .grid__item {
+    padding-bottom: 5rem;
+  }
+
+  .product-grid.negative-margin {
+    margin-bottom: -5rem;
+  }
+
+  .product-grid.negative-margin--small {
+    margin-bottom: -1rem;
+  }
+}

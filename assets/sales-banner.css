@@ -1,0 +1,127 @@
+.sales-banner.page-width {
+    max-width: 92rem;
+}
+
+.sales-banner-wrapp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.sales-banner-left,
+.sales-banner-right {
+    width: 44%;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.sales-banner-right {
+    width: 56%;
+}
+
+.sales-banner-left {
+    padding-right: 9rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.sales-banner-right {
+    padding-left: 9rem;
+    position: relative;
+}
+
+.sales-banner-left--inner {
+    display: flex;
+    flex-direction: column;
+}
+
+.sales-banner--sale-unit,
+.sales-banner--sale-type {
+    font-weight: 500;
+}
+
+.sales-banner--sale {
+    margin-right: 1rem;
+    line-height: 1;
+    font-weight: var(--section-heading-font-weight);
+}
+
+.sales-banner-right:before {
+    content: '';
+    width: .2rem;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.sales-banner-heading {
+    margin-bottom: 1.5rem;
+}
+
+.sales-banner-button-wrapp {
+    display: flex;
+    align-items: center;
+}
+
+.sales-banner-button-wrapp a:not(:last-child) {
+    margin-right: 3rem;
+}
+
+.sales-banner-button-wrapp a {
+    margin-top: 2.5rem;
+}
+
+@media screen and (max-width: 1200px) {
+    .sales-banner-left {
+        padding-left: 4rem;
+        padding-right: 4rem;
+    }
+    
+    .sales-banner-right {
+        padding-left: 4rem;
+        padding-right: 4rem;
+    }
+
+    .sales-banner-button-wrapp {
+        flex-wrap: wrap;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .sales-banner-wrapp {
+        flex-direction: column;
+    }
+
+    .sales-banner-left,
+    .sales-banner-right {
+        width: 100%;
+        padding: 1rem 3rem;
+    }
+
+    .sales-banner-right {
+        padding-top: 3rem;
+        padding-bottom: 2rem;
+        margin-top: 2rem;
+    }
+
+    .sales-banner-left--inner {
+        width: 100%;
+    }
+
+    .sales-banner-right:before {
+        top: 0;
+        bottom: auto;
+        left: 3rem;
+        width: 35%;
+        height: .2rem;
+    }
+
+    .sales-banner-button-wrapp a:not(:last-child) {
+        margin-right: 2rem;
+    }
+}

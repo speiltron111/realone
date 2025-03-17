@@ -1,0 +1,240 @@
+/* product grid */
+
+.items-animation.scroll-animation .item-animation {
+    opacity: 0;
+    transition: opacity 1.5s cubic-bezier(.215,.61,.355,1);
+}
+
+.header--drawer .menu-drawer__menu>li:nth-child(1) .menu-drawer__menu-item,
+.fade-in-up .items-animation.scroll-animation .item-animation:nth-child(1),
+.items-animation.scroll-animation .item-animation:nth-child(1) {
+    transition-delay: .2s;
+}
+
+.header--drawer .menu-drawer__menu>li:nth-child(2) .menu-drawer__menu-item,
+.fade-in-up .items-animation.scroll-animation .item-animation:nth-child(2),
+.items-animation.scroll-animation .item-animation:nth-child(2) {
+    transition-delay: .35s;
+}
+
+.header--drawer .menu-drawer__menu>li:nth-child(3) .menu-drawer__menu-item,
+.fade-in-up .items-animation.scroll-animation .item-animation:nth-child(3),
+.items-animation.scroll-animation .item-animation:nth-child(3) {
+    transition-delay: .5s;
+}
+
+.header--drawer .menu-drawer__menu>li:nth-child(4) .menu-drawer__menu-item,
+.fade-in-up .items-animation.scroll-animation .item-animation:nth-child(4),
+.items-animation.scroll-animation .item-animation:nth-child(4) {
+    transition-delay: .65s;
+}
+
+.header--drawer .menu-drawer__menu>li:nth-child(5) .menu-drawer__menu-item,
+.fade-in-up .items-animation.scroll-animation .item-animation:nth-child(5),
+.items-animation.scroll-animation .item-animation:nth-child(5) {
+    transition-delay: .8s;
+}
+
+.header--drawer .menu-drawer__menu>li:nth-child(6) .menu-drawer__menu-item,
+.fade-in-up .items-animation.scroll-animation .item-animation:nth-child(6),
+.items-animation.scroll-animation .item-animation:nth-child(6) {
+    transition-delay: .95s;
+}
+
+.header--drawer .menu-drawer__menu>li:nth-child(7) .menu-drawer__menu-item,
+.fade-in-up .items-animation.scroll-animation .item-animation:nth-child(7),
+.items-animation.scroll-animation .item-animation:nth-child(7) {
+    transition-delay: 1.1s;
+}
+
+.header--drawer .menu-drawer__menu>li:nth-child(8) .menu-drawer__menu-item,
+.fade-in-up .items-animation.scroll-animation .item-animation:nth-child(8),
+.items-animation.scroll-animation .item-animation:nth-child(8) {
+    transition-delay: 1.25s;
+}
+
+.header--drawer .menu-drawer__menu>li:nth-child(9) .menu-drawer__menu-item,
+.fade-in-up .items-animation.scroll-animation .item-animation:nth-child(9),
+.items-animation.scroll-animation .item-animation:nth-child(9) {
+    transition-delay: 1.4s;
+}
+
+.header--drawer .menu-drawer__menu>li:nth-child(10) .menu-drawer__menu-item,
+.fade-in-up .items-animation.scroll-animation .item-animation:nth-child(10),
+.items-animation.scroll-animation .item-animation:nth-child(10) {
+    transition-delay: 1.55s;
+}
+
+.header--drawer .menu-drawer__menu>li:nth-child(11) .menu-drawer__menu-item,
+.fade-in-up .items-animation.scroll-animation .item-animation:nth-child(11),
+.items-animation.scroll-animation .item-animation:nth-child(11) {
+    transition-delay: 1.7s;
+}
+
+.header--drawer .menu-drawer__menu>li:nth-child(12) .menu-drawer__menu-item,
+.fade-in-up .items-animation.scroll-animation .item-animation:nth-child(12),
+.items-animation.scroll-animation .item-animation:nth-child(12) {
+    transition-delay: 1.85s;
+}
+
+.header--drawer .menu-drawer__menu>li:nth-child(13) .menu-drawer__menu-item,
+.fade-in-up .items-animation.scroll-animation .item-animation:nth-child(13),
+.items-animation.scroll-animation .item-animation:nth-child(13) {
+    transition-delay: 2s;
+}
+
+.items-animation.scroll-animation.active .item-animation {
+    opacity: 1;
+}
+
+
+/* poppy */
+.poppy-animation .aside-media.scroll-animation {
+    opacity: 0;
+}
+.poppy-animation .aside-media.scroll-animation.active {
+    animation: showImagePoppy 1.5s cubic-bezier(.215,.61,.355,1) .3s forwards;
+}
+.poppy-animation .aside-text.scroll-animation {
+    opacity: 0;
+}
+.poppy-animation .aside-text.scroll-animation.active {
+    animation: showTextPoppy 1.4s cubic-bezier(.215,.61,.355,1) .3s forwards;
+}
+
+@keyframes showTextPoppy {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 24px ,0);
+    }
+        50% {
+        opacity: 1;
+    }
+        100% {
+        opacity: 1;
+        transform: translateZ(0);
+    }
+}
+  
+@keyframes showImagePoppy {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+}
+
+
+/* image with text */
+
+/* birdie */
+.birdie-animation .aside-media.scroll-animation {
+    opacity: 0;
+}
+
+.birdie-animation .aside-media.scroll-animation.active {
+    animation: showImageBirdie 1s cubic-bezier(.215,.61,.355,1) .2s forwards;
+}
+
+.birdie-animation .aside-text.scroll-animation {
+    opacity: 0;
+    transform: translate3d(0, 24px ,0);
+}
+
+.birdie-animation .aside-text.scroll-animation.active {
+    animation: showTextBirdie 1s cubic-bezier(.215,.61,.355,1) .5s forwards;
+}
+
+@keyframes showTextBirdie {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, 24px ,0);
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+      transform: translateZ(0);
+    }
+}
+  
+@keyframes showImageBirdie {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+}
+
+
+/* heading */
+
+/* birdie-poppy */
+
+.poppy-animation .heading-animation.scroll-animation,
+.birdie-animation .heading-animation.scroll-animation {
+    opacity: 0;
+    transform: translate3d(0, 18px ,0);
+}
+
+.poppy-animation .heading-animation.scroll-animation.active,
+.birdie-animation .heading-animation.scroll-animation.active {
+    animation: showHeadText .8s cubic-bezier(.215,.61,.355,1) .3s forwards;
+}
+
+@keyframes showHeadText {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, 18px ,0);
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+      transform: translateZ(0);
+    }
+}
+
+/* fade in up */
+
+
+.fade-in-up .items-animation.scroll-animation .item-animation,
+.fade-in-up .aside-media.scroll-animation {
+	opacity: 0;
+	translate: 0 24px;
+	transition: all 0.75s cubic-bezier(.215,.61,.355,1);
+}
+
+.fade-in-up .items-animation.scroll-animation.active .item-animation {
+	opacity: 1;
+	translate: 0;
+}
+
+.fade-in-up .aside-media.scroll-animation.active {
+	animation: fadeInUp .75s cubic-bezier(.215,.61,.355,1) forwards .15s;
+}
+.fade-in-up .aside-text.scroll-animation {
+	opacity: 0;
+}
+.fade-in-up .aside-text.scroll-animation.active {
+	animation: fadeInUp .75s cubic-bezier(.215,.61,.355,1) forwards .15s;
+}
+
+
+@keyframes fadeInUp {
+	0% {
+			opacity: 0;
+			translate: 0 24px;
+	}
+			50% {
+			opacity: 1;
+	}
+			100% {
+			opacity: 1;
+			translate: 0;
+	}
+}

@@ -1,0 +1,26 @@
+body.birdie-animation .aside-media.scroll-animation {
+    opacity: 1;
+}
+
+body.birdie-animation .aside-text.scroll-animation {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
+
+body.birdie-animation .heading-animation.scroll-animation {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
+
+
+body.poppy-animation .aside-media.scroll-animation {
+    opacity: 0;
+}
+
+body.poppy-animation .aside-text.scroll-animation {
+    opacity: 0;
+}
+
+body .items-animation.scroll-animation .item-animation {
+    opacity: 1;
+}

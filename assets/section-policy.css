@@ -1,0 +1,109 @@
+.section-policy .page-width {
+    max-width: 102rem;
+}
+
+.section-policy .section-title {
+    margin-bottom: 4rem;
+}
+
+.section-policy .section-title:not(:first-child) {
+    margin-top: 6.5rem;
+}
+
+@media screen and (max-width: 1200px) {
+    .section-policy .section-title:not(:first-child) {
+        margin-top: 4.5rem;
+    }
+
+    .section-policy .section-title:first-child {
+        margin-top: 0;
+    }
+}
+
+@media screen and (max-width: 749px) {
+    .section-policy .section-title:not(:first-child) {
+        margin-top: 5.5rem;
+    }
+}
+
+.section-policy .section-title {
+    text-align: left;
+    font-size: 2.4rem;
+    font-weight: 500;
+    font-family: var(--font-body-family);
+    color: rgb(var(--color-general-main-text));
+    margin-top: 0;
+    margin-bottom: 3rem;
+    padding-bottom: 0;
+    padding-top: 0;
+}
+
+.policy-item + .policy-item {
+	border-top: .1rem solid rgb(var(--color-icon-social));
+}
+
+.policy-item:last-child.active .item-text {
+    padding-bottom: 0;
+}
+
+.policy-item .item-heading {
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    line-height: 1.55;
+    color: rgb(var(--color-hover-link));
+}
+
+.policy-item:first-child .item-heading {
+    margin-top: 5rem;
+}
+
+.policy-item .item-text {
+    box-sizing: border-box;
+    padding-bottom: 3rem;
+}
+
+.policy-item:last-child .item-text {
+    padding-bottom: 0;
+}
+
+
+/* style 2 */
+
+.section-policy .style-2 .section-title,
+.section-policy .style-2 .item-heading {
+    font-family: var(--font-heading-family);
+    color: rgb(var(--color-general-main-text));
+}
+
+/* style 3 */
+.section-policy .style-3 .section-title,
+.section-policy .style-3 .item-heading {
+	font-family: var(--font-heading-family);
+	color: rgb(var(--color-general-heading));
+}
+
+.section-policy .style-3 .policy-item:first-child .item-heading {
+	margin-top: 0;
+}
+
+.section-policy .style-3 h2.section-title{
+	font-size: var(--font-heading-3-size-mb);
+	margin-bottom: 2rem;
+	margin-top: 0;
+	font-weight: 500;
+}
+
+.style-3 .item-heading{
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+}
+
+.style-3 .item-text{
+	padding-bottom: 2.5rem;
+}
+
+@media screen and (min-width: 750px) {
+	.section-policy .style-3 h2.section-title{
+		font-size: var(--font-heading-3-size);
+	}
+}

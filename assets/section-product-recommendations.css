@@ -1,0 +1,116 @@
+.product-recommendations {
+  display: block;
+  margin-bottom: 0;
+}
+
+.product-recommendations__heading {
+  margin: 0;
+  margin-bottom: 4rem;
+}
+
+.product-recommendations .grid {
+  margin-left: -3rem;
+  margin-bottom: -5rem;
+}
+.product-recommendations .grid.grid-main {
+	margin-left: 0;
+  margin-bottom: 0;
+}
+
+.product-recommendations .grid__item {
+  padding-left: 3rem;
+}
+
+.product-recommendations .style-4 .swiper-slide .collection__item:not(.button-full-width) {
+	border: .1rem solid rgba(var(--border-color), 1);
+	outline: unset;
+	box-sizing: border-box;
+}
+
+.product-recommendations .style-4 .collection__item:hover .product-form  {
+  padding: 2rem 0;
+}
+
+@media screen and (min-width: 769px) {
+  .product-recommendations .grid--4-col-desktop .grid__item {
+    width: calc(25% - 3rem);
+  }
+}
+
+@media screen and (max-width: 989px) {
+	.product-recommendations .grid-main.offset-col-sm-0.style-4 {
+		column-gap: 0;
+	}
+	.product-recommendations .grid-main.offset-row-sm-0.style-4 {
+		row-gap: 0;
+	}
+}
+
+@media screen and (min-width: 990px) {
+
+	.product-recommendations .grid-main.offset-row-lg-0.style-4 {
+		row-gap: 0;
+	}
+	.product-recommendations .grid-main.offset-col-lg-0.style-4 {
+		column-gap: 0;
+	}
+}
+@media screen and (max-width: 749px) {
+
+  .product-recommendations__heading {
+    margin-bottom: 4rem;
+  }
+
+  .product-recommendations .grid {
+		margin-left: -2rem;
+  }
+
+	.product-recommendations .grid.grid-main {
+		margin-left: 0;
+	}
+
+  .product-recommendations .grid__item {
+    padding-left: 2rem;
+    padding-bottom: 3rem;
+  }
+
+  .product-recommendations .grid--2-col .grid__item {
+    width: calc(50% - 1rem / 2);
+  }
+
+  .product-recommendations .card ~ .card-information {
+    margin-top: 1rem;
+  }
+
+  .product-recommendations .card-information__wrapper > :not(.visually-hidden:first-child) + :not(.rating) {
+    margin-top: 1rem;
+  }
+
+  .product-recommendations .price {
+    line-height: 1.2;
+  }
+
+  .product-recommendations .grid.slider {
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+  }
+
+  .product-recommendations .grid__item.slider__slide {
+    width: 100%;
+    max-width: unset;
+    padding-left: 1.5rem;
+  }
+
+  .product-recommendations .slider-mobile-gutter .slider-buttons {
+    margin-top: 4rem;
+  }
+
+	.product-recommendations .slider-mobile-gutter .grid-main {
+		display: flex;
+	}
+}
+
+.slider-recommendations:not(.swiper-initialized) .grid-main {
+	display: grid;
+}

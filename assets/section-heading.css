@@ -1,0 +1,115 @@
+.spaced-section.section-heading {
+    margin: 0;
+    margin-bottom: 0;
+}
+
+.section-heading .heading-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.section-heading .heading-block.center {
+    flex-direction: column;
+    align-items: center;
+}
+
+.section-heading .heading-block.center .heading-wrapp,
+.section-heading .heading-block.right .heading-wrapp {
+    margin-right: 0;
+}
+
+.section-heading .heading-block.center a {
+    margin-top: 2.5rem;
+}
+
+.section-heading .heading-block.right {
+    flex-direction: row-reverse;
+}
+
+@media screen and (max-width: 549px) {
+    .section-heading .heading-block {
+        flex-direction: column;
+    }
+}
+
+.section-heading .heading-wrapp {
+    width: 100%;
+    max-width: 46rem;
+    margin-top: -.5rem;
+}
+
+.section-heading .heading-wrapp:not(:last-child) {
+    margin-right: 5rem;
+}
+
+.section-heading .heading {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.section-heading .heading:not(:last-child) {
+    margin-bottom: 3rem;
+}
+
+.section-heading .text:not(:last-child) {
+    margin-bottom: 2.5rem;
+}
+
+.section-heading .link {
+    flex-shrink: 0;
+    margin-top: 1.8rem;
+}
+
+.heading-block.sticky {
+	display: grid;
+	grid-template-columns: 1fr;
+	align-items: stretch;
+	gap: 3rem;
+}
+
+.heading-block.is-empty {
+	row-gap: 0;
+}
+
+.sticky .heading-block__col-wrap {
+	position: sticky;
+	top: 5rem;
+}
+
+.section-heading .sticky.center .button {
+	margin: 0 auto;
+}
+
+.section-heading .sticky.center {
+	justify-items: center;
+	align-items: stretch;
+}
+
+.sticky.right {
+	justify-items: end;
+}
+
+.sticky.right .button {
+	margin-left: auto;
+}
+
+@media screen and (max-width: 749px) {
+	.section-heading .link {
+		margin-top: 1.3rem;
+	}
+}
+
+@media screen and (max-width: 549px) {
+	.section-heading .link {
+		margin-top: 2.5rem;
+	}
+}
+
+@media screen and (min-width: 750px) {
+	.heading-block.sticky {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}

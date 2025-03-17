@@ -1,0 +1,135 @@
+.section-title {
+    margin-bottom: 4rem;
+}
+
+.section-title:not(:first-child) {
+    margin-top: 9.5rem;
+}
+
+@media screen and (max-width: 1200px) and (min-width: 750px) {
+    .section-title:not(:first-child) {
+        margin-top: 7.5rem;
+    }
+
+    .faq-item.active + .section-title:not(:first-child) {
+        margin-top: 5.5rem;
+    }
+
+    .section-title:first-child {
+        margin-top: -1rem;
+    }
+}
+
+@media screen and (max-width: 749px) {
+    .section-title:not(:first-child) {
+        margin-top: 5.5rem;
+    }
+}
+
+.faq-item + .faq-item {
+	border-top: .1rem solid rgb(var(--color-icon-social));
+}
+
+.faq-item:last-child.active .item-text {
+    padding-bottom: 0;
+}
+
+.faq-item .item-heading {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-right: 4rem;
+	cursor: pointer;
+	margin-top: 2.3rem;
+	margin-bottom: 2.3rem;
+	position: relative;
+	font-size: 2rem;
+}
+.faq-item .item-heading.large {
+	font-size: 2.4rem;
+}
+
+.faq-wrapp .section-title.hf-heading,
+.faq-item .item-heading.hf-heading {
+	font-family:  var(--font-heading-family);
+}
+
+.faq-wrapp .section-title.hf-body,
+.faq-item .item-heading.hf-body {
+  font-family: var(--font-body-family);
+}
+
+@media screen and (max-width: 749px) {
+    .faq-item .item-heading {
+        font-size: 1.8rem;
+    }
+}
+
+.faq-item .icon {
+    width: 1.4rem;
+    height: .2rem;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgb(var(--color-general-main-text));
+    pointer-events: none;
+    box-sizing: border-box;
+}
+
+.faq-item .icon-close {
+    position: absolute;
+    top: 50%;
+    right: .5rem;
+    transform: translate(-50%, -50%);
+    width: .2rem;
+    height: 1.4rem;
+    background-color: rgb(var(--color-general-main-text));
+    transition: height .3s ease;
+    pointer-events: none;
+}
+
+.faq-item .item-text {
+	box-sizing: border-box;
+	max-width: 100rem;
+	padding-right: 6rem;
+	display: none;
+	margin-bottom: 2rem;
+}
+
+.faq-item:last-of-type .item-text {
+	padding-bottom: 0;
+}
+
+.faq-item.active .item-heading {
+    margin-bottom: 1.8rem;
+}
+
+.faq-item.active .item-text {
+    display: block;
+}
+
+.faq-item.active .icon-close {
+    height: .2rem;
+}
+
+/* style 2 */
+.style-2 .section-title {
+    font-size: 2.4rem;
+}
+
+.style-2 .item-heading {
+    font-size: 1.8rem;
+    font-family: var(--font-heading-family);
+}
+/* style 3 */
+
+.style-3 .section-title {
+    font-size: 3.6rem;
+    margin-bottom: 3rem;
+}
+.style-3 .item-heading {
+    font-size: 1.8rem;
+    font-family: var(--font-heading-family);
+    font-weight: 400;
+}

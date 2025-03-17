@@ -1,0 +1,288 @@
+.image-hotspot--inner {
+    position: relative;
+    width: 100%;
+    height: 0;
+}
+
+.image-hotspot--inner > svg,
+.image-hotspot--inner > img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-hotspot--item {
+    transform: translate(-50%, -50%);
+    position: absolute;
+    z-index: 1;
+}
+
+@media screen and (min-width: 750px){
+	.image-hotspot--item:has(.hotspot-bubble.visible){
+			overflow: visible;
+	}
+}
+
+.image-hotspot--item:focus,
+.image-hotspot--item:hover {
+    z-index: 2;
+}
+
+.image-hotspot--item:not(:hover) {
+    overflow: hidden;
+}
+
+.image-hotspot--item:nth-child(even) {
+    animation-delay: .3s;
+}
+
+.image-hotspot--item:nth-child(2) {
+    top: 50%;
+    left: 50%;
+}
+
+.image-hotspot--item:nth-child(3) {
+    top: 25%;
+    left: 25%;
+}
+
+.image-hotspot--item:nth-child(4) {
+    top: 75%;
+    left: 35%;
+}
+
+.image-hotspot--item-icon {
+    width: 3.3rem;
+    height: 3.3rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: scaledPoint 4s linear infinite;
+    cursor: pointer;
+}
+
+.image-hotspot--inner.scroll-animation .image-hotspot--item {
+    opacity: 0;
+    transition: opacity 1s cubic-bezier(.215,.61,.355,1);
+}
+
+.image-hotspot--inner.scroll-animation .image-hotspot--item:nth-child(2) {
+    transition-delay: .3s;
+}
+.image-hotspot--inner.scroll-animation .image-hotspot--item:nth-child(3) {
+    transition-delay: .6s;
+}
+.image-hotspot--inner.scroll-animation .image-hotspot--item:nth-child(4) {
+    transition-delay: .9s;
+}
+.image-hotspot--inner.scroll-animation .image-hotspot--item:nth-child(5) {
+    transition-delay: 1.2s;
+}
+.image-hotspot--inner.scroll-animation .image-hotspot--item:nth-child(6) {
+    transition-delay: 1.5s;
+}
+
+.image-hotspot--inner.scroll-animation.active .image-hotspot--item {
+    opacity: 1;
+}
+
+
+.image-hotspot--item-icon > span {
+    width: 1.8rem;
+    height: 1.8rem;
+    background-color: #fff;
+    border-radius: 50%;
+}
+
+@keyframes scaledPoint {
+    0% {
+        transform: scale(1); 
+    }
+    50% {
+        transform: scale(0.8); 
+    }
+    100% {
+        transform: scale(1); 
+    }
+}
+
+.hotspot-bubble {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, 30px);
+    background-color: #fff;
+    padding: 2.2rem;
+    opacity: 0;
+    pointer-events: none;
+    text-decoration: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all .3s ease;
+    z-index: 3;
+		display: none;
+}
+
+@media screen and (min-width: 750px) {
+	.hotspot-bubble.visible {
+			opacity: 1;
+			display: flex;
+			pointer-events: all;
+	}
+}
+
+.hotspot-bubble.bubble-right {
+    top: 50%;
+    left: 0;
+    transform: translate(30px, -50%);
+}
+
+.hotspot-bubble.bubble-left {
+    top: 50%;
+    left: 0;
+    transform: translate(-100%, -50%);
+}
+.hotspot-bubble.bubble-top {
+    top: 0;
+    left: 15px;
+    transform: translate(-50%, -100%);
+}
+
+.image-hotspot--item:hover .hotspot-bubble {
+    z-index: 2;
+    opacity: 1;
+    pointer-events: all;
+		display: flex;
+}
+
+.featured-item:not(:has(.hotspot-bubble--image-wrapp)) .hotspot-bubble--info{
+	margin-top: 0;
+}
+
+.featured-item:not(:has(.hotspot-bubble--image-wrapp)) .hotspot-bubble {
+	width: 25rem;
+	min-width: 25rem;
+}
+
+.hotspot-bubble--image-wrapp {
+    position: relative;
+    width: 25rem;
+    min-width: 25rem;
+    height: 27rem;
+}
+
+.hotspot-bubble--image-wrapp .product-form {
+    position: absolute;
+    left: 50%;
+    bottom: 2rem;
+    transform: translateX(-50%);
+}
+
+.hotspot-bubble--image-wrapp .button-add-card {
+    width: max-content;
+    min-height: auto;
+}
+
+.hotspot-bubble--image-wrapp img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hotspot-bubble--info {
+    margin-top: 2.4rem;
+    text-align: center;
+}
+
+.hotspot-bubble .title {
+    font-size: 1.8rem;
+    line-height: 1.2;
+    font-weight: 500;
+    margin: 0 0 1rem;
+    color: rgb(var(--color-general-main-text));
+    text-decoration: none;
+    font-family: var(--font-heading-family);
+}
+
+.hotspot-bubble .title:hover {
+    color: rgb(var(--color-hover-link));
+}
+
+.hotspot-bubble .price {
+    justify-content: center;
+}
+
+@media screen and (max-width: 549px) {
+
+    .image-hotspot--item:focus,
+    .image-hotspot--item:hover {
+        z-index: 2;
+        top: 50%;
+        left: 50%;
+    }
+
+    .image-hotspot--item .hotspot-bubble {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: -1;
+    }
+
+    .image-hotspot--item:focus .hotspot-bubble,
+    .image-hotspot--item:hover .hotspot-bubble {
+        transform: translate(-50%, -50%);
+        z-index: 2;
+    }
+
+    .image-hotspot-overlay {
+        content: '';
+        display: inline-block;
+        position: fixed;
+        z-index: -1;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: black;
+        opacity: 0;
+        transform: translateY(0);
+        transition: transform .3s ease;
+    }
+
+    .image-hotspot--item:hover ~ .image-hotspot-overlay {
+        opacity: .4;
+        z-index: 1;
+    }
+
+    .hotspot-bubble--image-wrapp {
+        width: 20rem;
+        min-width: 20rem;
+        height: 22rem;
+    }
+
+		.featured-item:not(:has(.hotspot-bubble--image-wrapp)) .hotspot-bubble--info{
+			margin-top: 0;
+		}
+		
+		.featured-item:not(:has(.hotspot-bubble--image-wrapp)) .hotspot-bubble {
+				width: 25rem;
+				min-width: 25rem;
+		}
+}
+
+.hotspot-bubble .product-form__error-message {
+    font-size: 1.2rem;
+}
+
+.hotspot-bubble .product-form__error-message-wrapper {
+    background-color: #fff;
+}

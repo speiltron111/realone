@@ -1,0 +1,284 @@
+.ab-trending-products.bg {
+  padding: 6.5rem 0 7rem;
+}
+
+.ab-trending-products__button-left{
+  display: flex;
+  align-content: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.ab-trending-products__button-left a {
+  margin-right: calc(calc(100vw - 110rem) / 2 - 1.3rem);
+}
+
+@media screen and (min-width: 550px){
+  .ab-trending-products .header-top .ab-navigation.flex-start{
+    justify-content: flex-start;
+  }
+  .ab-trending-products .header-top .ab-navigation.center-navigation{
+    justify-content: center;
+  }
+  .ab-trending-products .header-top .ab-navigation.flex-end{
+    justify-content: flex-end;
+  }
+}
+
+@media screen and (max-width: 749px){
+  .ab-trending-products .header-top .ab-navigation.mobile-flex-start{
+    justify-content: flex-start;
+  }
+
+  .ab-trending-products .header-top .ab-navigation.mobile-center-navigation{
+    justify-content: center;
+  }
+
+  .ab-trending-products .header-top .ab-navigation.mobile-flex-end{
+    justify-content: flex-end;
+  }
+	
+  .ab-trending-products .ab-navigation.mobile-center-navigation{
+    justify-content: center;
+  }
+
+  .ab-trending-products .ab-navigation.mobile-flex-end{
+    justify-content: flex-end;
+  }
+
+  .ab-trending-products__info.mobile-center-heading{
+    text-align: center;
+    align-items: center;
+    align-content: center;
+  }
+
+  .ab-trending-products__info.mobile-right-heading {
+    text-align: right;
+    align-items: flex-end;
+    align-content: flex-end;
+  }
+
+  .ab-trending-products__info.mobile-center-heading .ab-trending-products__link{
+    margin-right: 0;
+    margin-left: 0;
+  }
+  .ab-trending-products__info.mobile-right-heading .ab-trending-products__link{
+    margin-right: 0;
+    margin-left: auto;
+  }
+}
+
+.ab-trending-products__wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.ab-trending-products__info {
+  padding-bottom: 4rem;
+}
+
+
+.ab-trending-products__info * + * {
+  margin-top: 2.5rem;
+}
+
+.ab-trending-products__title {
+  margin: 0;
+}
+
+.ab-trending-products__description {
+  color: currentColor;
+}
+
+.ab-trending-products__description p {
+  margin: 0;
+}
+
+.ab-trending-products__slider {
+  height: 100%;
+  max-width: 100%;
+}
+
+.ab-trending-products__slider-wrp {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0;
+}
+
+.ab-trending-products .card__text .h3 {
+  margin-top: 2rem;
+  margin-bottom: 0;
+}
+
+.ab-trending-products .ab-navigation {
+  justify-content: flex-start;
+  margin-top: 3rem;
+}
+
+.ab-trending-products .header-top .ab-navigation {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ab-trending-products .media--portrait {
+  padding-bottom: 131%;
+}
+
+@media screen and (min-width:750px) {
+  .ab-trending-products.bg {
+    padding: 9.5rem 0;
+  }
+
+  .ab-trending-products__wrapper {
+    position: relative;
+    flex-direction: row;
+    padding: 0;
+    max-width: 100%;
+    margin-left: 5rem;
+  }
+
+  .ab-trending-products__button-left .ab-trending-products__link  {
+    margin-right: 0;
+  }
+
+  .ab-trending-products__wrapper:not(.header-top) .ab-trending-products__link {
+    margin-top: 2.5rem;
+  }
+  .ab-trending-products__wrapper .ab-trending-products__link.button {
+    display: inline-flex;
+		gap: .6rem;
+  }
+
+  .ab-trending-products__wrapper .ab-trending-products__link.button .link-icon {
+    margin: 0;
+  }
+
+  .ab-trending-products .header-top .ab-navigation {
+    margin-right: 5rem;
+  }
+
+  .ab-trending-products__wrapper.header-top {
+    flex-direction: column;
+  }
+
+  .ab-trending-products__info {
+    width: 100%;
+    max-width: 35rem;
+    padding-right: 2rem;
+    padding-bottom: 6rem;
+  }
+
+  .header-top .ab-trending-products__info {
+    padding-bottom: 4rem;
+    max-width: 100%;
+  }
+
+  .ab-trending-products__info * + * {
+    margin-top: 3rem;
+  }
+
+  .ab-trending-products__slider {
+    width: 100%;
+    max-width: calc(100% - 35rem);
+    margin: 0;
+  }
+
+  .header-top .ab-trending-products__slider {
+    max-width: 100%;
+  }
+
+  .ab-trending-products__wrapper:not(.header-top) .ab-navigation {
+    position: absolute;
+    left: 0;
+    bottom: 0rem;
+    margin-top: 0;
+  }
+
+  .ab-trending-products .media--portrait {
+    padding-bottom: 131%;
+  }
+}
+
+.ab-trending-products__info .ab-trending-products__link {
+  margin-top: 2.5rem;
+  display: inline-block;
+}
+.ab-trending-products__link.underlined-link .link-icon {
+	top: 50%;
+}
+
+.ab-trending-products__wrapper .ab-trending-products__link.button {
+	display: inline-flex;
+}
+
+@media screen and (min-width: 1024px) {
+  .ab-trending-products__button-left .ab-trending-products__link {
+    margin-top: auto;
+    height: fit-content;
+  }
+}
+
+@media screen and (min-width:1200px) {
+	.ab-trending-products {
+		display: grid;
+		grid-template-columns: 1fr min(100%, var(--page-width)) 1fr;
+	}
+	.ab-trending-products__wrapper {
+		grid-column: 2/4;
+		padding-left: 5rem;
+		margin-left: 0;
+	}
+
+	.ab-trending-products__wrapper:not(.header-top) .ab-navigation {
+		left: 5rem;
+	}
+  .ab-trending-products__slider {
+    padding-left: 4rem;
+  }
+
+  .header-top .ab-trending-products__slider {
+    padding-left: 0;
+  }
+
+  .ab-trending-products .header-top .ab-navigation {
+    margin-right: calc(calc(100vw - 116rem) / 2 - 1.3rem);
+  }
+}
+
+@media screen and (min-width:2200px) {
+  .ab-trending-products__wrapper {
+		grid-column: 2/3;
+		padding: 0 5rem;
+  }
+	.ab-trending-products__wrapper:not(.header-top) .ab-navigation {
+		left: 5rem;
+	}
+}
+
+@media screen and (max-width: 750px) {
+  .ab-trending-products__button-left {
+    flex-direction: column;
+    align-items: baseline;
+  }
+
+  .ab-trending-products__button-left a {
+    margin-top: 2rem;
+  }
+}
+
+.ab-trending-products .ab-trending-products__info .ab-navigation {
+	position: static;
+	margin: 5rem 0 0;
+}
+
+.ab-trending-products__info .ab-navigation .ab-nav {
+	margin: 0;
+}
+.ab-trending-products__item.style-4 .ab-trending-products__item-wrapper{
+	position: relative;
+	border: 0.1rem solid rgba(var(--border-color),1);
+}
+
+.ab-trending-products .link.button-with-icon {
+	padding-bottom: 0;
+}

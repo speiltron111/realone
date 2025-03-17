@@ -1,0 +1,151 @@
+.promotion-bar-wrapp::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.promotion-bar-wrapp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.promotion-bar-wrapp img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.promotion-bar-heading {
+    margin-bottom: 0;
+    padding-right: 5rem;
+    padding-left: 5rem;
+    max-width: 50%;
+    text-align: center;
+    z-index: 2;
+}
+
+.promotion-bar-info {
+    position: relative;
+    z-index: 2;
+    padding: 2rem 5rem 2rem 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 60%;
+    text-align: center;
+}
+
+.promotion-bar-info::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: .2rem;
+    height: 100%;
+}
+
+.promotion-bar-wrapp .text {
+    padding-right: 5rem;
+}
+
+.promotion-bar-wrapp a {
+    flex-shrink: 0;
+}
+
+@media screen and (max-width: 949px) {
+    .promotion-bar-heading {
+        padding-right: 4rem;
+    }
+
+    .promotion-bar-info {
+        padding-left: 4rem;
+    }
+}
+
+@media screen and (max-width: 749px) {
+    .promotion-bar-wrapp {
+        padding: 5rem 2rem;
+        flex-direction: column;
+    }
+
+    .promotion-bar-heading,
+    .promotion-bar-info {
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+    }
+		
+		.promotion-bar-info {
+			flex-direction: column;
+			gap: 3rem;
+			align-items: start;
+		}
+
+    .promotion-bar-info {
+        margin-top: 3rem;
+        padding-top: 3rem;
+    }
+
+    .promotion-bar-info::after {
+        height: .2rem;
+        width: 15%;
+    }
+
+    .promotion-bar-wrapp .text {
+        padding-right: 0;
+    }
+
+		.align-center .promotion-bar-info {
+			align-items: center;
+		}
+
+		.align-right .promotion-bar-info {
+			align-items: end;
+		}
+
+		.align-center .promotion-bar-info::after {
+			left: 50%;
+			translate: -50%;
+		}
+		.align-right .promotion-bar-info::after {
+			right: 0;
+			left: auto;
+		}
+}
+
+
+.align-left .promotion-bar-heading,
+.align-left .text {
+    text-align: left;
+}
+
+.align-right .promotion-bar-heading,
+.align-right .text {
+    text-align: right;
+}
+
+
+@media screen and (min-width: 750px) {
+    .promotion-bar--full-width .promotion-bar-wrapp {
+        padding: 0 5rem;
+    }
+
+    .promotion-bar--full-width .promotion-bar-heading {
+        padding-left: 0;
+    }
+
+    .promotion-bar--full-width .promotion-bar-info {
+        padding-right: 0;
+    }
+}

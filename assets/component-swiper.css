@@ -1,0 +1,165 @@
+/* arrovs  */
+
+.swiper-button-prev,
+.swiper-button-next {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    border: .1rem solid rgba(var(--color-general-heading), 1);
+    transition: all .3s ease;
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+    background-color: rgba(var(--color-hover-btn-bg));
+    border-color: rgba(var(--color-hover-btn-bg));
+}
+
+.modal-item .swiper-button-next.gradient--hover::before,
+.modal-item .swiper-button-prev.gradient--hover::before,
+.swiper-button-prev.gradient--hover::before,
+.swiper-button-next.gradient--hover::before {
+	content: '';
+	position: absolute;
+	top: calc(0 - var(--buttons-border-size) / 2);
+	left: calc(0 - var(--buttons-border-size) / 2);
+	width: calc(100% + var(--buttons-border-size) * 2);
+  height: calc(100% + var(--buttons-border-size) * 2);
+  opacity: 0;
+  z-index: -1;
+  background: var(--color-hover-btn-bg-gradient);
+  transition: all .3s ease;
+	border-radius: 50%;
+}
+
+.swiper-button-prev.gradient--hover:hover svg,
+.swiper-button-next.gradient--hover:hover svg,
+.swiper-button-prev.gradient--hover:hover,
+.swiper-button-next.gradient--hover:hover {
+	color: rgb(var(--color-hover-btn-text));
+	background: transparent;
+  border-color: transparent;
+}
+
+.swiper-button-prev.gradient--hover:hover::before,
+.swiper-button-next.gradient--hover:hover::before {
+  opacity: 1;
+}
+.swiper-button-prev:after,
+.swiper-button-next:after {
+    display: none;
+}
+
+.swiper-button-prev svg,
+.swiper-button-next svg {
+    position: relative;
+    z-index: 2;
+    color: rgba(var(--color-general-heading), 1);
+}
+
+.swiper-button-next svg {
+    margin-left: .2rem;
+    transition: all .3s ease;
+}
+
+.swiper-button-prev svg {
+    transform: rotate(180deg);
+}
+
+.swiper-button-next:hover:before,
+.swiper-button-prev:hover:before {
+  background-color: rgba(var(--color-hover-btn-bg));
+}
+
+.swiper-button-next:hover svg,
+.swiper-button-prev:hover svg {
+  color: rgb(var(--color-general-secondary-text));
+}
+
+.swiper-button-next.swiper-button-disabled, 
+.swiper-button-prev.swiper-button-disabled {
+    opacity: .7;
+    pointer-events: unset;
+}
+
+.swiper-button-disabled:hover svg {
+    color: rgba(var(--color-general-heading), 1);
+}
+
+.slideshow-banner .swiper-button-prev.bottom, 
+.slideshow-banner .swiper-button-next.bottom {
+    width: 5rem;
+    height: 5rem;
+    bottom: 5rem;
+    top: auto;
+    left: 5rem;
+}
+
+.slideshow-banner .swiper-button-next.bottom {
+    left: 12rem;
+}
+
+.slideshow-banner .swiper-button-prev.bottom:before,
+.slideshow-banner .swiper-button-next.bottom:before {
+    content: '';
+    display: block;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgb(var(--color-general-secondary-text));
+    border: 0.1rem solid rgb(var(--color-general-secondary-text));
+    background-color: transparent;
+    transition: all .3s ease;
+}
+
+.slideshow-banner .swiper-button-prev.bottom svg,
+.slideshow-banner .swiper-button-next.bottom svg {
+	color: rgb(var(--color-general-secondary-text));
+}
+
+.slideshow-banner .swiper-button-prev.bottom:hover:before,
+.slideshow-banner .swiper-button-next.bottom:hover:before {
+	border-color: rgb(var(--color-general-heading));
+	background-color: rgb(var(--color-general-heading));
+}
+
+/* pagination  */
+.slideshow-banner.swiper-horizontal>.swiper-pagination-bullets, 
+.slideshow-banner .swiper-pagination-bullets.swiper-pagination-horizontal, 
+.slideshow-banner .swiper-pagination-custom, .swiper-pagination-fraction {
+    bottom: 2.1rem;
+}
+
+.slideshow-banner .swiper-pagination .swiper-pagination-bullet {
+    background-color: #fff;
+}
+
+.slideshow-banner .swiper-pagination-bullet.swiper-pagination-bullet-active {
+    background-color: rgb(var(--color-btn-main-text));
+}
+
+.swiper-pagination .swiper-pagination-bullet {
+    cursor: pointer;
+    background-color: rgb(var(--color-prod-preview-price));
+    opacity: 1;
+}
+
+.swiper-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet, 
+.swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet {
+    margin: 0 .5rem;
+}
+
+.swiper-pagination-bullet.swiper-pagination-bullet-active {
+    background-color: rgb(var(--color-btn-main-text));
+}
+
+.swiper .swiper-pagination.gradient--hover .swiper-pagination-bullet-active {
+	background: var(--color-hover-btn-bg-gradient);
+}

@@ -1,0 +1,83 @@
+/* image with text banner */
+
+body {
+    overflow-x: hidden;
+}
+
+@media screen and (min-width: 750px) {
+    .ab-image-with-text.ab-image-with-text-banner.scroll-animation-banner .banner-overlay {
+        display: block;
+        position: absolute;
+        width: 100vw;
+        height: 12rem;
+        top: 0;
+        left: 0;
+        right: 0;
+        left: 0;
+        background-color: #4d624e;
+        z-index: 5;
+    }
+    .ab-image-with-text.ab-image-with-text-banner.scroll-animation-banner.active .banner-overlay {
+        animation: showOverlay 1s linear .5s forwards;
+    }
+}
+
+
+.ab-image-with-text.ab-image-with-text-banner .aside-media-banner.scroll-animation-banner .placeholder:after,
+.ab-image-with-text.ab-image-with-text-banner .aside-media-banner.scroll-animation-banner .media:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #4d624e;
+}
+
+.ab-image-with-text.ab-image-with-text-banner .aside-media-banner.scroll-animation-banner.active .placeholder:after,
+.ab-image-with-text.ab-image-with-text-banner .aside-media-banner.scroll-animation-banner.active .media:after {
+    animation: showImageBanner .6s linear forwards;
+}
+
+.ab-image-with-text.ab-image-with-text-banner .aside-text-banner.scroll-animation-banner {
+    opacity: 0;
+    transform: translate3d(0, 18px ,0);
+}
+
+.ab-image-with-text.ab-image-with-text-banner .aside-text-banner.scroll-animation-banner.active {
+    animation: showTextBanner .8s cubic-bezier(.215,.61,.355,1) 1s forwards;
+}
+
+@keyframes showImageBanner {
+    0% {
+        width: 100%;
+    }
+
+    100% {
+        width: 0;
+    }
+}
+
+@keyframes showTextBanner {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, 18px ,0);
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+      transform: translateZ(0);
+    }
+}
+
+@keyframes showOverlay {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-12rem);
+    }
+}

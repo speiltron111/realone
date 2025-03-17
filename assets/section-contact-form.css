@@ -1,0 +1,231 @@
+.contact.header-left,
+.contact.header-right {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 749px) {
+  .contact.header-left,
+  .contact.header-right {
+    flex-direction: column-reverse;
+    padding: 0;
+  }
+  .contact.header-top .form-header {
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+}
+
+.contact.header-right {
+  flex-direction: row-reverse;
+  flex-wrap: wrap-reverse;
+}
+
+.contact.page-width--narrow {
+  max-width: 54rem;
+  padding: 0;
+}
+
+.contact.header-top .form-header {
+  margin-bottom: 4rem;
+}
+
+@media screen and (min-width: 750px) {
+  .contact.header-left .form-header {
+    padding-right: 5rem;
+  }
+
+  .contact.header-right .form-header {
+    padding-left: 5rem;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .contact.header-left .form-header,
+  .contact.header-right .form-header {
+    padding: 4.5rem 2rem 0;
+  }
+}
+
+.contact img {
+  max-width: 100%;
+}
+
+.contact .title {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.contact .form-header > div + div {
+  margin-top: 4rem;
+}
+
+.contact .form-header .contact-info p {
+  margin-bottom: 0;
+}
+.contact .form-header .contact-info p + p {
+  margin-top: 1rem;
+}
+
+.contact .form-header .contact-info strong {
+  font-weight: 500;
+}
+
+.contact .form-header .contact-info a {
+  font-weight: 500;
+}
+
+.contact .form-header .contact-info p + p>strong {
+  display: inline-block;
+  margin-top: 3rem;
+}
+
+@media screen and (max-width: 749px) {
+  .contact .form-header > div + div {
+    margin-top: 3rem;
+  }
+
+  .contact .form-header .contact-info p + p>strong {
+    margin-top: 2.5rem;
+  }
+}
+
+.contact .contact-form {
+  padding: 5rem;
+  box-shadow: 0 0 0 .1rem rgba(var(--color-general-main-text), .55);
+}
+
+@media screen and (min-width: 1200px) {
+  .contact .contact-form {
+    min-width: 63.5rem;
+  }
+}
+
+@media screen and (min-width: 950px) {
+  .contact .contact-form {
+    min-width: 53.5rem;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .contact .contact-form {
+    margin-right: 2rem;
+    margin-left: 2rem;
+    padding: 3.5rem;
+  }
+}
+
+.contact .select_field,
+.contact .field__input {
+  padding-left: 0;
+  border: none;
+  box-shadow: none;
+  border-bottom: .1rem solid rgba(var(--color-general-main-text), .55);
+}
+
+.contact .field.select {
+  border-bottom: .1rem solid rgba(var(--color-general-main-text), .55);
+}
+
+.contact .select_field option {
+	text-transform: none;
+}
+
+.contact .select_field {
+  width: 100%;
+  cursor: pointer;
+  line-height: 1.6;
+  padding: 1rem 4rem 1.4rem 0;
+  border: none;
+  font-size: 1.6rem;
+  color: currentColor;
+  font-family: var(--font-body-family);
+  font-style: var(--font-body-style);
+	background-color: rgb(var(--color-general-bg));
+  outline: 0;
+  outline-offset: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.contact .select .icon-caret {
+  right: 0;
+}
+
+.contact .text-area {
+  min-height: 14rem;
+}
+
+
+.contact .field__label {
+  left: 0;
+}
+
+.contact .text-area:focus+label, 
+.contact .text-area:not(:placeholder-shown)+label, 
+.contact .text-area:autofill+label {
+	padding-left: 0;
+}
+
+
+.contact .form__message {
+  align-items: flex-start;
+}
+
+.contact .form__message {
+  outline: 0;
+  outline-offset: 0;
+  box-shadow: none
+}
+
+.contact .icon-success {
+  margin-top: 0.2rem;
+}
+
+.contact .field {
+  margin-bottom: 1.5rem;
+}
+
+@media screen and (min-width: 750px) {
+  .contact .field {
+    margin-bottom: 2rem;
+  }
+}
+
+.contact__button {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+@media screen and (min-width: 750px) {
+  .contact__button {
+    margin-top: 4rem;
+    display: flex;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .contact__fields {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 2rem;
+  }
+}
+
+.contact .form-info {
+  text-align: center;
+  margin-bottom: 0;
+  margin-top: 2rem;
+}
+
+.contact .form-status-list {
+  margin: 0 0 2rem;
+}
+
+.grecaptcha-badge {
+  visibility: hidden;
+}
+
+.contact .text-area:focus+label {
+	padding-left: 0;
+}

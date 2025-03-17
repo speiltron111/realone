@@ -1,0 +1,67 @@
+.search__input.field__input {
+  padding-right: 5rem;
+  margin: 0;
+}
+
+.field__search {
+  position: relative;
+}
+
+.field__search .search__input {
+  font-size: 1.6rem;
+  line-height: 3.5rem;
+  font-weight: 400;
+  height: 5rem;
+  border-width: 0;
+  box-shadow: none;
+  padding: 0 0.6rem 0 2.5rem !important;
+  border-bottom: 0.1rem solid rgb(var(--color-icon-social));
+}
+
+.field__search .field__label {
+  left: 2.5rem;
+  font-size: 1.6rem;
+}
+
+.field__search .field__input:focus ~ .field__label, 
+.field__search .field__input:not(:placeholder-shown) ~ .field__label, 
+.field__search .field__input:-webkit-autofill ~ .field__label {
+  top: 0;
+}
+
+.field__search .search__button {
+  left: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.field__search .search__button .icon {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.search__button .icon {
+  height: 1.8rem;
+  width: 1.8rem;
+}
+
+.element-margin {
+  margin-top: 7rem;
+  padding-top: 6rem;
+  border-top: .1rem solid rgb(var(--color-icon-social), .2);
+  margin-bottom: 0;
+}
+
+@media screen and (max-width: 749px) {
+  .element-margin {
+    margin-top: 6rem;
+    padding-top: 0;
+    border: none;
+  }
+}
+
+/* Remove extra spacing for search inputs in Safari */
+input::-webkit-search-decoration {
+  -webkit-appearance: none;
+}

@@ -1,0 +1,176 @@
+.ab-trending-collections__wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.ab-trending-collections__info {
+  padding-bottom: 4rem;
+}
+
+.ab-trending-collections__title {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.ab-trending-collections__description {
+  color: currentColor;
+}
+
+.ab-trending-collections__description p {
+  margin: 0;
+}
+
+.ab-trending-collections__description a {
+	color: inherit;
+}
+
+.ab-trending-collections__slider {
+  height: 100%;
+  max-width: 100%;
+	min-width: 0;
+}
+
+.ab-trending-collections__slider-wrp {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0;
+}
+
+.ab-trending-collections .card__text .card__title {
+	margin-top: 2rem;
+  margin-bottom: 0;
+}
+
+.ab-trending-collections .card__text .large {
+	font-size: 2.4rem;
+}
+
+.ab-trending-collections .card__text .small {
+	font-size: 1.6rem;
+}
+
+.ab-trending-collections .ab-navigation {
+  justify-content: flex-start;
+  margin-top: 3rem;
+}
+
+.ab-trending-collections .media--portrait {
+  padding-bottom: 131%;
+}
+
+.ab-trending-collections .ab-trending-collections__info .ab-navigation {
+	position: static;
+	margin: 5rem 0 0;
+}
+
+.ab-trending-collections__info .ab-trending-collections__link {
+	display: inline-block;
+	margin-top: 2.5rem;
+}
+
+* + .ab-trending-collections__description {
+	margin-top: 3rem;
+}
+
+.ab-trending-collections__item.center {
+	text-align: center;
+}
+
+.ab-trending-collections__item.right {
+	text-align: right;
+}
+
+@media screen and (max-width: 749px) {
+  .ab-trending-collections__info.mobile-center-heading{
+    text-align: center;
+    align-items: center;
+    align-content: center;
+  }
+
+  .ab-trending-collections__info.mobile-right-heading {
+    text-align: right;
+    align-items: flex-end;
+    align-content: flex-end;
+  }
+
+  .ab-trending-collections__info.mobile-center-heading .ab-trending-collections__link{
+    margin-right: 0;
+    margin-left: 0;
+  }
+  .ab-trending-collections__info.mobile-right-heading .ab-trending-collections__link{
+    margin-right: 0;
+    margin-left: auto;
+  }
+
+	.ab-navigation.mobile-center-navigation {
+		justify-content: center;
+	}
+	.ab-navigation.mobile-flex-end {
+		justify-content: right;
+	}
+}
+
+@media screen and (min-width:750px) {
+
+  .ab-trending-collections__wrapper {
+    position: relative;
+    flex-direction: row;
+    padding: 0;
+    max-width: 100%;
+    margin-left: 5rem;
+  }
+
+  .ab-trending-collections__info {
+		width: 100%;
+    max-width: 35rem;
+    padding-right: 2rem;
+    padding-bottom: 6rem;
+  }
+	.ab-trending-collections__info:has(.ab-navigation ) {
+    padding-bottom: 0;
+	}
+
+  .ab-trending-collections__slider {
+    width: 100%;
+    max-width: calc(100% - 35rem);
+    margin: 0;
+  }
+
+  .ab-trending-collections__title {
+    margin-bottom: 0;
+  }
+
+  .ab-trending-collections__description {
+    margin-bottom: 3rem;
+  }
+
+  .ab-trending-collections .ab-navigation {
+    position: absolute;
+    left: 0;
+    bottom: 1rem;
+    margin-top: 0;
+  }
+
+  .ab-trending-collections .media--portrait {
+    padding-bottom: 131%;
+  }
+
+	.ab-trending-collections__description {
+		margin-bottom: 0;
+	}
+}
+
+@media screen and (min-width: 1200px) {
+  .ab-trending-collections {
+		display: grid;
+		grid-template-columns: 1fr min(100%,var(--page-width)) 1fr;
+  }
+
+	.ab-trending-collections__wrapper {
+		grid-column: 2/4;
+	}
+}
+
+.ab-trending-collections__link.underlined-link .link-icon {
+	top: calc(50% - .15rem);
+}

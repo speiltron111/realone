@@ -1,0 +1,13 @@
+body .ab-image-with-text.ab-image-with-text-banner.scroll-animation-banner .banner-overlay {
+    display: none;
+}
+
+body .ab-image-with-text.ab-image-with-text-banner .aside-text-banner.scroll-animation-banner {
+    opacity: 1;
+    transform: none;
+}
+
+body .ab-image-with-text.ab-image-with-text-banner .aside-media-banner.scroll-animation-banner .placeholder:after,
+body .ab-image-with-text.ab-image-with-text-banner .aside-media-banner.scroll-animation-banner .media:after {
+    display: none;
+}

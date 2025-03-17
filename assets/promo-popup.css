@@ -1,0 +1,322 @@
+.shopify-section.spaced-section.section-promo-popup {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+}
+
+.promo-popup {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    outline: 0!important;
+    -webkit-backface-visibility: hidden;
+    z-index: 999;
+    box-sizing: border-box;
+    overflow-y: scroll;
+    justify-content: center;
+    align-items: center;
+}
+
+.promo-popup-close {
+    position: absolute;
+    top: 12.5rem;
+    left: auto;
+    right: 1rem;
+    width: 4rem;
+    height: 4rem;
+    border: .1rem solid #4A4640;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F9F5F0;
+    cursor: pointer;
+}
+
+.promo-popup-close::before,
+.promo-popup-close::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: inline-block;
+    width: 2.7rem;
+    height: .15rem;
+    background-color: #4A4640;
+}
+
+.promo-popup-close::before {
+    transform: translateX(-50%) rotate(45deg);
+}
+
+.promo-popup-close::after {
+    transform: translateX(-50%) rotate(-45deg);
+}
+
+.promo-popup-container {
+    padding: 3rem;
+    width: 100%;
+    max-width: 60rem;
+    box-sizing: border-box;
+    margin: auto;
+}
+
+.promo-popup-content {
+    position: relative;
+    width: 100%;
+    padding: 13.5rem 9.5rem;
+    border-radius: 30rem;
+    background-color: #F9F5F0;
+    box-shadow: 0 .4rem .8rem 0 rgba(0,0,0,0.2),0 .6rem 2rem 0 rgba(0,0,0,0.19);
+}
+
+.promo-popup-title {
+  font-family: var(--font-heading-family);
+	text-align: center;
+	margin-bottom: 1rem;
+}
+
+.promo-popup-description {
+    text-align: center;
+    margin-bottom: 5rem;
+}
+
+.promo-popup-description a {
+	color: inherit;
+}
+
+.promo-popup-description a {
+	color: inherit;
+}
+
+.promo-popup .field:not(:first-of-type) {
+    margin-top: 2.5rem;
+}
+
+.promo-popup .field.field-submit {
+    margin-top: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.promo-popup .field.field-submit svg,
+.promo-popup .field.field-submit img {
+    max-width: 1.7rem;
+    max-height: 1.7rem;
+}
+
+.promo-popup .field__input {
+    border: none;
+    box-shadow: none;
+    border-bottom: .15rem solid #4A4640;
+    padding-left: 0;
+}
+
+.promo-popup .field__label {
+    left: 0;
+}
+
+.promo-popup-wrap .newsletter-form__message {
+    position: relative;
+}
+
+.promo-popup-form {
+    width: 100%;
+}
+
+.promo-popup-form .newsletter-form__message {
+    display: flex;
+    justify-content: center;
+    bottom: auto;
+}
+
+@media screen and (max-width: 749px) {
+    .promo-popup-container {
+        max-width: 55rem;
+    }
+}
+@media screen and (max-width: 549px) {
+    .promo-popup-content {
+        padding: 7.5rem 3.5rem;
+    }
+
+    .promo-popup-close {
+        top: 4.5rem;
+    }
+
+    .promo-popup-description {
+        margin-bottom: 2rem;
+    }
+
+		.multi-step .promo-popup-description {
+        margin-bottom: 4rem;
+    }
+}
+
+.promo-popup-form__field-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.promo-popup-form__field-wrapper .underlined-link {
+	padding-bottom: 0;
+}
+
+.promo-zone {
+    height: 16rem;
+    min-width: 16rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.promo-zone input {
+    display: flex;
+    text-align: center;
+    font-weight: 500;
+    font-size: 2.4rem;
+    border: none;
+    background-color: transparent;
+    color: inherit;
+    width: 16rem;
+    transition: all .3s ease;
+    -webkit-touch-callout: none;
+      -webkit-user-select: none;
+       -khtml-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none;
+               outline-width: 0;
+                  outline: none;
+}
+
+.promo-zone input:focus,
+.promo-zone input::placeholder {
+    -webkit-touch-callout: none;
+      -webkit-user-select: none;
+       -khtml-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none;
+               outline-width: 0;
+                  outline: none;
+}
+
+.promo-zone input.copied {
+    opacity: .5;
+}
+.promo-zone input[type="text"]:focus-visible {
+    box-shadow: none;
+}
+
+.promo-popup-success .promo-popup-content {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    transition: all .3s ease;
+}
+
+.promo-popup button .link-icon {
+    transition: all .3s ease;
+}
+
+.full-width {
+	width: 100%;
+}
+
+.small-width {
+	width: 20%;
+}
+
+.one-fourth-width {
+	width: 25%;
+}
+
+.third-width {
+	width: 33.333334%;
+}
+
+.half-width {
+	width: 50%;
+}
+
+.two-thirds-width {
+	width: 66.666667%;
+}
+
+.promo-popup__media-wrapper {
+	margin: 0 auto 2.7rem;
+}
+
+/* 2 style */
+.multi-step {
+	text-align: center;
+}
+
+.multi-step .promo-popup__wrapper:first-of-type {
+	transition: 
+		opacity ease .35s,
+		translate ease .35s
+	;
+}
+
+.multi-step .promo-popup__wrapper:first-of-type .button {
+	margin: 0 auto;
+}
+
+.multi-step .promo-popup__wrapper:nth-of-type(2) {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	opacity: 0;
+	pointer-events: none;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+	translate: 0 20px;
+	transition: 
+		opacity ease var(--duration-default) var(--duration-default),
+		translate ease var(--duration-default) var(--duration-default)
+	;
+}
+
+.multi-step.active .promo-popup__wrapper:first-of-type {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	opacity: 0;
+	pointer-events: none;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+	translate: 0 20px;
+}
+
+
+.multi-step.active .promo-popup__wrapper:nth-of-type(2) {
+	position: relative;
+	width: 100%;
+	height: auto;
+	opacity: 1;
+	translate: 0 0;
+	pointer-events: all;
+	clip: unset;
+	white-space: unset;
+}
+
+.multi-step .promo-popup__wrapper:nth-of-type(2) .promo-popup-description,
+.multi-step .promo-popup__wrapper:nth-of-type(2) .promo-popup__media-wrapper {
+	display: none;
+}
