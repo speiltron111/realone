@@ -1,0 +1,227 @@
+{{ 'section-images-grid.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top | divided_by: 18.7 }}rem;
+      padding-bottom: {{ section.settings.padding_bottom | divided_by: 18.7 }}rem;
+    }
+  }
+  @media screen and (min-width: 750px) and (max-width: 1199px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top | divided_by: 15.0 }}rem;
+      padding-bottom: {{ section.settings.padding_bottom | divided_by: 15.0 }}rem;
+    }
+  }
+  @media screen and (min-width: 1200px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top | divided_by: 10.0 }}rem;
+      padding-bottom: {{ section.settings.padding_bottom | divided_by: 10.0 }}rem;
+    }
+  }
+
+  {% if section.settings.color_bg != blank %}
+    #shopify-section-{{ section.id }} {
+      background-color: {{ section.settings.color_bg }};
+    }
+  {% endif %}
+
+  {% if section.settings.column_gap %}
+		@media screen and (min-width: 750px) {
+			#shopify-section-{{ section.id }} .images-list {
+				gap: 0;
+			}
+		}
+  {% endif %}
+  {% if section.settings.column_gap_mobile %}
+		@media screen and (max-width: 749px) {
+			#shopify-section-{{ section.id }} .images-list {
+				gap: 0;
+			}
+		}
+  {% endif %}
+	{% if section.settings.image_width != 50 %}
+		@media screen and (min-width: 750px) {
+			{% if section.settings.img_position == 'height_right' %}
+					#shopify-section-{{ section.id }} .images-list {
+							grid-template-columns: calc(50% - ({{ section.settings.image_width }}% - 50%)) calc(50% + ({{section.settings.image_width}}% - 50%));
+					}
+			{% endif %}
+			{% if section.settings.img_position == 'height_left' %}
+					#shopify-section-{{ section.id }} .images-list {
+						grid-template-columns: calc(50% + ({{ section.settings.image_width }}% - 50%)) calc(50% - ({{section.settings.image_width}}% - 50%));
+					}
+			{% endif %}
+		}
+	{% endif %}
+{%- endstyle -%}
+
+<div class="images-grid">
+  <div class="page-width">
+    <ul class="images-list
+    {% if section.blocks.size == 2 %} grid--2-img{% elsif section.blocks.size == 3 %} grid--3-img{% elsif section.blocks.size >= 4 %} grid--4-img{%- endif -%}
+    {% if section.blocks.size == 3 and section.settings.img_position == 'height_left' %} img-left
+    {% elsif section.blocks.size == 3 and section.settings.img_position == 'width_top' %} img-top
+    {% elsif section.blocks.size == 3 and section.settings.img_position == 'width_bottom' %} img-bottom{%- endif -%}">
+      {%- for block in section.blocks -%}
+        <li class="images__item {% if section.settings.image_borders %} with-borders{% endif %}" {{ block.shopify_attributes }}>
+          {%- if block.settings.image != blank -%}
+            <div class="images-card">
+                {%- capture sizes -%}
+                  (min-width: 990px) 
+                    {% if section.blocks.size <= 2 %}
+                      710px
+                    {% else %}
+                      550px
+                    {% endif %}
+                      , calc(100vw - 30px)
+                {%- endcapture -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 550
+                  | image_tag: 
+                    loading: 'lazy', 
+                    width: block.settings.image.width,
+                    height: block.settings.image.height,
+                    sizes: sizes,
+                    widths: '275, 375, 450, 500, 550, 650, 750, 850, 950, 1100, 1300, 1440'
+                }}
+            </div>
+          {%- else -%}
+            <div class="images-card">
+              {%- capture current -%}{% cycle 1, 2, 3, 4, 5, 6 %}{%- endcapture -%}
+              {{ 'collection-' | append: current | placeholder_svg_tag }}
+            </div>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Images grid",
+  "class": "spaced-section spaced-section--full-width",
+  "tag": "section",
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "img_position",
+      "options": [
+        {
+          "value": "height_right",
+          "label": "Full height image right"
+        },
+        {
+          "value": "height_left",
+          "label": "Full height image left"
+        },
+        {
+          "value": "width_top",
+          "label": "Full width image top"
+        },
+        {
+          "value": "width_bottom",
+          "label": "Full width image bottom"
+        }
+      ],
+      "default": "height_right",
+      "label": "Image position (for 3 images)",
+      "info": "Choose third image position"
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "min": 30,
+      "max": 70,
+      "step": 1,
+      "unit": "%",
+      "label": "t:sections.images_grid.settings.image_width.label",
+      "default": 50
+    },
+    {
+      "type": "checkbox",
+      "id": "column_gap",
+      "default": false,
+      "label": "t:sections.images_grid.settings.column_gap.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "column_gap_mobile",
+      "default": false,
+      "label": "t:sections.images_grid.settings.column_gap.label_2"
+    },
+    {
+      "type": "checkbox",
+      "id": "image_borders",
+      "default": false,
+      "label": "t:sections.images_grid.settings.image_borders.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 70
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 70
+    },
+    {
+      "type": "color",
+      "id": "color_bg",
+      "label": "Background color"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "t:sections.multicolumn.blocks.column.name",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.multicolumn.blocks.column.settings.image.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Images grid",
+      "blocks": [
+        {
+          "type": "column"
+        },
+        {
+          "type": "column"
+        },
+        {
+          "type": "column"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

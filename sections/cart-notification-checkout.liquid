@@ -1,0 +1,13 @@
+<span>
+    {{ 'sections.cart.checkout' | t }}
+</span>
+-
+{% if settings.show_money_with_currency %}
+    <span id='cart-notification-subtotal' class="cart-notification-subtotal">
+        <span id="cartNotificationSubtotal">{{ cart.total_price | money_with_currency }}</span>
+    </span>
+{% else %}
+    <span id='cart-notification-subtotal' class="cart-notification-subtotal">
+        <span id="cartNotificationSubtotal">{{ cart.total_price | money }}</span>
+    </span>
+{% endif %}

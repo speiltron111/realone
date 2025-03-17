@@ -1,0 +1,184 @@
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
+{
+  "name": "Footer",
+  "type": "footer",
+  "sections": {
+    "mobile-sticky-bar": {
+      "type": "mobile-sticky-bar",
+      "blocks": {
+        "mobile-sticky-bar-0": {
+          "type": "home",
+          "settings": {
+          }
+        },
+        "mobile-sticky-bar-1": {
+          "type": "collection",
+          "settings": {
+          }
+        },
+        "mobile-sticky-bar-2": {
+          "type": "cart",
+          "settings": {
+          }
+        },
+        "mobile-sticky-bar-3": {
+          "type": "search",
+          "settings": {
+          }
+        },
+        "af0f5ca3-ef0f-477a-9dcd-5ae31d445ea8": {
+          "type": "account",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "mobile-sticky-bar-0",
+        "mobile-sticky-bar-1",
+        "mobile-sticky-bar-2",
+        "mobile-sticky-bar-3",
+        "af0f5ca3-ef0f-477a-9dcd-5ae31d445ea8"
+      ],
+      "settings": {
+        "hide_bar": false,
+        "show_line_separator": true,
+        "show_grid_lines": false,
+        "color_bg": "background-2",
+        "color_text": "text-main"
+      }
+    },
+    "scroll-to-top": {
+      "type": "scroll-to-top",
+      "settings": {
+        "hide_button": false,
+        "borders": false,
+        "button_style": "square",
+        "button_color": "second",
+        "arrow_style": "arrow"
+      }
+    },
+    "promo-popup": {
+      "type": "promo-popup",
+      "disabled": true,
+      "settings": {
+        "enable_promo_popup": true,
+        "enable_in_customizer": false,
+        "popup_type": "popup_subscribe",
+        "popup_style": "",
+        "image_width": "full-width",
+        "image_ratio": "media--110",
+        "popup_heading": "<p>Add campaign or promotional text here.</p>",
+        "popup_description": "<p>Add descriptive text to invite your users to sign up for your newsletter.</p>",
+        "heading_color": "color-text-main",
+        "heading_size": "h2",
+        "text_size": "body-fs-medium",
+        "button_style": "btn_secondary",
+        "button_type": "button",
+        "popup_tag": "Discount code.",
+        "popup_timeout": 13,
+        "popup_times": 3,
+        "background_color": "#f9f5f0",
+        "discount_popup_heading": "<p>Congratulations! You’ve successfully joined our list</p>",
+        "discount_popup_description": "<p>Stay tuned for further updates</p>",
+        "discount_promocode": "Promo",
+        "discount_background": "#e3cdb4",
+        "discount_button_label": "Copy code",
+        "discount_button_style": "btn_secondary",
+        "button_type_d": "button",
+        "discount_background_color": "#f9f5f0"
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "footer-0": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Catalog",
+            "menu": "footer"
+          }
+        },
+        "0dd5981d-48c8-4f18-8013-8b4b70601751": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Trending Now",
+            "menu": "footer"
+          }
+        },
+        "f031e7c2-1d50-4474-9b0f-18feba18429d": {
+          "type": "link_list",
+          "settings": {
+            "heading": "About us",
+            "menu": "footer"
+          }
+        },
+        "2e1daab2-f5a2-42e4-a186-2cd70f487aa8": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Customer Service",
+            "menu": "footer"
+          }
+        }
+      },
+      "block_order": [
+        "footer-0",
+        "0dd5981d-48c8-4f18-8013-8b4b70601751",
+        "f031e7c2-1d50-4474-9b0f-18feba18429d",
+        "2e1daab2-f5a2-42e4-a186-2cd70f487aa8"
+      ],
+      "settings": {
+        "show_logo": true,
+        "color_bg": "background-4",
+        "color_text": "text-secondary",
+        "hover_color_text": "hover-color-text-secondary",
+        "hover_color_text_custom": "#e2d5c5",
+        "heading_font": "hf-body",
+        "heading_font_weight": "normal",
+        "selectors_font_size": "",
+        "newsletter_enable": true,
+        "newsletter_heading": "Newsletter",
+        "newsletter_description": "Add descriptive text to invite your users to sign up for your newsletter.",
+        "newsletter_placeholder": "Enter your email",
+        "newsletter_button": "Sign Up",
+        "button_style": "btn_primary",
+        "button_type": "button",
+        "newsletter_note": "Write a short sentence about what customers can expect from subcribing your newsletter.",
+        "show_social": true,
+        "social_heading": "Follow Us",
+        "enable_follow_on_shop": true,
+        "enable_country_selector": true,
+        "enable_country_selector_label": true,
+        "enable_language_selector": true,
+        "enable_language_selector_label": true,
+        "theme_policy": "",
+        "note_style": "",
+        "payment_enable": true,
+        "payment_heading": "Payments",
+        "payments_heading_font": "hf-body",
+        "payments_heading_size": "h5",
+        "show_copyright": true,
+        "add_menu_menu": "",
+        "add_menu_color_bg": "background-4",
+        "add_menu_color_text": "text-secondary",
+        "add_top_line": true,
+        "add_copyright_line": false,
+        "padding_top": 100,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": [
+    "mobile-sticky-bar",
+    "scroll-to-top",
+    "promo-popup",
+    "footer"
+  ]
+}

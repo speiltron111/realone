@@ -1,0 +1,325 @@
+{%- style -%}
+  .template-404 {
+		position: relative;
+    padding-top: 24rem;
+    padding-bottom: 26rem;
+  }
+
+  @media screen and (max-width: 1600px) {
+    .template-404 {
+      padding-top: 20rem;
+      padding-bottom: 22rem;
+    }
+  }
+
+  @media screen and (max-width: 549px) {
+    .template-404 {
+      padding-top: 10rem;
+      padding-bottom: 12rem;
+    }
+  }
+
+  .template-404 .title + * {
+    margin-top: 1rem;
+  }
+  
+  .template-404 .title {
+    margin-top: 0;
+    margin-bottom: 4rem;
+    font-weight: {{ section.settings.heading_weight }}
+  }
+
+  .template-404 .subtitle {
+    font-size: 2.4rem;
+    margin-bottom: 3rem;
+    font-weight: 500;
+  }
+
+  .template-404 .rte a:hover *,
+  .template-404 .rte a:hover {
+		color: inherit;
+	}
+  .template-404 .rte strong {
+    font-weight: 600;
+  }
+
+  @media screen and (min-width: 750px) {
+    .template-404 .title + * {
+      margin-top: 2rem;
+    }
+  }
+
+  #shopify-section-{{ section.id }} .template-404 {
+    background-position: bottom left;
+    background-repeat: no-repeat;
+    {% if section.settings.color_bg != blank %}
+      background-color: {{ section.settings.color_bg }};
+    {% endif %}
+  }
+
+  @media screen and (max-width: 1200px) {
+    #shopify-section-{{ section.id }} .template-404 {
+      background-size: 30%;
+    }
+  }
+
+  @media screen and (min-width: 750px) {
+		{% if  section.settings.letter_spacing != 0 %}
+			#shopify-section-{{ section.id }} .title {
+				letter-spacing: {{ section.settings.letter_spacing }}rem;
+			}
+		{% endif %}
+	}
+
+	{% if section.settings.image != blank %}
+		.template-404__overlay {
+			position: absolute;
+			top: 0;
+			right: 0;
+			max-width: 25%;
+		}
+		.template-404__overlay img {
+			width: 100%;
+			height: auto;
+		}
+		@media screen and (max-width: 1200px) {
+			.template-404__overlay {
+				max-width: 30%;
+			}
+		}
+	{%- endif -%}
+
+	{% if section.settings.text_2 != blank %}
+		#shopify-section-{{ section.id }} a:has(.replace-color) {
+			color: {{ section.settings.text_color_2 }};
+		}
+	{% endif %}
+{%- endstyle -%}
+
+{% assign bg_image1 = 'insta-bg.png' | asset_img_url: width: 400 %}
+{% assign bg_image2 = section.settings.image_for_text | image_url: width: 400 %}
+
+
+<div class="template-404 center" {% if section.settings.add_image_for_text %} style="background-image: url('{% if section.settings.image_for_text != blank %}{{ bg_image2 }}{%- else -%}{{ bg_image1 }}{%- endif -%}');"{% endif %}>
+	{% if section.settings.image != blank and section.settings.add_image_for_text %}
+		{%- liquid
+			assign image_height = section.settings.image.width | divided_by: section.settings.image.aspect_ratio
+		-%}
+		<div class="template-404__overlay">
+			{{
+				section.settings.image
+				| image_url: width: 480
+				| image_tag:
+					loading: 'lazy',
+					width: section.settings.image.width,
+					height: image_height
+			}}
+		</div>
+	{%- endif -%}
+	<div class="page-width">
+    <h1 class="title {{ section.settings.color_header }} {{ section.settings.heading_style }}">
+			
+			{% if section.settings.text_2 != blank %}
+				{% liquid
+					assign wordList = section.settings.text_2 | split: ', '
+					assign textToReplace = 'templates.404.title' | t
+				%}
+				{% for word in wordList %}
+					{% liquid
+						assign replace_text = '<<<-' | append: section.settings.text_color_2 | append: '"">' | append: word | append: '->>>'
+						assign textToReplace = textToReplace | replace: word, replace_text
+					%}
+				{% endfor %}
+				{% assign textToReplace = textToReplace | replace: '<<<-', '<span class="replace-color" style="color:' %}
+				{% assign textToReplace = textToReplace | replace: '->>>', '</span>' %}
+				{{ textToReplace }}
+			{% else %}
+				{{ 'templates.404.title' | t }}
+			{% endif %}
+
+    </h1>
+    <p class="{{ section.settings.color_subtitle }} subtitle{% if section.settings.heading_font == 'hf-heading' %} heading-font{% endif %}">
+      {{ 'templates.404.subtext' | t }}
+    </p>
+    <div class="rte {{ section.settings.color_rte }}">
+      {{ section.settings.text }}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "main-404",
+  "tag": "section",
+  "class": "spaced-section spaced-section--full-width",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_header",
+      "options": [
+        {
+          "value": "color-text-main",
+          "label": "Main"
+        },
+        {
+          "value": "color-text-secondary",
+          "label": "Secondary"
+        },
+        {
+          "value": "color-general-heading",
+          "label": "Heading"
+        }
+      ],
+      "default": "color-text-main",
+      "label": "Heading color"
+    },
+    {
+      "type": "select",
+      "id": "heading_weight",
+      "options": [
+        {
+          "value": "var(--font-heading-weight)",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "label": "Heading font weight",
+      "default": "var(--font-heading-weight)"
+    },
+    {
+      "type": "select",
+      "id": "heading_style",
+      "options": [
+        {
+          "value": "",
+          "label": "Default"
+        },
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        }
+      ],
+      "label": "Heading style",
+      "default": ""
+    },
+    {
+      "type": "range",
+      "id": "letter_spacing",
+      "min": 0,
+      "max": 5,
+      "step": 0.1,
+      "unit": "px",
+      "label": "Heading letter spacing",
+      "default": 0
+    },
+    {
+      "type": "text",
+      "id": "text_2",
+      "label": "Color-changing text",
+      "info": "Case-sensitive. To change the colors of words that are not next to each other, use a comma. For example 'shipping, shop'"
+    },
+		{
+      "type": "color",
+      "id": "text_color_2",
+      "info": "Highlight individual words using different color.",
+      "label": "Сustom color"
+    },
+    {
+      "type": "select",
+      "id": "color_subtitle",
+      "options": [
+        {
+          "value": "color-text-main",
+          "label": "Main"
+        },
+        {
+          "value": "color-text-secondary",
+          "label": "Secondary"
+        },
+        {
+          "value": "color-general-heading",
+          "label": "Heading"
+        }
+      ],
+      "default": "color-text-main",
+      "label": "Description color"
+    },
+    {
+      "type": "select",
+      "id": "color_rte",
+      "options": [
+        {
+          "value": "color-text-main",
+          "label": "Main"
+        },
+        {
+          "value": "color-text-secondary",
+          "label": "Secondary"
+        },
+        {
+          "value": "color-general-heading",
+          "label": "Heading"
+        }
+      ],
+      "default": "color-text-main",
+      "label": "Text color"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "default": "<p>Please make sure the web address is correct, or try the <a href='/'>Home page</a></p>",
+      "label": "Text",
+      "info": "Choose '/' for link to home page"
+    },
+    {
+      "type": "select",
+      "id": "heading_font",
+      "options": [
+        {
+          "value": "hf-heading",
+          "label": "Heading"
+        },
+        {
+          "value": "hf-body",
+          "label": "Body"
+        }
+      ],
+      "default": "hf-body",
+      "label": "Text font"
+    },
+    {
+      "type": "checkbox",
+      "id": "add_image_for_text",
+      "default": true,
+      "label": "Enable overlay for text"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_for_text",
+      "label": "Left image overlay"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Right image overlay"
+    },
+    {
+      "type": "color",
+      "id": "color_bg",
+      "label": "Background color",
+      "default": "#EDECE9"
+    }
+  ]
+}
+{% endschema %}

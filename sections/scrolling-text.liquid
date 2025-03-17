@@ -1,0 +1,767 @@
+{{ 'scrolling-text.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+
+  #shopify-section-{{ section.id }} .scrolling-text.direction-left > div {
+    animation: scroll-left {{ section.settings.scroll_speed }}s linear infinite; 
+  }
+  #shopify-section-{{ section.id }} .scrolling-text.direction-right > div {
+    animation: scroll-right {{ section.settings.scroll_speed }}s linear infinite; 
+  }
+  #shopify-section-{{ section.id }} .scrolling-item--text {
+    font-size: {{ section.settings.text_size | divided_by: 10.0 | times: 0.75 | round: 1 }}rem;
+    margin: 0;
+  }
+	@media screen and (min-width: 1200px) {
+		#shopify-section-{{ section.id }} .scrolling-item--text {
+			font-size: {{ section.settings.text_size | divided_by: 10.0 }}rem;
+		}
+	}
+  {% if section.settings.background_color != blank %}
+    #shopify-section-{{ section.id }} {
+      background-color: {{ section.settings.background_color }};
+    }
+  {% endif %}
+  {% if section.settings.color_bg_gradient %}
+    #shopify-section-{{ section.id }} {
+      background: {{ section.settings.color_bg_gradient }};
+    }
+  {% endif %}
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.section_top_padding | divided_by: 18.7 }}rem;
+      padding-bottom: {{ section.settings.section_bottom_padding | divided_by: 18.7 }}rem;
+    }
+  }
+  @media screen and (min-width: 750px) and (max-width: 1199px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.section_top_padding | divided_by: 15.0 }}rem;
+      padding-bottom: {{ section.settings.section_bottom_padding | divided_by: 15.0 }}rem;
+    }
+  }
+  @media screen and (min-width: 1200px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.section_top_padding | divided_by: 10.0 }}rem;
+      padding-bottom: {{ section.settings.section_bottom_padding | divided_by: 10.0 }}rem;
+    }
+  }
+
+  @keyframes scroll-left {
+    0% {
+      transform: translateX(0%); 
+    }
+    100% {
+      transform: translateX(-100%); 
+    } 
+  }
+
+  @keyframes scroll-right {
+    0% {
+      transform: translateX(-100%); 
+    }
+    100% {
+      transform: translateX(0%); 
+    } 
+  }
+
+  {% if request.design_mode and section.settings.enable_in_customizer %}
+		@media screen and (min-width: 750px) {
+			#shopify-section-{{ section.id }} .scrolling-text-modal {
+				display: block!important;
+			}
+		}
+  {% endif %}
+
+	{% if  section.settings.heading_letter_spacing != blank %}
+  
+		#shopify-section-{{ section.id }} .scrolling-item--text {
+			letter-spacing: {{ section.settings.heading_letter_spacing }}rem;
+		}
+	{% endif %}
+
+	{% if settings.placeholder_color != blank and settings.form_style_enabled == true %}
+    #shopify-section-{{ section.id }} .field__label {
+			color: {{ settings.placeholder_color }};
+    }
+  {% endif %}
+
+{% endstyle %}
+
+<div class="scrolling-text-popup">
+  <div class="scrolling-text direction-left">
+    <div>
+      {%- for block in section.blocks -%}
+				{% case block.type %}
+          {%- when 'icon' -%}
+            <div class="scrolling-item icon">
+              {% if block.settings.image != blank %}
+                {%- assign widths = '165, 360, 535, 750' -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 500
+                  | image_tag: loading: 'lazy', sizes: '500px', widths: widths
+                }}
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
+              {%- endif -%}
+            </div>
+          {%- when 'item' -%}
+            <div  style="color: {{ block.settings.text_color }};" class="scrolling-item scrolling-item--text rte {{ section.settings.text_weight }} {% if section.settings.heading_font == 'hf-heading' %} heading-font{% endif %}" {{ block.shopify_attributes }}>
+              {{ block.settings.section_title }}
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+    <div>
+      {%- for block in section.blocks -%}
+				{% case block.type %}
+          {%- when 'icon' -%}
+            <div class="scrolling-item icon">
+              {% if block.settings.image != blank %}
+                {%- assign widths = '165, 360, 535, 750' -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 500
+                  | image_tag: loading: 'lazy', sizes: '500px', widths: widths
+                }}
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
+              {%- endif -%}
+            </div>
+          {%- when 'item' -%}
+            <div  style="color: {{ block.settings.text_color }};" class="scrolling-item scrolling-item--text rte {{ section.settings.text_weight }} {% if section.settings.heading_font == 'hf-heading' %} heading-font{% endif %}" {{ block.shopify_attributes }}>
+              {{ block.settings.section_title }}
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+    <div>
+      {%- for block in section.blocks -%}
+				{% case block.type %}
+          {%- when 'icon' -%}
+            <div class="scrolling-item icon">
+              {% if block.settings.image != blank %}
+                {%- assign widths = '165, 360, 535, 750' -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 500
+                  | image_tag: loading: 'lazy', sizes: '500px', widths: widths
+                }}
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
+              {%- endif -%}
+            </div>
+          {%- when 'item' -%}
+            <div  style="color: {{ block.settings.text_color }};" class="scrolling-item scrolling-item--text rte {{ section.settings.text_weight }} {% if section.settings.heading_font == 'hf-heading' %} heading-font{% endif %}" {{ block.shopify_attributes }}>
+              {{ block.settings.section_title }}
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+    <div>
+      {%- for block in section.blocks -%}
+				{% case block.type %}
+          {%- when 'icon' -%}
+            <div class="scrolling-item icon">
+              {% if block.settings.image != blank %}
+                {%- assign widths = '165, 360, 535, 750' -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 500
+                  | image_tag: loading: 'lazy', sizes: '500px', widths: widths
+                }}
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
+              {%- endif -%}
+            </div>
+          {%- when 'item' -%}
+            <div  style="color: {{ block.settings.text_color }};" class="scrolling-item scrolling-item--text rte {{ section.settings.text_weight }} {% if section.settings.heading_font == 'hf-heading' %} heading-font{% endif %}" {{ block.shopify_attributes }}>
+              {{ block.settings.section_title }}
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+
+	{% liquid
+    assign button_style_type = 'button'
+    assign button_icon = false
+    if section.settings.button_type == 'button_icon'
+			assign button_icon = true
+		elsif section.settings.button_type == 'button_outline'
+      assign button_style_type = 'button btn-bg-transparent'
+		elsif section.settings.button_type == 'button_outline_icon'
+			assign button_style_type = 'button btn-bg-transparent'
+			assign button_icon = true
+    elsif section.settings.button_type == 'inline_button'
+      assign button_style_type = 'link link-no-underline'
+      assign button_icon = true
+		elsif section.settings.button_type == 'button_with_underline'
+			assign button_style_type = 'link link-with-underline'
+			assign button_icon = false
+    elsif section.settings.button_type == 'button_underline'
+      assign button_style_type = 'link underlined-link'
+      assign button_icon = true
+    endif 
+  %}
+
+  {%- if section.settings.button_label != blank -%}
+
+    <a {% if section.settings.button_link != blank and section.settings.show_popup == false %} href="{{ section.settings.button_link }}"{% elsif section.settings.show_popup == true %} href="javascript:void(0)"{% endif %}class="{% if section.settings.show_popup %}btn-modal {% endif %}{{ button_style_type }}{% if section.settings.button_style == 'btn_secondary' %} button-secondary{% endif %}{% if settings.link_icon != blank and button_icon == true %} button-with-icon{% endif %}{% if settings.color_events_button_bg_hover_gradient != blank and button_style_type == 'button btn-bg-transparent' %} gradient--hover {% endif %}{% if section.settings.button_style == 'btn_primary' and settings.color_primery_button_bg_gradient != blank %} gradient gradient--primary{% endif %} {% if section.settings.button_style == 'btn_secondary' and settings.color_secondary_button_bg_gradient != blank %} gradient gradient--secondary {% endif %}">
+
+      {% if settings.link_icon != blank and button_icon == true %} 
+        <span class="link-text">
+          {{ section.settings.button_label | escape }}
+        </span>
+        <span class='link-icon'>
+          {{ settings.link_icon }}
+        </span>
+      {% else %}
+        {{ section.settings.button_label | escape }}
+      {% endif %}
+    </a>
+  {%- endif -%}
+
+  {%- if section.settings.show_popup and section.settings.button_label != blank -%}
+
+    {% form 'customer', id: 'scrolltext-form', class: 'scrolling-text-form' %}
+
+      <div class="scrolling-text-modal{% if form.posted_successfully? %} posted-successfully{% endif %}" style="display: none;">
+        <div class="scrolling-text-modal-container">
+          <div class="scrolling-text-modal-content" style="background-color: {{ section.settings.popup_background_color }};">
+            <span class="scrolling-text-modal-close"></span>
+
+            <h2 class="scrolling-text-modal-title">
+              {{ section.settings.popup_heading }}
+            </h2>
+            
+            {%- if form.posted_successfully? -%}
+
+              <h2 class="scrolling-text-modal-title success" style="display: none;">
+                {% render 'icon-success' %}{{ 'newsletter.success' | t }}
+              </h2>
+
+              {% if section.settings.popup_background_image != blank %}
+                <style>
+                  #shopify-section-{{ section.id }} .thank-you-message .scrolling-text-modal-content {
+                    background-image: url('{{ section.settings.popup_background_image | image_url: width: 800 }}');
+                  }
+                </style> 
+              {% endif %}
+
+            {%- endif -%}
+
+            <div class="scrolling-text-modal-description">
+              {{ section.settings.popup_description }}
+            </div>
+
+            <div class="form-wrapp">
+                <input type="hidden" name="contact[tags]" value="{{ section.settings.popup_tag }}">
+                <div class="scrolling-text-form__field-wrapper">
+                  <div class="field">
+                    <input id="scrolling-ContactForm-name-{{ section.id }}" class="field__input" autocomplete="first_name" type="text" id="SubscribeForm--firstname" name="contact[first_name]" value="" placeholder="First Name*" required>
+                    <label class="field__label {% if settings.form_style_enabled == true %}{{settings.placeholder_style}} {{settings.placeholder_weight}} {% endif %}" for="scrolling-ContactForm-name-{{ section.id }}">Name*</label>
+                  </div>
+
+                  <div class="field">
+                    <input
+                      id="NewsletterForm--{{ section.id }}"
+                      type="email"
+                      name="contact[email]"
+                      class="field__input"
+                      value="{{ form.email }}"
+                      aria-required="true"
+                      autocorrect="off"
+                      autocapitalize="off"
+                      autocomplete="email"
+                      {% if form.errors %}
+                        autofocus
+                        aria-invalid="true"
+                        aria-describedby="Newsletter-error--{{ section.id }}"
+                      {% elsif form.posted_successfully? %}
+                        aria-describedby="Newsletter-success--{{ section.id }}"
+                      {% endif %}
+                      placeholder="{{ 'newsletter.label' | t }}"
+                      required
+                    >
+                    <label class="field__label {% if settings.form_style_enabled == true %}{{settings.placeholder_style}} {{settings.placeholder_weight}} {% endif %}" for="NewsletterForm--{{ section.id }}">
+                      {{ 'newsletter.label' | t }}*
+                    </label>
+                  </div>
+
+                  <div class="field field-submit">
+										{% liquid
+											assign button_style_type_p = 'button'
+											assign button_icon_p = false
+											if section.settings.popup_button_type == 'button_icon'
+												assign button_icon_p = true
+											elsif section.settings.popup_button_type == 'button_outline'
+												assign button_style_type_p = 'button btn-bg-transparent'
+											elsif section.settings.popup_button_type == 'button_outline_icon'
+												assign button_style_type_p = 'button btn-bg-transparent'
+												assign button_icon_p = true
+											elsif section.settings.popup_button_type == 'inline_button'
+												assign button_style_type_p = 'link link-no-underline'
+												assign button_icon_p = true
+											elsif section.settings.popup_button_type == 'button_with_underline'
+												assign button_style_type_p = 'link link-with-underline'
+												assign button_icon_p = false
+											elsif section.settings.popup_button_type == 'button_underline'
+												assign button_style_type_p = 'link underlined-link'
+												assign button_icon_p = true
+											endif 
+										%}
+                    <button type="submit" class="{{ button_style_type_p }}{% if section.settings.popup_button_style == 'btn_secondary' %} button-secondary{% endif %} {% if settings.color_events_button_bg_hover_gradient != blank and button_style_type_p == 'button btn-bg-transparent' %} gradient--hover {% endif %}{{ section.settings.button_width }} {% if button_icon_p == true %} button-with-icon{% endif %}{% if section.settings.popup_button_style == 'btn_primary' and settings.color_primery_button_bg_gradient != blank %} gradient gradient--primary{% endif %} {% if section.settings.popup_button_style == 'btn_secondary' and settings.color_secondary_button_bg_gradient != blank %} gradient gradient--secondary {% endif %}" name="commit" id="SubscribePopup" aria-label="{{ 'newsletter.button_label' | t }}">
+                      <span class="link-text">
+                        {{ 'newsletter.button_label' | t }}
+                      </span>
+                      <span class="link-icon">
+												{%- if button_icon_p == true -%}
+													{%- if settings.link_icon != blank -%}
+														{{ settings.link_icon }}
+													{%- else-%}
+														<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+															<path d="M6.99825 0L5.76481 1.23375L10.6461 6.125H0V7.875H10.6461L5.76481 12.7663L6.99825 14L13.9965 7L6.99825 0Z" fill="currentColor"/>
+														</svg>
+													{%- endif -%}
+												{%- endif -%}
+                      </span>
+                    </button>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {%- if form.errors -%}
+        <small class="newsletter-form__message form__message" id="Newsletter-error--{{ section.id }}">
+          {% render 'icon-error' %}{{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}
+        </small>
+      {%- endif -%}
+    {% endform %}
+
+    <script>
+
+      function scrollingTextModal() {
+
+        const buttonOpenModal = document.querySelector("#shopify-section-{{ section.id }} .btn-modal");
+        const buttonCloseModal = document.querySelector("#shopify-section-{{ section.id }} .scrolling-text-modal-close");
+        const modalWindow = document.querySelector("#shopify-section-{{ section.id }} .scrolling-text-modal");
+        const modalBody = document.querySelector("#shopify-section-{{ section.id }} .scrolling-text-modal-content");
+
+				if(buttonOpenModal) {
+					buttonOpenModal.addEventListener('click', function(event){
+						modalWindow.style.display = 'flex';
+						document.querySelector("body").classList.add('overflow-hidden');
+					});
+				}
+
+        buttonCloseModal.addEventListener('click', function (event) {
+          modalWindow.style.display = 'none';
+          document.querySelector("body").classList.remove('overflow-hidden');
+        });
+
+        window.click = function(event) {
+          if (event.target != modalBody) {
+            modalWindow.style.display = 'none';
+            document.querySelector("body").classList.remove('overflow-hidden');
+          }
+        }
+
+        const submitButton = document.querySelector("#shopify-section-{{ section.id }} #SubscribePopup");
+
+        submitButton.addEventListener('click', function (event) {
+          localStorage.setItem('submitButtonPosition', true);
+        });
+
+        const modalFormSubmitted = document.querySelector("#shopify-section-{{ section.id }} .scrolling-text-modal.posted-successfully");
+        let   modalFormSubmittedTimes = parseInt(localStorage.getItem('modalcounter') || 0);
+
+        setTimeout(() => {
+          if ( modalFormSubmitted && modalFormSubmittedTimes < 1 && localStorage.getItem('submitButtonPosition') == 'true' ) {
+            modalFormSubmitted.classList.add('thank-you-message');
+            modalFormSubmitted.style.display = 'flex';
+            document.querySelector(".scrolling-text-modal-title.success").style.display = 'flex';
+            document.querySelector("body").classList.add('overflow-hidden');
+            localStorage.setItem('modalcounter', ++modalFormSubmittedTimes);
+						localStorage.setItem('submitButtonPosition', false);
+          }
+
+					if ( localStorage.getItem('submitButtonPosition') == 'true' ) {
+            modalFormSubmitted.classList.add('thank-you-message');
+						document.querySelector(".scrolling-text-modal-title.success").style.display = 'flex';
+						document.querySelector(".scrolling-text-modal.posted-successfully").style.display = 'flex';
+						localStorage.setItem('submitButtonPosition', false);
+					}
+        }, 2000);
+
+      };
+
+      document.addEventListener('DOMContentLoaded', scrollingTextModal);
+      document.addEventListener('shopify:section:load', scrollingTextModal);
+
+    </script>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Scrolling text",
+  "tag": "section",
+  "class": "spaced-section spaced-section--full-width",
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Scroll settings"
+    },
+    {
+      "type": "range",
+      "id": "scroll_speed",
+      "min": 5,
+      "max": 60,
+      "step": 1,
+      "unit": "s",
+      "label": "Scroll speed",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Text settings"
+    },
+    {
+      "type": "select",
+      "id": "heading_font",
+      "options": [
+        {
+          "value": "hf-heading",
+          "label": "Heading"
+        },
+        {
+          "value": "hf-body",
+          "label": "Body"
+        }
+      ],
+      "default": "hf-heading",
+      "label": "Heading font"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "heading_letter_spacing",
+      "min": 0,
+      "max": 5,
+      "step": 0.1,
+      "unit": "px",
+      "label": "t:sections.all.letter_spacing",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "text_weight",
+      "options": [
+        {
+          "value": "weight-bold",
+          "label": "Bold"
+        },
+        {
+          "value": "weight-semi-bold",
+          "label": "Semi Bold"
+        },
+        {
+          "value": "weight-medium",
+          "label": "Medium"
+        },
+        {
+          "value": "weight-normal",
+          "label": "Normal"
+        },
+        {
+          "value": "weight-light",
+          "label": "Light"
+        }
+      ],
+      "default": "weight-normal",
+      "label": "Text weight"
+    },
+    {
+      "type": "header",
+      "content": "Button settings"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "t:sections.buttons.button_label",
+      "info": "t:sections.buttons.button_label_info"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "t:sections.buttons.button_link"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "options": [
+        {
+          "value": "btn_primary",
+          "label": "Primary"
+        },
+        {
+          "value": "btn_secondary",
+          "label": "Secondary"
+        }
+      ],
+      "default": "btn_secondary",
+      "label": "t:sections.buttons.button_color_style"
+    },
+    {
+      "type": "select",
+      "id": "button_type",
+      "options": [
+        {
+          "value": "button",
+          "label": "t:sections.buttons.select_button_default"
+        },
+        {
+          "value": "button_icon",
+          "label": "t:sections.buttons.select_button_default_icon"
+        },
+        {
+          "value": "button_outline",
+          "label": "t:sections.buttons.select_button_outline"
+        },
+        {
+          "value": "button_outline_icon",
+          "label": "t:sections.buttons.select_button_outline_icon"
+        },
+        {
+          "value": "inline_button",
+          "label": "t:sections.buttons.select_button_inline"
+        },
+        {
+          "value": "button_with_underline",
+          "label": "t:sections.buttons.select_button_with_underline"
+        },
+        {
+          "value": "button_underline",
+          "label": "t:sections.buttons.select_button_underline"
+        }
+      ],
+      "default": "button",
+      "label": "t:sections.buttons.select_button_type"
+    },
+    {
+      "type": "header",
+      "content": "Popup settings"
+    },
+    {
+      "type": "paragraph",
+      "content": "Open the subscription popup with a button click."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_popup",
+      "default": false,
+      "label": "Show popup"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_in_customizer",
+      "default": false,
+      "label": "Enable test mode",
+      "info": "Shows a popup example in the theme editor only."
+    },
+    {
+      "type": "richtext",
+      "id": "popup_heading",
+      "default": "<p>Add campaign or promotional text here.</p>",
+      "label": "Heading"
+    },
+    {
+      "type": "richtext",
+      "id": "popup_description",
+      "default": "<p>Add descriptive text to invite your users to sign up for your newsletter.</p>",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "popup_tag",
+      "default": "Coming soon",
+      "label": "Customer tag"
+    },
+    {
+      "type": "color",
+      "id": "popup_background_color",
+      "label": "Popup background color",
+      "default": "#F9F5F0"
+    },
+    {
+      "type": "image_picker",
+      "id": "popup_background_image",
+      "label": "Thank you message background image"
+    },
+    {
+      "type": "select",
+      "id": "popup_button_style",
+      "options": [
+        {
+          "value": "btn_primary",
+          "label": "Primary"
+        },
+        {
+          "value": "btn_secondary",
+          "label": "Secondary"
+        }
+      ],
+      "default": "btn_secondary",
+      "label": "t:sections.buttons.button_color_style"
+    },
+    {
+      "type": "select",
+      "id": "popup_button_type",
+      "options": [
+        {
+          "value": "button",
+          "label": "t:sections.buttons.select_button_default"
+        },
+        {
+          "value": "button_icon",
+          "label": "t:sections.buttons.select_button_default_icon"
+        },
+        {
+          "value": "button_outline",
+          "label": "t:sections.buttons.select_button_outline"
+        },
+        {
+          "value": "button_outline_icon",
+          "label": "t:sections.buttons.select_button_outline_icon"
+        },
+        {
+          "value": "inline_button",
+          "label": "t:sections.buttons.select_button_inline"
+        },
+        {
+          "value": "button_with_underline",
+          "label": "t:sections.buttons.select_button_with_underline"
+        },
+        {
+          "value": "button_underline",
+          "label": "t:sections.buttons.select_button_underline"
+        }
+      ],
+      "default": "button",
+      "label": "t:sections.buttons.select_button_type"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "section_top_padding",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "section_bottom_padding",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 30
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#f9f5f0"
+    },
+    {
+      "type": "color_background",
+      "id": "color_bg_gradient",
+      "label": "Background gradient",
+      "default": "linear-gradient(180deg, rgba(202, 175, 142, 1), rgba(226, 213, 197, 1) 100%)"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Scrolling text",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "section_title",
+          "default": "<p>Add campaign or promotional text here</p>",
+          "label": "Text"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "#FFFFFF"
+        }
+      ]
+    },
+    {
+      "type": "icon",
+      "name": "Icon",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.multicolumn.blocks.column.settings.image.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Scrolling text",
+      "blocks": [
+        {
+          "type": "item"
+        },
+        {
+          "type": "icon"
+        },
+        {
+          "type": "item"
+        },
+        {
+          "type": "icon"
+        },
+        {
+          "type": "item"
+        },
+        {
+          "type": "icon"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

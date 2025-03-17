@@ -1,0 +1,369 @@
+<link rel="stylesheet" href="{{ 'section-main-page.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-rte.css' | asset_url }}" media="print" onload="this.media='all'">
+
+<noscript>{{ 'section-main-page.css' | asset_url | stylesheet_tag }}</noscript>
+<noscript>{{ 'component-rte.css' | asset_url | stylesheet_tag }}</noscript>
+
+{% style %}
+  @media screen and (max-width: 749px) {
+    .banner-{{ section.id }}-padding {
+      padding-top: {{ section.settings.banner_padding_top | divided_by: 18.7 }}rem;
+      padding-bottom: {{ section.settings.banner_padding_bottom | divided_by: 18.7 }}rem;
+    }
+  }
+  @media screen and (min-width: 750px) and (max-width: 1199px) {
+    .banner-{{ section.id }}-padding {
+      padding-top: {{ section.settings.banner_padding_top | divided_by: 15.0 }}rem;
+      padding-bottom: {{ section.settings.banner_padding_bottom | divided_by: 15.0 }}rem;
+    }
+  }
+  @media screen and (min-width: 1200px) {
+    .banner-{{ section.id }}-padding {
+      padding-top: {{ section.settings.banner_padding_top | divided_by: 10.0 }}rem;
+      padding-bottom: {{ section.settings.banner_padding_bottom | divided_by: 10.0 }}rem;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .content-{{ section.id }}-padding {
+      padding-top: {{ section.settings.content_padding_top | divided_by: 18.7 }}rem;
+      padding-bottom: {{ section.settings.content_padding_bottom | divided_by: 18.7 }}rem;
+    }
+  }
+  @media screen and (min-width: 750px) and (max-width: 1199px) {
+    .content-{{ section.id }}-padding {
+      padding-top: {{ section.settings.content_padding_top | divided_by: 15.0 }}rem;
+      padding-bottom: {{ section.settings.content_padding_bottom | divided_by: 15.0 }}rem;
+    }
+  }
+  @media screen and (min-width: 1200px) {
+    .content-{{ section.id }}-padding {
+      padding-top: {{ section.settings.content_padding_top | divided_by: 10.0 }}rem;
+      padding-bottom: {{ section.settings.content_padding_bottom | divided_by: 10.0 }}rem;
+    }
+  }
+
+  {% if section.settings.color_bg != blank %}
+    #shopify-section-{{ section.id }} {
+      background-color: {{ section.settings.color_bg }};
+    }
+  {% endif %}
+  {% if section.settings.image_bg != blank and section.settings.image_full_width == false %}
+    #shopify-section-{{ section.id }} .main-page-banner {
+      background-color: {{ section.settings.color_bg }};
+      padding-bottom: 6rem;
+      margin-bottom: 45rem;
+    }
+    @media screen and (max-width: 1199px) {
+      #shopify-section-{{ section.id }} .main-page-banner {
+        margin-bottom: 40rem;
+      }
+    }
+    @media screen and (max-width: 949px) {
+      #shopify-section-{{ section.id }} .main-page-banner {
+        margin-bottom: 28rem;
+        padding-bottom: 18rem;
+      }
+    }
+    @media screen and (max-width: 749px) {
+      #shopify-section-{{ section.id }} .main-page-banner {
+        padding-bottom: 15rem;
+      }
+    }
+  {% endif %}
+  {% if section.settings.enable_description_max_width %}
+    #shopify-section-{{ section.id }} .section-title .description {
+      max-width: {{ section.settings.description_max_width | divided_by: 10 }}rem;
+      margin-right: auto;
+      margin-left: auto;
+    }
+  {% endif %}
+
+	@media screen and (min-width: 750px) {
+		{% if  section.settings.heading_letter_spacing != 0 %}
+			#shopify-section-{{ section.id }} .title-wrapper .title {
+				letter-spacing: {{ section.settings.heading_letter_spacing }}rem;
+			}
+		{% endif %}
+	}
+{% if section.settings.title_text != blank %}
+	#shopify-section-{{ section.id }} a:has(.replace-color) {
+		color: {{ section.settings.title_color }};
+	}
+{% endif %}
+{% endstyle %}
+
+<div class="main-page-banner banner-{{ section.id }}-padding">
+  <div class="page-width page-width--narrow{% if section.settings.image_full_width %} banner-title-full-width{% endif %}">
+    <div class="section-title{% if settings.theme_animations != 'no-animation' %} aside-text scroll-animation{% endif %}">
+      <div class="title-wrapper {{ section.settings.text_color }}">
+        <h1 class="h1 title title--primary {{ section.settings.heading_style }} {{ section.settings.text_color }}">
+						{% liquid
+							assign textToReplace = page.title
+							if section.settings.title != blank
+								assign textToReplace = section.settings.title
+							endif
+						%}
+						{% if section.settings.title_text != blank %}
+							{% assign wordList = section.settings.title_text | split: ', ' %}
+							{% assign content = '' %}
+							{% assign result = '' %}
+							{% assign insideTag = false %}
+	
+							{% for char in textToReplace %}
+								{% if insideTag %}
+									{% if char == '>' %}
+										{% assign insideTag = false %}
+									{% endif %}
+									{% assign result = result | append: char %}
+								{% else %}
+									{% if char == '<' or forloop.last %}
+										{% assign insideTag = true %}
+										{% if forloop.last %}
+											{% assign content = content | append: char %}
+										{% endif %}
+										{% for word in wordList %}
+											{% assign replace_text = '<<<' | append: section.settings.title_color | append: '">' | append: word | append: '>>>' %}
+											{% assign content = content | replace: word, replace_text %}
+										{% endfor %}
+	
+										{% assign content = content | replace: '<<<', '<span class="replace-color" style="color:' %}
+										{% assign content = content | replace: '>>>', '</span>' %}
+										{% assign result = result | append: content %}
+										{% assign content = '' %}
+										{% if forloop.last != true %}
+											{% assign result = result | append: char %}
+										{% endif %}
+									{% else %}
+										{% assign content = content | append: char %}
+									{% endif %}
+								{% endif %}
+	
+							{% endfor %}
+				
+							{{ result }}
+						{% else %}
+							{{ textToReplace }}
+						{% endif %} 
+        </h1>
+  
+        {% if section.settings.description != blank %}
+          <div class="description rte {{ section.settings.text_color }}">
+            {{ section.settings.description }}
+          </div>
+        {% endif %}
+  
+        {% if section.settings.show_page_breadcrumbs %}
+          {% 
+						render 'breadcrumb' %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  {%- if section.settings.image_bg != blank -%}
+    <div class="page-width{% if section.settings.image_full_width %} banner-image-full-width{% endif %}">
+      <div class="baner-hero__image-container media{% if settings.theme_animations != 'no-animation' %} aside-media scroll-animation{% endif %}">
+          {{
+            section.settings.image_bg
+            | image_url: width: 1840
+            | image_tag:
+              loading: 'lazy',
+              width: section.settings.image_bg.width,
+              height: section.settings.image_bg.height,
+              sizes: '100vw',
+              widths: '375, 550, 750, 950, 1100, 1360, 1440, 1500, 1600, 1780, 1900, 2000'
+          }}
+      </div>
+    </div>
+  {%- endif -%}
+</div>
+
+{%- if page.content != blank -%}
+  <div class="page-width page-width--narrow content-{{ section.id }}-padding">
+    <div class="rte {{ section.settings.text_color }}">
+      {{ page.content }}
+    </div>
+  </div>
+{%- endif -%}
+
+
+{% schema %}
+{
+  "name": "t:sections.main-page.name",
+  "tag": "section",
+  "class": "page-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Banner settings"
+    },
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "t:sections.main-page.settings.title.label"
+    },
+		{
+			"type": "text",
+			"id": "title_text",
+			"label": "Color-changing text",
+			"info": "Case-sensitive. To change the colors of words that are not next to each other, use a comma. For example 'shipping, shop'"
+		},
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Custom color",
+      "info": "Highlight individual words using different color.."
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "t:sections.main-page.settings.description.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_description_max_width",
+      "default": false,
+      "label": "Enable description width"
+    },
+    {
+      "type": "range",
+      "id": "description_max_width",
+      "min": 300,
+      "max": 1200,
+      "step": 10,
+      "unit": "px",
+      "label": "Description width",
+      "default": 520
+    },
+    {
+      "type": "range",
+      "id": "banner_padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 90
+    },
+    {
+      "type": "range",
+      "id": "banner_padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 90
+    },
+    {
+      "type": "header",
+      "content": "t:sections.main-page.settings.title.label_2"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_page_breadcrumbs",
+      "default": true,
+      "label": "t:sections.main-page.settings.show_page_breadcrumbs.label"
+    },
+    {
+      "type": "header",
+      "content": "Heading settings"
+    },
+    {
+      "type": "range",
+      "id": "heading_letter_spacing",
+      "min": 0,
+      "max": 5,
+      "step": 0.1,
+      "unit": "px",
+      "label": "t:sections.all.letter_spacing",
+      "default": 0
+    },
+		{
+      "type": "select",
+      "id": "heading_style",
+      "options": [
+        {
+          "value": "",
+          "label": "Default"
+        },
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        }
+      ],
+      "default": "",
+      "label": "Text style"
+    },
+    {
+      "type": "select",
+      "id": "text_color",
+      "options": [
+        {
+          "value": "color-text-main",
+          "label": "Main"
+        },
+        {
+          "value": "color-text-secondary",
+          "label": "Secondary"
+        },
+        {
+          "value": "color-general-heading",
+          "label": "Heading"
+        }
+      ],
+      "default": "color-text-main",
+      "label": "Text color"
+    },
+		{
+      "type": "header",
+      "content": "Image settings"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_bg",
+      "label": "Image for banner"
+    },
+    {
+      "type": "checkbox",
+      "id": "image_full_width",
+      "default": false,
+      "label": "Image full width"
+    },
+    {
+      "type": "header",
+      "content": "Content settings"
+    },
+    {
+      "type": "range",
+      "id": "content_padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 90
+    },
+    {
+      "type": "range",
+      "id": "content_padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 90
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "color",
+      "id": "color_bg",
+      "label": "Background color"
+    }
+  ]
+}
+{% endschema %}

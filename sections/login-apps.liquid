@@ -1,0 +1,79 @@
+{% style %}
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.section_top_padding | divided_by: 18.7 }}rem;
+      padding-bottom: {{ section.settings.section_bottom_padding | divided_by: 18.7 }}rem;
+    }
+  }
+  @media screen and (min-width: 750px) and (max-width: 1199px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.section_top_padding | divided_by: 15.0 }}rem;
+      padding-bottom: {{ section.settings.section_bottom_padding | divided_by: 15.0 }}rem;
+    }
+  }
+  @media screen and (min-width: 1200px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.section_top_padding | divided_by: 10.0 }}rem;
+      padding-bottom: {{ section.settings.section_bottom_padding | divided_by: 10.0 }}rem;
+    }
+  }
+{% endstyle %}
+
+<div class="login-apps page-width {% if section.settings.include_margins %}page-width{% endif %}">
+  {%- for block in section.blocks -%}
+    {% render block %}
+  {%- endfor -%}
+</div>
+
+{% schema %}
+{
+  "name": "Login apps",
+  "tag": "section",
+	"limit": 1,
+	"enabled_on": {
+		"templates": ["customers/login"]
+	},
+  "settings": [
+		{
+      "type": "checkbox",
+      "id": "include_margins",
+      "default": true,
+      "label": "t:sections.apps.settings.include_margins.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 500,
+      "step": 5,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 500,
+      "step": 5,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Login apps"
+    }
+  ]
+}
+{% endschema %}

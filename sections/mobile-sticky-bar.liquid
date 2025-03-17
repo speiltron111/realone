@@ -1,0 +1,267 @@
+{% if section.settings.hide_bar == false %}
+  {% if section.blocks.size > 0 %}
+    <noscript>{{ 'component-mobile-sticky-bar.css' | asset_url | stylesheet_tag }}</noscript>
+    {{ 'component-mobile-sticky-bar.css' | asset_url | stylesheet_tag }}
+
+    {% style %}
+      @media screen and (max-width:749px) {
+        #shopify-section-footer {
+          padding-bottom: 5.5rem;
+        }
+        .mobile-sticky-bar + .scroll-to-top {
+          bottom: 7.5rem;
+        }
+
+        .menu-drawer .list-social {
+          margin-top: 0;
+          margin-bottom: 4rem;
+        }
+      }
+    {% endstyle %}
+
+    <div class="mobile-sticky-bar {% if section.settings.show_line_separator %}mobile-sticky-bar--border{% endif %}{% if section.settings.show_grid_lines %} mobile-sticky-bar--grid-border{% endif %} color-{{ section.settings.color_bg }}">
+      <div class="page-width">
+        <ul class="grid grid--col{% if section.blocks.size > 0 %} grid--{{ section.blocks.size }}-col{% endif %}{% if section.settings.color_text == 'text-secondary' %} color-text-secondary{% endif %}">
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+              {%- when 'home'-%}
+                <li class="grid__item" {{ block.shopify_attributes }}>
+                  <a class="link" href="{{ routes.root_url }}" title="{{ shop.name | replace: '-', ' ' | capitalize }}" aria-label="{{ shop.name | replace: '-', ' ' | capitalize }}">
+                    {% render 'icon-home-new' %}
+                  </a>
+                </li>
+
+              {%- when 'collection'-%}
+                <li class="grid__item" {{ block.shopify_attributes }}>
+                  <a class="link" href="{{ routes.all_products_collection_url }}" title="Products" aria-label="Products">
+                    {% render 'icon-collection-new' %}
+                  </a>
+                </li>
+
+              {%- when 'cart'-%}
+                {%- if template != 'cart' -%}
+                  <li class="grid__item" {{ block.shopify_attributes }}>
+                    <button id="cart-icon-bubble-sticky" class="link cart-modal" type="button" name="{{ 'templates.cart.cart' | t }}" aria-label="{{ 'templates.cart.cart' | t }}">
+                      {% render 'icon-cart-new' %}
+                      <span class="header__icon-text cart-count">
+                        <span aria-hidden="true" class="cart-count-bubble-sticky">
+                          ({{ cart.item_count }})
+                        </span>
+                      </span>
+                    </button>
+                  </li>
+                {%- endif -%}
+
+              {%- when 'search'-%}
+                <li class="grid__item" {{ block.shopify_attributes }}>
+                  <details-modal class="header__search">
+                    <details>
+                      <summary aria-haspopup="dialog" title="{{ 'general.search.search' | t }}" aria-label="{{ 'general.search.search' | t }}">
+                        <span class="link">
+                          {% render 'icon-search' %}
+                        </span>
+                      </summary>
+                      <div class="search-modal modal__content" role="dialog" aria-modal="true" aria-label="{{ 'general.search.search' | t }}">
+                        <div class="modal-overlay"></div>
+                        <div class="search-modal__content" tabindex="-1">
+                          {%- if settings.predictive_search_enabled -%}
+                            <predictive-search class="search-modal__form" data-loading-text="{{ 'accessibility.loading' | t }}">
+                          {%- endif -%} 
+                            <form action="{{ routes.search_url }}" method="get" role="search" class="search search-modal__form">
+                              <div class="field">
+                                <input class="search__input field__input" 
+                                  id="Search-In-Modal-sticky"
+                                  type="search"
+                                  name="q"
+                                  value=""
+                                  placeholder="{{ 'general.search.search' | t }}"
+                                  {% if settings.predictive_search_enabled %}
+                                    role="combobox"
+                                    aria-expanded="false"
+                                    aria-owns="predictive-search-results-list"
+                                    aria-controls="predictive-search-results-list"
+                                    aria-haspopup="listbox"
+                                    aria-autocomplete="list"
+                                    autocorrect="off"
+                                    autocomplete="off"
+                                    autocapitalize="off"
+                                    spellcheck="false" 
+                                  {% endif %}>
+                                <label class="field__label" for="Search-In-Modal-sticky">{{ 'general.search.search' | t }}</label>
+                                <input type="hidden" name="options[prefix]" value="last">
+                                <button class="search__button field__button" aria-label="{{ 'general.search.search' | t }}">
+                                  <svg class="icon icon-search" aria-hidden="true" focusable="false" role="presentation">
+                                    <use href="#icon-search"/>
+                                  </svg>
+                                </button> 
+                              </div>
+                              
+                              {%- if settings.predictive_search_enabled -%}
+                                <div class="predictive-search predictive-search--header" tabindex="-1" data-predictive-search>
+                                  <div class="predictive-search__loading-state">
+                                    {% render 'icon-spinner' %}
+                                  </div>
+                                </div>
+            
+                                <span class="predictive-search-status visually-hidden" role="status" aria-hidden="true"></span>
+                              {%- endif -%}
+                            </form>
+                          {%- if settings.predictive_search_enabled -%}
+                            </predictive-search>
+                          {%- endif -%}
+                        </div>
+                      </div>
+                    </details>
+                  </details-modal>
+                </li>
+
+              {%- when 'account'-%}
+                {%- if shop.customer_accounts_enabled -%}
+                  {%- liquid
+                    if customer
+                      assign account_title = 'customer.account_fallback' | t
+                    else
+                      assign account_title = 'customer.log_in' | t
+                    endif
+                  -%}
+                  <li class="grid__item" {{ block.shopify_attributes }}>
+                    <a class="link" href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" title="{{ account_title }}" aria-label="{{ account_title }}">
+                      {% render 'icon-account-new' %}
+                    </a>
+                  </li>
+                {%- endif -%}
+            {%- endcase -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+    </div>
+
+  {% endif %}
+{% endif %}
+
+<script src="{{ 'mobile-sticky-bar.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "t:sections.mobile-sticky-bar.name",
+  "class": "mobile-sticky-bar color-background-1 gradient medium-hide large-up-hide",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:sections.mobile-sticky-bar.settings.paragraph"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_bar",
+      "label": "t:sections.mobile-sticky-bar.settings.hide_bar.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_line_separator",
+      "default": true,
+      "label": "t:sections.mobile-sticky-bar.settings.show_line_separator.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_grid_lines",
+      "default": true,
+      "label": "t:sections.mobile-sticky-bar.settings.show_grid_lines.label"
+    },
+    {
+      "type": "select",
+      "id": "color_bg",
+      "options": [
+        {
+          "value": "background-1",
+          "label": "t:sections.footer.settings.color_bg.options__0.label"
+        },
+        {
+          "value": "background-2",
+          "label": "t:sections.footer.settings.color_bg.options__1.label"
+        },
+        {
+          "value": "background-3",
+          "label": "t:sections.footer.settings.color_bg.options__2.label"
+        },
+        {
+          "value": "background-4",
+          "label": "t:sections.footer.settings.color_bg.options__3.label"
+        },
+        {
+          "value": "background-5",
+          "label": "t:sections.footer.settings.color_bg.options__4.label"
+        }
+      ],
+      "default": "background-2",
+      "label": "t:sections.footer.settings.color_bg.label"
+    },
+    {
+      "type": "select",
+      "id": "color_text",
+      "options": [
+        {
+          "value": "text-main",
+          "label": "t:sections.footer.settings.color_text.options__0.label"
+        },
+        {
+          "value": "text-secondary",
+          "label": "t:sections.footer.settings.color_text.options__1.label"
+        }
+      ],
+      "default": "text-main",
+      "label": "Navigation color"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "home",
+      "name": "t:sections.mobile-sticky-bar.blocks.home.name",
+      "limit": 1
+    },
+    {
+      "type": "collection",
+      "name": "t:sections.mobile-sticky-bar.blocks.collection.name",
+      "limit": 1
+    },
+    {
+      "type": "cart",
+      "name": "t:sections.mobile-sticky-bar.blocks.cart.name",
+      "limit": 1
+    },
+    {
+      "type": "search",
+      "name": "t:sections.mobile-sticky-bar.blocks.search.name",
+      "limit": 1
+    },
+    {
+      "type": "account",
+      "name": "t:sections.mobile-sticky-bar.blocks.account.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "t:sections.mobile-sticky-bar.blocks.account.settings.paragraph"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "default": {
+    "blocks": [
+      {
+        "type": "home"
+      },
+      {
+        "type": "collection"
+      },
+      {
+        "type": "cart"
+      },
+      {
+        "type": "search"
+      }
+    ]
+  }
+}
+{% endschema %}

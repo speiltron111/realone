@@ -1,0 +1,6 @@
+{{ 'general.cart.view' | t }}
+{%- if cart.item_count > 0 -%}
+    <span class="cart-notification-count">&nbsp;(<span id="cn-counter">{{ cart.item_count }}</span>)</span>
+{% else %}
+	<span class="cart-notification-count">&nbsp;(<span id="cn-counter">0</span>)</span>
+{%- endif -%}

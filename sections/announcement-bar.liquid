@@ -1,0 +1,242 @@
+{% style %}
+	{% if section.settings.hide_announcement != false %}
+			@media screen and (min-width: 750px) {
+				body {
+					border-top: {{ settings.border_body }}rem solid;
+					border-color: rgb(var(--color-border-page));
+				}
+			}
+	{% endif %}
+	
+	{% if section.settings.slide_icon != blank %}
+    @media screen and  (min-width: 1366px) {
+      .announcement-bar .swiper-slide::before,
+			.announcement-bar .swiper-slide:last-child::after {
+				background-image: url('{{ section.settings.slide_icon | image_url: width: 36 }}');
+				background-size: 100%;
+				background-position: center;
+				background-repeat: no-repeat;
+			}
+		}
+	{% endif %}
+
+	#shopify-section-{{ section.id }} .announcement-bar {
+		padding-top: {{ section.settings.section_top_padding | divided_by: 10.0 }}rem;
+		padding-bottom: {{ section.settings.section_bottom_padding | divided_by: 10.0 }}rem;
+	}
+
+	#shopify-section-{{ section.id }} .announcement-bar__message p {
+    font-size: {{ section.settings.text_size | divided_by: 10.0 }}rem;
+  }
+{% endstyle %}
+
+{% if section.settings.hide_announcement == false %}
+  <div class="announcement-bar color-{{ section.settings.color_bg }} gradient
+    {% if section.settings.color_text == 'text-secondary' %}color-text-secondary{% endif %}" 
+    role="region" aria-label="{{ 'sections.header.announcement' | t }}" data-autoplay="{{ section.settings.autoplay_slider }}" data-delay="{{ section.settings.slide_delay }}" data-pause-on-mouse-enter="{{ section.settings.hover_stop_play }}" data-loop="{{ section.settings.loop_slider }}" data-speed="{{ section.settings.slide_speed }}" data-slides-per-view="{{ section.settings.items_count_desktop }}">
+    <div class="swiper">
+      <div class="swiper-wrapper">
+        {% if section.settings.custom_color != "rgba(0,0,0,0)" and section.settings.custom_color != blank %}
+          <style>
+            body .announcement-bar__message p {
+              color: {{ section.settings.custom_color }};
+            }
+          </style>
+        {% endif %}
+        {%- for block in section.blocks -%}
+          {%- if block.settings.text != blank -%}
+            <div class="swiper-slide" {{ block.shopify_attributes }}>
+              <div class="announcement-bar__message">
+                {{ block.settings.text }}
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+
+	<script src="{{ 'announcement-bar.js' | asset_url }}" type="module" defer="defer"></script>
+{% endif %}
+
+
+{% schema %}
+{
+  "name": "t:sections.announcement-bar.name",
+  "class": "section-announcement-bar",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "hide_announcement",
+      "label": "Hide announcement",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "color_bg",
+      "options": [
+        {
+          "value": "background-1",
+          "label": "t:sections.announcement-bar.settings.color_bg.options__0.label"
+        },
+        {
+          "value": "background-2",
+          "label": "t:sections.announcement-bar.settings.color_bg.options__1.label"
+        },
+        {
+          "value": "background-3",
+          "label": "t:sections.announcement-bar.settings.color_bg.options__2.label"
+        },
+        {
+          "value": "background-4",
+          "label": "t:sections.announcement-bar.settings.color_bg.options__3.label"
+        },
+        {
+          "value": "background-5",
+          "label": "t:sections.announcement-bar.settings.color_bg.options__4.label"
+        }
+      ],
+      "default": "background-3",
+      "label": "t:sections.announcement-bar.settings.color_bg.label"
+    },
+    {
+      "type": "select",
+      "id": "color_text",
+      "options": [
+        {
+          "value": "text-main",
+          "label": "t:sections.announcement-bar.settings.color_text.options__0.label"
+        },
+        {
+          "value": "text-secondary",
+          "label": "t:sections.announcement-bar.settings.color_text.options__1.label"
+        }
+      ],
+      "default": "text-secondary",
+      "label": "t:sections.announcement-bar.settings.color_text.label"
+    },
+    {
+      "type": "color",
+      "id": "custom_color",
+      "label": "Custom color text"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 12
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_icon",
+      "label": "Slide separator icon",
+      "info": "Will be scaled down to 18px, max size 36px recommended."
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay_slider",
+      "default": true,
+      "label": "t:sections.announcement-bar.settings.autoplay_slider.label",
+      "info": "t:sections.announcement-bar.settings.autoplay_slider.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "loop_slider",
+      "default": false,
+      "label": "t:sections.announcement-bar.settings.loop_slider.label",
+      "info": "t:sections.announcement-bar.settings.loop_slider.info"
+    },
+    {
+      "type": "range",
+      "id": "slide_speed",
+      "min": 500,
+      "max": 6000,
+      "step": 100,
+      "unit": "ms",
+      "default": 1600,
+      "label": "t:sections.announcement-bar.settings.loop_slider.label"
+    },
+    {
+      "type": "range",
+      "id": "slide_delay",
+      "min": 0,
+      "max": 6000,
+      "step": 100,
+      "unit": "ms",
+      "default": 2500,
+      "label": "t:sections.announcement-bar.settings.slide_delay.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "hover_stop_play",
+      "label": "t:sections.announcement-bar.settings.hover_stop_play.label",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "items_count_desktop",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 3,
+      "label": "t:sections.announcement-bar.settings.items_count_desktop.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "section_top_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "section_bottom_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 14
+    }
+  ],
+  "max_blocks": 10,
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "t:sections.announcement-bar.blocks.announcement.name",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Use this for a short announcement</p>",
+          "label": "t:sections.announcement-bar.blocks.announcement.settings.text.label"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "announcement"
+      },
+      {
+        "type": "announcement"
+      },
+      {
+        "type": "announcement"
+      }
+    ]
+  }
+}
+{% endschema %}

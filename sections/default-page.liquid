@@ -1,0 +1,159 @@
+<link rel="stylesheet" href="{{ 'section-main-page.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-rte.css' | asset_url }}" media="print" onload="this.media='all'">
+
+<noscript>{{ 'section-main-page.css' | asset_url | stylesheet_tag }}</noscript>
+<noscript>{{ 'component-rte.css' | asset_url | stylesheet_tag }}</noscript>
+
+{% style %}
+  {% if section.settings.color_bg != blank %}
+    #shopify-section-{{ section.id }} {
+      background-color: {{ section.settings.color_bg }};
+    }
+  {% endif %}
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.section_top_padding | divided_by: 18.7 }}rem;
+      padding-bottom: {{ section.settings.section_bottom_padding | divided_by: 18.7 }}rem;
+    }
+  }
+  @media screen and (min-width: 750px) and (max-width: 1199px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.section_top_padding | divided_by: 15.0 }}rem;
+      padding-bottom: {{ section.settings.section_bottom_padding | divided_by: 15.0 }}rem;
+    }
+  }
+  @media screen and (min-width: 1200px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.section_top_padding | divided_by: 10.0 }}rem;
+      padding-bottom: {{ section.settings.section_bottom_padding | divided_by: 10.0 }}rem;
+    }
+  }
+	{% if  section.settings.heading_letter_spacing != 0 %}
+		@media screen and (min-width: 750px) {
+			#shopify-section-{{ section.id }} .title {
+				letter-spacing: {{ section.settings.heading_letter_spacing }}rem;
+			}
+		}
+	{% endif %}
+{% endstyle %}
+
+<div class="main-page-banner {% if settings.theme_animations != 'no-animation' %} aside-text scroll-animation{% endif %}">
+  <div class="page-width page-width--narrow">
+    <div class="section-title">
+      <div class="title-wrapper {{ section.settings.text_color }}">
+        <h1 class="h1 title title--primary {{ section.settings.text_color }} {{ section.settings.heading_style }}">
+            {{ page.title }}
+        </h1>
+        {% if section.settings.show_page_breadcrumbs %}
+          {% render 'breadcrumb' %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{%- if page.content != blank -%}
+  <div class="page-width main-page__content {% if settings.theme_animations != 'no-animation' %} aside-text scroll-animation{% endif %}">
+    <div class="rte">
+      {{ page.content }}
+    </div>
+  </div>
+{%- endif -%}
+
+
+{% schema %}
+{
+  "name": "Default page",
+  "tag": "section",
+  "class": "page-section default-page",
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  },
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_page_breadcrumbs",
+      "default": true,
+      "label": "t:sections.main-page.settings.show_page_breadcrumbs.label"
+    },
+    {
+      "type": "select",
+      "id": "text_color",
+      "options": [
+        {
+          "value": "color-text-main",
+          "label": "Main"
+        },
+        {
+          "value": "color-text-secondary",
+          "label": "Secondary"
+        },
+        {
+          "value": "color-general-heading",
+          "label": "Heading"
+        }
+      ],
+      "default": "color-text-main",
+      "label": "Heading color"
+    },
+    {
+      "type": "select",
+      "id": "heading_style",
+      "options": [
+        {
+          "value": "",
+          "label": "Default"
+        },
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        }
+      ],
+      "default": "",
+      "label": "Heading style"
+    },
+    {
+      "type": "range",
+      "id": "heading_letter_spacing",
+      "min": 0,
+      "max": 5,
+      "step": 0.1,
+      "unit": "px",
+      "label": "t:sections.all.letter_spacing",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "section_top_padding",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_bottom_padding",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 90
+    },
+    {
+      "type": "color",
+      "id": "color_bg",
+      "label": "Background color"
+    }
+  ]
+}
+{% endschema %}

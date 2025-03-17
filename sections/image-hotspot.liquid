@@ -1,0 +1,485 @@
+{{ 'section-image-hotspot.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  #shopify-section-{{ section.id }} .image-hotspot--inner {
+    padding-bottom: {{ section.settings.image_height }}%;
+  }
+
+  #shopify-section-{{ section.id }} .image-hotspot--item-icon {
+    background-color: {{ section.settings.bullet_color }};
+  }
+
+  #shopify-section-{{ section.id }} .image-hotspot--item-icon > span {
+    background-color: {{ section.settings.bullet_point_color }};
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top | divided_by: 18.7 }}rem;
+      padding-bottom: {{ section.settings.padding_bottom | divided_by: 18.7 }}rem;
+    }
+  }
+  @media screen and (min-width: 750px) and (max-width: 1199px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top | divided_by: 15.0 }}rem;
+      padding-bottom: {{ section.settings.padding_bottom | divided_by: 15.0 }}rem;
+    }
+  }
+  @media screen and (min-width: 1200px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top | divided_by: 10.0 }}rem;
+      padding-bottom: {{ section.settings.padding_bottom | divided_by: 10.0 }}rem;
+    }
+  }
+
+  {% if section.settings.color_bg != blank %}
+    #shopify-section-{{ section.id }} {
+      background-color: {{ section.settings.color_bg }};
+    }
+  {% endif %}
+
+{% endstyle %}
+
+<div class="image-hotspot{% if section.settings.full_width %} full-width{% else %} page-width{% endif %}">
+  <div class="image-hotspot--inner{% if settings.theme_animations != 'no-animation' %} scroll-animation{% endif %}">
+    {%- if section.settings.image != blank -%}
+      {%- capture sizes -%}
+        (min-width: {{ settings.page_width }}px) 1700px, (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)
+      {%- endcapture -%}
+
+      {% if section.settings.full_width %}
+        {{
+          section.settings.image
+          | image_url: width: 1700
+          | image_tag: 
+            loading: 'lazy', 
+            width: section.settings.image.width,
+            height: section.settings.image.height,
+            sizes: sizes,
+            widths: '375, 450, 550, 650, 750, 850, 950, 1100, 1300, 1440, 1650, 1800, 1980'
+        }}
+      {%- else -%}
+        {{
+          section.settings.image
+          | image_url: width: 1200
+          | image_tag: 
+            loading: 'lazy', 
+            width: section.settings.image.width,
+            height: section.settings.image.height,
+            sizes: sizes,
+            widths: '375, 450, 550, 650, 750, 850, 950, 1100, 1300, 1440, 1650'
+        }}
+      {%- endif -%}
+
+    {%- else -%}
+      {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- endif -%}
+
+    {%- for block in section.blocks -%}
+      {% case block.type %}
+
+        {% when 'item' %}
+          <div class="image-hotspot--item item-{{ forloop.index }}{% if block.settings.hide_mobile %} small-hide{% endif %}" {{ block.shopify_attributes }}>
+            <style>
+              #shopify-section-{{ section.id }} .image-hotspot--item.item-{{ forloop.index }} {
+                top: {{ block.settings.vertical_position }}%;
+                left: {{ block.settings.horizontal_position }}%;
+              }
+              @media screen and (max-width: 549px) {
+                #shopify-section-{{ section.id }} .image-hotspot--item.item-{{ forloop.index }}:hover,
+                #shopify-section-{{ section.id }} .image-hotspot--item.item-{{ forloop.index }}:focus {
+                  top: 50%;
+                  left: 50%;
+                }
+              }
+            </style>
+            <div class="image-hotspot--item-icon">
+                <span></span>
+            </div>
+            <div class="hotspot-bubble {{ block.settings.bubble_position }}{% if block.settings.bubble_open %} visible{% endif %}">
+              <div class="hotspot-bubble--image-wrapp">
+                {%- if block.settings.product.featured_image != null -%}
+                  <img src="{{ block.settings.product.featured_image | image_url: width: 250 }}" 
+                      alt="{{ block.settings.product.featured_image.alt | escape }}"
+                      loading="lazy" width="250" height="270">
+                {% else %}
+                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+                {%- if block.settings.product.id != null -%}
+                  <product-form class="product-form" data-template="{% if settings.cart_type == "drawer" %}drawer{% else %}page{% endif %}" data-cart-type="{% if settings.cart_type == "drawer" %}drawer{% else %}page{% endif %}">
+                    <div class="product-form__error-message-wrapper" role="alert" hidden>
+                      <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-error" viewBox="0 0 13 13">
+                        <circle cx="6.5" cy="6.50049" r="5.5" stroke="white" stroke-width="2"/>
+                        <circle cx="6.5" cy="6.5" r="5.5" fill="#EB001B" stroke="#EB001B" stroke-width="0.7"/>
+                        <path d="M5.87413 3.52832L5.97439 7.57216H7.02713L7.12739 3.52832H5.87413ZM6.50076 9.66091C6.88091 9.66091 7.18169 9.37267 7.18169 9.00504C7.18169 8.63742 6.88091 8.34917 6.50076 8.34917C6.12061 8.34917 5.81982 8.63742 5.81982 9.00504C5.81982 9.37267 6.12061 9.66091 6.50076 9.66091Z" fill="white"/>
+                        <path d="M5.87413 3.17832H5.51535L5.52424 3.537L5.6245 7.58083L5.63296 7.92216H5.97439H7.02713H7.36856L7.37702 7.58083L7.47728 3.537L7.48617 3.17832H7.12739H5.87413ZM6.50076 10.0109C7.06121 10.0109 7.5317 9.57872 7.5317 9.00504C7.5317 8.43137 7.06121 7.99918 6.50076 7.99918C5.94031 7.99918 5.46982 8.43137 5.46982 9.00504C5.46982 9.57872 5.94031 10.0109 6.50076 10.0109Z" fill="white" stroke="#EB001B" stroke-width="0.7">
+                      </svg>
+                      <span class="product-form__error-message"></span>
+                    </div>
+                    {%- liquid assign product_form_id = 'product-form-' | append: block.settings.product.id -%}
+                    {%- form 'product', block.settings.product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+                      <input type="hidden" name="id" value="{{ block.settings.product.selected_or_first_available_variant.id }}">
+                      <button
+                        type="submit"
+                        name="add"
+                        class="button button-add-card {% if section.settings.button_style == 'btn_secondary' %} button-secondary{% endif %}"
+                        {% if block.settings.product.selected_or_first_available_variant.available == false %}disabled{% endif %}>
+                        {%- if block.settings.product.selected_or_first_available_variant.available -%}
+                          {{ 'products.product.add_to_cart' | t }}
+                        {%- else -%}
+                          {{ 'products.product.sold_out' | t }}
+                        {%- endif -%}
+                      </button>
+                    {%- endform -%}
+                  </product-form>
+                {%- endif -%}
+              </div>
+
+              <div class="hotspot-bubble--info">
+                <a class="link link-no-underline" href="{{ block.settings.product.url }}">
+                  <h3 class="title">
+                    {% if block.settings.product.title != blank %}
+                      {{ block.settings.product.title | escape }}
+                    {% else %}
+                      {{ 'onboarding.product_title' | t }}
+                    {% endif %} 
+                  </h3>
+                </a>
+                {%- render 'price', 
+                  show_prices: true,
+                  product: block.settings.product -%}
+              </div>
+            </div>
+          </div>
+
+        {% when 'featured_item' %}
+          <div class="image-hotspot--item featured-item item-{{ forloop.index }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in-long{% endif %}{% if block.settings.hide_mobile %} small-hide{% endif %}" {{ block.shopify_attributes }}{% if settings.animations_reveal_on_scroll %} data-cascade style="--animation-order: {{ forloop.index }};"{% endif %} tabindex="0">
+
+            <style>
+              #shopify-section-{{ section.id }} .image-hotspot--item.item-{{ forloop.index }} {
+                top: {{ block.settings.vertical_position }}%;
+                left: {{ block.settings.horizontal_position }}%;
+              }
+              @media screen and (max-width: 749px) {
+                #shopify-section-{{ section.id }} .image-hotspot--item.active.item-{{ forloop.index }} {
+                  top: 50%;
+                  left: 50%;
+                }
+              }
+            </style>
+      
+            <div class="image-hotspot--item-icon">
+              <span></span>
+            </div>
+  
+            <div class="hotspot-bubble {{ block.settings.bubble_position }}{% if block.settings.bubble_open %} visible{% endif %}">
+              {% if block.settings.item_image != blank %}
+                <div class="hotspot-bubble--image-wrapp">
+                  <span class="bubble-image">
+                    <img src="{{ block.settings.item_image | image_url: width: 300 }}" alt="{{ block.settings.item_image.alt | escape }}" loading="lazy" width="300" height="375">
+                  </span>
+                </div>
+              {%- endif -%}
+              
+              <div class="hotspot-bubble--info">
+                <div class="bubble-content">
+                  {% if block.settings.item_heading != blank %}
+                    <h3 class="title inline-richtext">
+                      {{ block.settings.item_heading }}
+                    </h3>
+                  {% endif %} 
+
+                  {% if block.settings.item_text != blank %}
+                    <div class="text rte">
+                      {{ block.settings.item_text }}
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div> 
+      {% endcase %}
+
+    {% endfor %}
+    <span class="image-hotspot-overlay"></span>
+  </div>
+</div>
+
+
+{% schema %}
+{
+  "name": "Image hotspot",
+  "tag": "section",
+  "class": "spaced-section",
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  },
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:sections.image-with-text.settings.image.label"
+    },
+    {
+      "type": "range",
+      "id": "image_height",
+      "min": 40,
+      "max": 140,
+      "step": 1,
+      "unit": "%",
+      "label": "Image height",
+      "default": 60
+    },
+    {
+      "type": "color",
+      "id": "bullet_color",
+      "label": "Bullet border color",
+      "default": "#4D624E"
+    },
+    {
+      "type": "color",
+      "id": "bullet_point_color",
+      "label": "Bullet color",
+      "default": "#333941"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "options": [
+        {
+          "value": "btn_primary",
+          "label": "t:sections.buttons.button_color_1"
+        },
+        {
+          "value": "btn_secondary",
+          "label": "t:sections.buttons.button_color_2"
+        }
+      ],
+      "default": "btn_primary",
+      "label": "t:sections.buttons.button_color_style"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "color_bg",
+      "label": "Background color"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": false,
+      "label": "Enable full width section"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Hotspot item",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "t:sections.featured-product.settings.product.label"
+        },
+        {
+          "type": "range",
+          "id": "horizontal_position",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "Horizontal position",
+          "default": 30
+        },
+        {
+          "type": "range",
+          "id": "vertical_position",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "Vertical position",
+          "default": 30
+        },
+        {
+          "type": "select",
+          "id": "bubble_position",
+          "label": "Bubble position",
+          "options": [
+            {
+              "value": "bubble-left",
+              "label": "Left"
+            },
+            {
+              "value": "bubble-right",
+              "label": "Right"
+            },
+            {
+              "value": "bubble-top",
+              "label": "Top"
+            },
+            {
+              "value": "bubble-bottom",
+              "label": "Bottom"
+            }
+          ],
+          "default": "bubble-bottom"
+        },
+        {
+          "type": "checkbox",
+          "id": "bubble_open",
+          "default": false,
+          "label": "Open bubble on desktop"
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_mobile",
+          "default": false,
+          "label": "Hide item on mobile"
+        }
+      ]
+    },
+    {
+      "type": "featured_item",
+      "name": "Hotspot featured item",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "item_image",
+          "label": "Image"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "item_heading",
+          "default": "Card title",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "item_text",
+          "default": "<p>Pair text with an image to focus on your chosen product.</p>",
+          "label": "Text"
+        },
+        {
+          "type": "range",
+          "id": "horizontal_position",
+          "min": 2,
+          "max": 98,
+          "step": 1,
+          "unit": "%",
+          "label": "Horizontal position",
+          "default": 30
+        },
+        {
+          "type": "range",
+          "id": "vertical_position",
+          "min": 2,
+          "max": 98,
+          "step": 1,
+          "unit": "%",
+          "label": "Vertical position",
+          "default": 30
+        },
+        {
+          "type": "select",
+          "id": "bubble_position",
+          "label": "Bubble position",
+          "options": [
+            {
+              "value": "bubble-left",
+              "label": "Left"
+            },
+            {
+              "value": "bubble-right",
+              "label": "Right"
+            },
+            {
+              "value": "bubble-top",
+              "label": "Top"
+            },
+            {
+              "value": "bubble-bottom",
+              "label": "Bottom"
+            }
+          ],
+          "default": "bubble-bottom"
+        },
+        {
+          "type": "checkbox",
+          "id": "bubble_open",
+          "default": false,
+          "label": "Open bubble on desktop"
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_mobile",
+          "default": false,
+          "label": "Hide item on mobile"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image hotspot",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "product": "",
+            "horizontal_position": 13,
+            "vertical_position": 59,
+            "bubble_position": "bubble-right"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "product": "",
+            "horizontal_position": 74,
+            "vertical_position": 85,
+            "bubble_position": "bubble-top"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "product": "",
+            "horizontal_position": 86,
+            "vertical_position": 66,
+            "bubble_position": "bubble-left"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,152 @@
+<link rel="stylesheet" href="{{ 'section-policy.css' | asset_url }}" media="print" onload="this.media='all'">
+
+<style>
+    @media screen and (max-width: 749px) {
+      #shopify-section-{{ section.id }} {
+        padding-top: {{ section.settings.padding_top | divided_by: 18.7 }}rem;
+        padding-bottom: {{ section.settings.padding_bottom | divided_by: 18.7 }}rem;
+      }
+    }
+    @media screen and (min-width: 750px) and (max-width: 1199px) {
+      #shopify-section-{{ section.id }} {
+        padding-top: {{ section.settings.padding_top | divided_by: 15.0 }}rem;
+        padding-bottom: {{ section.settings.padding_bottom | divided_by: 15.0 }}rem;
+      }
+    }
+    @media screen and (min-width: 1200px) {
+      #shopify-section-{{ section.id }} {
+        padding-top: {{ section.settings.padding_top | divided_by: 10.0 }}rem;
+        padding-bottom: {{ section.settings.padding_bottom | divided_by: 10.0 }}rem;
+      }
+    }
+
+    {% if section.settings.color_bg != blank %}
+      #shopify-section-{{ section.id }} {
+        background-color: {{ section.settings.color_bg }};
+      }
+    {% endif %}
+</style>
+
+<div class="page-width"> 
+  <div class="policy-wrapp {{ section.settings.policy_style }}">
+    {%- for block in section.blocks -%}
+    {%- case block.type -%}
+
+      {%- when 'heading' -%}
+        <h2 class="section-title {% if settings.theme_animations != 'no-animation' %} aside-text scroll-animation{% endif %}" {{ block.shopify_attributes }}>
+          {{ block.settings.section_title }}
+        </h2>
+        
+      {%- when 'item' -%}
+        <div class="policy-item {% if section.settings.show_all_items %} active{% endif %} {% if settings.theme_animations != 'no-animation' %} aside-text scroll-animation{% endif %}" {{ block.shopify_attributes }}>
+          <h3 class="item-heading">
+            {{ block.settings.item_heading }}
+          </h3>
+          <div class="item-text text rte">
+            {{ block.settings.text }}
+          </div>
+        </div>
+        
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Policy",
+  "tag": "section",
+  "class": "spaced-section section-policy",
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "policy_style",
+      "options": [
+        {
+          "value": "style-1",
+          "label": "Large typography"
+        },
+        {
+          "value": "style-3",
+          "label": "Medium typography"
+        },
+        {
+          "value": "style-2",
+          "label": "Small typography"
+        }
+      ],
+      "default": "style-1",
+      "label": "Section style"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 140
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 140
+    },
+    {
+      "type": "color",
+      "id": "color_bg",
+      "label": "Background color"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "Policy heading",
+      "limit": 12,
+      "settings": [
+        {
+          "type": "text",
+          "id": "section_title",
+          "default": "Section heading",
+          "label": "Item heading"
+        }
+      ]
+    },
+    {
+      "type": "item",
+      "name": "Policy item",
+      "limit": 12,
+      "settings": [
+        {
+          "type": "text",
+          "id": "item_heading",
+          "default": "Item heading",
+          "label": "Item heading"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Pair details on availability, style, or even provide a review.</p>",
+          "label": "t:sections.image-with-text.blocks.text.settings.text.label"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

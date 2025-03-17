@@ -1,0 +1,112 @@
+{% if section.settings.hide_button == false %}
+
+  <noscript>{{ 'component-scroll-to-top.css' | asset_url | stylesheet_tag }}</noscript>
+  {{ 'component-scroll-to-top.css' | asset_url | stylesheet_tag }}
+
+	<style>
+		{% if request.design_mode %}
+      #shopify-section-{{ section.id }} .scroll-to-top__button {
+        transform: translateY(0);
+      }
+		{% endif %}
+		
+		{% if section.settings.borders %}
+      #shopify-section-{{ section.id }} .scroll-to-top__button {
+				border: var(--buttons-border-size) solid rgb(var(--color-btn-main-border));
+      }
+		{% endif %}
+
+	</style>
+
+  <script src="{{ 'scroll-to-top.js' | asset_url }}" defer="defer"></script>
+
+  {% liquid
+    if section.settings.button_color == 'main'
+      assign button_color = "button"
+    elsif section.settings.button_color == 'second'
+      assign button_color = "button-secondary"
+    endif
+  %}
+
+  <button class="scrollToTop button-style--{{ section.settings.button_style }} {{ button_color }} scroll-to-top__button {% if button_color == 'button' and settings.color_primery_button_bg_gradient != blank %} gradient gradient--primary{% endif %} {% if button_color == 'button-secondary' and settings.color_secondary_button_bg_gradient != blank %} gradient gradient--secondary {% endif %}" aria-label="scroll To Top button">
+    {% if section.settings.arrow_style == 'arrow' %}
+      <style>
+        .scrollToTop svg {
+          transform: rotate(-90deg);
+        }
+      </style>
+      {% render 'icon-arrow-short' %}
+    {% else %}
+      {% render 'icon-caret' %}
+    {% endif %}
+  </button>
+{% endif %}
+
+{% schema %}
+{
+  "name": "t:sections.scroll-to-top.name",
+  "class": "scroll-to-top",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "hide_button",
+      "label": "t:sections.scroll-to-top.settings.hide_button.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "borders",
+      "label": "Add borders",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "options": [
+        {
+          "value": "square",
+          "label": "t:sections.scroll-to-top.settings.button_style.options__1.label"
+        },
+        {
+          "value": "round",
+          "label": "t:sections.scroll-to-top.settings.button_style.options__2.label"
+        }
+      ],
+      "default": "square",
+      "label": "t:sections.scroll-to-top.settings.button_style.label"
+    },
+    {
+      "type": "select",
+      "id": "button_color",
+      "options": [
+        {
+          "value": "main",
+          "label": "t:sections.scroll-to-top.settings.button_color.options__1.label"
+        },
+        {
+          "value": "second",
+          "label": "t:sections.scroll-to-top.settings.button_color.options__2.label"
+        }
+      ],
+      "default": "second",
+      "label": "t:sections.scroll-to-top.settings.button_color.label"
+    },
+    {
+      "type": "select",
+      "id": "arrow_style",
+      "options": [
+        {
+          "value": "caret",
+          "label": "Caret"
+        },
+        {
+          "value": "arrow",
+          "label": "Arrow"
+        }
+      ],
+      "default": "arrow",
+      "label": "Arrow style"
+    }
+  ]
+}
+{% endschema %}

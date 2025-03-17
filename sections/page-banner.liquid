@@ -1,0 +1,245 @@
+{{ 'component-banner-hero.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} .banner-hero__image-container::after {
+    opacity: {{ section.settings.image_overlay_opacity | divided_by: 100.0 }};
+  }
+
+  {%- if section.settings.show_banner_image and section.settings.image != blank -%}
+    @media screen and (min-width: 750px) and (max-width: 1199px) {
+      #shopify-section-{{ section.id }} .banner-hero.banner-hero--with-image {
+          padding: 10rem 0;
+      }
+    }
+
+    @media screen and (min-width: 1200px) {
+      #shopify-section-{{ section.id }} .banner-hero.banner-hero--with-image {
+          padding: 14rem 0;
+      }
+    }
+  {%- endif -%}
+  {% if section.settings.banner_color != "default" %}
+    #shopify-section-{{ section.id }} .banner-hero--with-image {
+      background-color: var({{ section.settings.banner_color }});
+    }
+  {%- endif -%}
+  #shopify-section-{{ section.id }} .banner-hero--with-image {
+   padding-top: {{ section.settings.section_padding_top }}px;
+   padding-bottom: {{ section.settings.section_padding_bottom }}px;
+  }
+
+	@media screen and (min-width: 750px) {
+		{% if  section.settings.heading_letter_spacing != 0 %}
+			#shopify-section-{{ section.id }} .banner-hero__title {
+				letter-spacing: {{ section.settings.heading_letter_spacing }}rem;
+			}
+		{% endif %}
+	}
+{%- endstyle -%}
+
+<div class="banner-hero full-width banner-hero--with-image">
+  <div class="banner-hero__inner page-width">
+    <div class="banner-hero__text-wrapper{% if section.settings.banner_color_text == 'text-secondary' %} color-text-secondary{% endif %}{% if settings.theme_animations != 'no-animation' %} aside-text scroll-animation{% endif %}">
+
+      {%- if section.settings.show_banner_title -%}
+        <h1 class="banner-hero__title">
+          <span class="visually-hidden">Page: </span>
+          {{- page.title | escape -}}
+        </h1>
+      {%- endif -%}
+
+      {%- if section.settings.show_banner_description -%}
+        <div class="rte">
+          {{ section.settings.banner_description }}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.show_banner_breadcrumbs -%}
+        {% render 'breadcrumb' %}
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.show_banner_image and section.settings.image != blank -%}
+      <div class="banner-hero__image-container media">
+          {{
+            section.settings.image
+            | image_url: width: 1840
+            | image_tag:
+              loading: 'lazy',
+              width: section.settings.image.width,
+              height: section.settings.image.height,
+              sizes: '100vw',
+              widths: '375, 550, 750, 950, 1100, 1360, 1440, 1500, 1600, 1780, 1900, 2000'
+          }}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{%- if section.settings.show_banner_breadcrumbs_under -%}
+  <div class="page-width breadcrumb-under">
+    {% render 'breadcrumb' %}
+  </div>
+{%- endif -%}
+
+
+
+{%- if page.content != blank and section.settings.show_page_content -%}
+  <div class="page-width page-width--narrow">
+    <div class="rte">
+      {{ page.content }}
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:sections.main-banner-banner.name",
+  "class": "spaced-section spaced-section--full-width ab-page-banner",
+  "tag": "section",
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  },
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_banner_title",
+      "default": true,
+      "label": "t:sections.main-banner-banner.settings.show_banner_title.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_banner_description",
+      "default": true,
+      "label": "t:sections.main-banner-banner.settings.show_banner_description.label"
+    },
+    {
+      "type": "richtext",
+      "id": "banner_description",
+      "label": "t:sections.main-banner-banner.settings.banner_description.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_banner_breadcrumbs",
+      "default": true,
+      "label": "t:sections.main-banner-banner.settings.show_banner_breadcrumbs.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_banner_breadcrumbs_under",
+      "default": false,
+      "label": "t:sections.main-banner-banner.settings.show_banner_breadcrumbs_under.label"
+    },
+    {
+      "type": "select",
+      "id": "banner_color_text",
+      "options": [
+        {
+          "value": "text-main",
+          "label": "t:sections.footer.settings.color_text.options__0.label"
+        },
+        {
+          "value": "text-secondary",
+          "label": "t:sections.footer.settings.color_text.options__1.label"
+        }
+      ],
+      "default": "text-main",
+      "label": "t:sections.footer.settings.color_text.label"
+    },
+    {
+      "type": "range",
+      "id": "heading_letter_spacing",
+      "min": 0,
+      "max": 5,
+      "step": 0.1,
+      "unit": "px",
+      "label": "t:sections.all.letter_spacing",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "show_page_content",
+      "default": false,
+      "label": "t:sections.main-banner-banner.settings.show_page_content.label",
+      "info": "t:sections.main-banner-banner.settings.page_paragraph.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_banner_image",
+      "default": true,
+      "label": "t:sections.main-banner-banner.settings.show_banner_image.label"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Add image",
+      "info": "t:sections.main-banner-banner.settings.show_banner_image.info"
+    },
+    {
+      "type": "range",
+      "id": "image_overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "%",
+      "label": "t:sections.main-banner-banner.settings.show_banner_image_opacity.label",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 90
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 90
+    },
+    {
+      "type": "select",
+      "id": "banner_color",
+      "options": [
+        {
+          "value": "default",
+          "label": "Default"
+        },
+        {
+          "value": "--gradient-general-section-bg-1",
+          "label": "Section background 1"
+        },
+        {
+          "value": "--gradient-general-section-bg-2",
+          "label": "Section background 2"
+        },
+        {
+          "value": "--gradient-general-section-bg-3",
+          "label": "Section background 3"
+        },
+        {
+          "value": "--gradient-general-section-bg-4",
+          "label": "Section background 4"
+        }
+      ],
+      "default": "default",
+      "label": "Banner background color"
+    }
+  ]
+}
+{% endschema %}

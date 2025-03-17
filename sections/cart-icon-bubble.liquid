@@ -1,0 +1,16 @@
+{% if settings.cart_icon != blank %}
+	{{ settings.cart_icon }}
+{% else %}
+	{% render 'icon-cart-2' %}
+{% endif %}
+<span class="header__icon-text cart-count header__icon-count link link-no-underline">
+	<span class="small-hide medium-hide cart-count-label">
+		{{ 'templates.cart.cart' | t }}&nbsp;
+	</span>
+	(
+		<span aria-hidden="true" class="cart-count-bubble">
+			{{ cart.item_count }}
+		</span>
+	)
+</span>
+
