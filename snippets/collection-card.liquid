@@ -1,0 +1,78 @@
+{% comment %}
+	Renders a collection card
+
+	Accepts:
+		- card_collection {Object} Collection Liquid object
+		- button_url {String}
+		- button_label {String}
+		- button_style {String}
+		- button_type {String}
+
+	Usage:
+		{% render 'collection-card' %}
+{% endcomment %}
+
+{{ 'component-collection-card.css' | asset_url | stylesheet_tag }}
+
+<div class="collection-card">
+  <div class="collection-card__wrapper">
+    <div class="collection-card__inner">
+			<div class="collection-card__media">
+				{%- if card_collection.featured_image != blank -%}
+					<div class="media media--square media--hover-effect overflow-hidden-light">
+						<img
+							srcset="
+								{%- if card_collection.featured_image.width >= 165 -%}{{ card_collection.featured_image | image_url: width: 165 }} 165w,{%- endif -%}
+								{%- if card_collection.featured_image.width >= 230 -%}{{ card_collection.featured_image | image_url: width: 230 }} 230w,{%- endif -%}
+								{%- if card_collection.featured_image.width >= 280 -%}{{ card_collection.featured_image | image_url: width: 280 }} 280w,{%- endif -%}
+								{%- if card_collection.featured_image.width >= 300 -%}{{ card_collection.featured_image | image_url: width: 300 }} 300w,{%- endif -%}
+								{%- if card_collection.featured_image.width >= 330 -%}{{ card_collection.featured_image | image_url: width: 330 }} 330w,{%- endif -%}
+								{%- if card_collection.featured_image.width >= 400 -%}{{ card_collection.featured_image | image_url: width: 400 }} 400w,{%- endif -%}
+								{%- if card_collection.featured_image.width >= 450 -%}{{ card_collection.featured_image | image_url: width: 450 }} 450w,{%- endif -%}
+								{%- if card_collection.featured_image.width >= 535 -%}{{ card_collection.featured_image | image_url: width: 535 }} 535w,{%- endif -%}
+								{%- if card_collection.featured_image.width >= 600 -%}{{ card_collection.featured_image | image_url: width: 600 }} 600w,{%- endif -%}
+								{%- if card_collection.featured_image.width >= 650 -%}{{ card_collection.featured_image | image_url: width: 650 }} 650w,{%- endif -%}
+								{%- if card_collection.featured_image.width >= 750 -%}{{ card_collection.featured_image | image_url: width: 750 }} 750w,{%- endif -%}
+								{%- if card_collection.featured_image.width >= 1000 -%}{{ card_collection.featured_image | image_url: width: 1000 }} 1000w{%- endif -%}
+							"
+							src="{{ card_collection.featured_image | image_url: width: 1000 }}"
+							sizes="
+								(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 4 }}px,
+								(min-width: 750px) {% if section.blocks.size > 1 %}calc((100vw - 10rem) / 2){% else %}calc(100vw - 10rem){% endif %},
+								calc(100vw - 3rem)
+							"
+							alt="{{ card_collection.title | escape }}"
+							height="{{ card_collection.featured_image.height }}"
+							width="{{ card_collection.featured_image.width }}"
+							loading="lazy"
+							class="motion-reduce"
+						>
+					</div>
+				{%- endif -%}
+				<div  class="collection-card__link">
+					{% render 'button',
+						button_url: card_collection.url,
+						button_label: button_label,
+						button_style: button_style,
+						button_type: button_type
+					%}
+				</div>
+			</div>
+		</div>
+		{% if card_collection != blank %}
+			<div class="collection-card__label {{ settings.checkout_cart_title_style }} {{ settings.checkout_cart_title_font_family }} {{ settings.checkout_cart_title_color }}">
+				<a  
+					class="{{ settings.checkout_cart_title_size }} link-no-underline"
+					{% if card_collection == blank %}
+						role="link" aria-disabled="true"
+					{% else %}
+						href="{{ card_collection.url }}"
+					{% endif %}>
+					{%- if card_collection.title != blank -%}
+						{{- card_collection.title | escape -}}
+					{%- endif -%}
+				</a>
+			</div>
+		{% endif %}
+  </div>
+</div>

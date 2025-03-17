@@ -1,0 +1,1013 @@
+<div class="modal modal-product-detail" style="display: none;">
+  {{ 'component-product-modal.css' | asset_url | stylesheet_tag }}
+  {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+  {{ 'component-product-form.css' | asset_url | stylesheet_tag }}
+
+  <link
+    rel="stylesheet"
+    href="{{ 'component-deferred-media.css' | asset_url }}"
+    media="print"
+    onload="this.media='all'"
+  >
+  {{ 'component-product-model.css' | asset_url | stylesheet_tag }}
+  <link
+    id="ModelViewerStyle"
+    rel="stylesheet"
+    href="https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css"
+    media="print"
+    onload="this.media='all'"
+  >
+  <link
+    id="ModelViewerOverride"
+    rel="stylesheet"
+    href="{{ 'component-model-viewer-ui.css' | asset_url }}"
+    media="print"
+    onload="this.media='all'"
+  >
+
+  {% style %}
+			.product-quickview .thumbnail-slider .swiper-slide:not(.swiper-slide-thumb-active):not(:hover),
+			.product-quickview #Slider-Gallery-quickview {
+				border: 1px solid rgba(var(--border-color), 0.5);
+			}
+      {% if settings.picker_label != true %}
+        .product-quickview .form__label {
+          display: none;
+        }
+      {% endif %}
+
+    {% if settings.product_quickview_enable_custom_heading_size %}
+    	.product-quickview.product .product__title {
+    		font-size: {{ settings.product_quickview_custom_heading_size | divided_by: 10.0 }}rem;
+    	}
+
+    	@media screen and (max-width: 749px) {
+    		.product-quickview.product .product__title {
+    			font-size: calc({{ settings.product_quickview_custom_heading_size }}px * .75);
+    		}
+    	}
+    {% endif %}
+
+    .product-quickview .form__label {
+    	font-size: {{ settings.label_font_size | divided_by: 10.0 }}rem;
+    	font-weight: {{ settings.label_font_weight }};
+    }
+    .product-quickview .quantity__input,
+    .product-quickview .variant-radios label,
+    .product-quickview .select__select {
+    	font-size: {{ settings.picker_font_size | divided_by: 10.0 }}rem;
+    	font-weight: {{ settings.picker_font_weight }};
+    }
+  {% endstyle %}
+
+  <div class="modal-content-container">
+    <div class="modal-content">
+      <span class="close">{% render 'icon-close' %}</span>
+      <div class="modal-body">
+        <div class="product-quickview product product--medium" data-format="{{ shop.money_format }}">
+          <div class="product__media-wrapper modal-item">
+            <div id="Slider-Gallery-quickview" class="swiper product__media-list">
+              <div class="swiper-button-prev quickview-prev {% if settings.color_events_button_bg_hover_gradient != blank %} gradient--hover{% endif %}">
+                {% render 'icon-arrow-short' %}
+              </div>
+              <div class="swiper-wrapper"></div>
+              <div class="swiper-button-next quickview-next {% if settings.color_events_button_bg_hover_gradient != blank %} gradient--hover{% endif %}">
+                {% render 'icon-arrow-short' %}
+              </div>
+            </div>
+            <div class="slider-thumbs-wrapp">
+              <div id="Slider-Thumbnails-quickview" class="swiper thumbnail-slider">
+                <div class="swiper-wrapper"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="product__info-wrapper modal-item">
+            <div class="product__info-container">
+              <a class="product__title-link" href="">
+                <h2
+                  class="h3 product__title {% if settings.product_quickview_title_font == 'hf-heading' %} heading-font{% endif %} {{ settings.product_quickview_title_style }} {{ settings.product_quickview_title_color }}"
+                ></h2>
+              </a>
+              <div class="price price--on-sale {{ settings.product_quickview_price_class }} {{ settings.product_quickview_price_weight }}">
+                <dl>
+                  <div class="price__sale">
+                    <dt>
+                      <span class="visually-hidden visually-hidden--inline">
+                        {{ 'products.product.price.sale_price' | t }}
+                      </span>
+                    </dt>
+                    <dt class="price__compare">
+                      <span class="visually-hidden visually-hidden--inline">
+                        {{ 'products.product.price.regular_price' | t -}}
+                      </span>
+                    </dt>
+                    <dt class="price__compare">
+                      <s class="price-item price-item--regular"></s>
+                    </dt>
+										<dd class="price__last">
+                      <span class="price-item price-item--sale"></span>
+                    </dd>
+                  </div>
+                </dl>
+              </div>
+
+              <p class="product__description"></p>
+
+              <div
+                class="no-js-hidden variant-selects variant-type-{{ settings.modal_picker_type }} {{ settings.product_quickview_select_style }}"
+                data-section="quickview" data-color-option-name="{{ settings.product_variants_name }}"
+								data-select-color="{{ settings.product_quickview_select_type }}"
+                data-select-type="{{ settings.modal_picker_type }}"
+              ></div>
+
+              <div class="product-form-wrp {{ settings.product_quickview_form_style }}">
+                {%- liquid
+                  assign gift_card_recipient_feature_active = false
+                  if product.gift_card?
+                    assign gift_card_recipient_feature_active = true
+                  endif
+
+                  if gift_card_recipient_feature_active == false
+                  endif
+                -%}
+
+                <product-form
+                  class="product-form"
+                  data-template="{% if settings.cart_type == "drawer" %}drawer{% else %}page{% endif %}"
+                  data-cart-type="{% if settings.cart_type == "drawer" %}drawer{% else %}page{% endif %}"
+                  data-hide-errors="{{ gift_card_recipient_feature_active }}"
+                >
+                  <form
+                    method="post"
+                    action="/cart/add"
+                    id="product-form-quickview"
+                    accept-charset="UTF-8"
+                    class="form"
+                    enctype="multipart/form-data"
+                    novalidate="novalidate"
+                    data-type="add-to-cart-form"
+                  >
+                    <input type="hidden" name="form_type" value="product">
+                    <input type="hidden" name="utf8" value="✓">
+                    <input type="hidden" name="id" value="">
+
+                    {%- if gift_card_recipient_feature_active -%}
+                      {%- render 'gift-card-recipient-form', product: product, form: form, section: section -%}
+                    {%- endif -%}
+
+                    <div class="product-form__buttons">
+                      <div class="product-form__input product-form__quantity">
+                        <label class="form__label" for="Quantity-quickview">
+                          {{ 'products.product.quantity.label' | t }}
+                        </label>
+                        <quantity-input class="quantity">
+                          <button class="quantity__button no-js-hidden" name="minus" type="button">
+                            <span class="visually-hidden">
+                              {{ 'products.product.quantity.decrease' | t: product: product.title | escape }}
+                            </span>
+                            {% render 'icon-minus' %}
+                          </button>
+                          <input
+                            class="quantity__input"
+                            type="number"
+                            name="quantity"
+                            id="Quantity-quickview"
+                            min="1"
+                            {% if product.variant.quantity_rule.max != null %}
+                              max="{{ product.variant.quantity_rule.max }}"
+                            {% endif %}
+                            value="1"
+                            form="product-form-quickview"
+                          >
+                          <button class="quantity__button no-js-hidden" name="plus" type="button">
+                            <span class="visually-hidden">
+                              {{ 'products.product.quantity.increase' | t: product: product.title | escape }}
+                            </span>
+                            {% render 'icon-plus' %}
+                          </button>
+                        </quantity-input>
+                      </div>
+
+                      {% liquid
+                        assign button_style_type = settings.product_quickview_button_type
+                        assign button_icon = false
+                        if settings.product_quickview_button_type == 'button_icon'
+                          assign button_style_type = 'button'
+                          assign button_icon = true
+                        elsif settings.product_quickview_button_type == 'button_outline'
+                          assign button_style_type = 'button btn-bg-transparent'
+                        elsif settings.product_quickview_button_type == 'button_outline_icon'
+                          assign button_style_type = 'button btn-bg-transparent'
+                          assign button_icon = true
+                        endif
+                      %}
+											<div class="product-form__error-message-wrapper" role="alert" hidden>
+												<svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-error" viewBox="0 0 13 13">
+													<circle cx="6.5" cy="6.50049" r="5.5" stroke="white" stroke-width="2"/>
+													<circle cx="6.5" cy="6.5" r="5.5" fill="#EB001B" stroke="#EB001B" stroke-width="0.7"/>
+													<path d="M5.87413 3.52832L5.97439 7.57216H7.02713L7.12739 3.52832H5.87413ZM6.50076 9.66091C6.88091 9.66091 7.18169 9.37267 7.18169 9.00504C7.18169 8.63742 6.88091 8.34917 6.50076 8.34917C6.12061 8.34917 5.81982 8.63742 5.81982 9.00504C5.81982 9.37267 6.12061 9.66091 6.50076 9.66091Z" fill="white"/>
+													<path d="M5.87413 3.17832H5.51535L5.52424 3.537L5.6245 7.58083L5.63296 7.92216H5.97439H7.02713H7.36856L7.37702 7.58083L7.47728 3.537L7.48617 3.17832H7.12739H5.87413ZM6.50076 10.0109C7.06121 10.0109 7.5317 9.57872 7.5317 9.00504C7.5317 8.43137 7.06121 7.99918 6.50076 7.99918C5.94031 7.99918 5.46982 8.43137 5.46982 9.00504C5.46982 9.57872 5.94031 10.0109 6.50076 10.0109Z" fill="white" stroke="#EB001B" stroke-width="0.7">
+												</svg>
+												<span class="product-form__error-message"></span>
+											</div>
+                      <button
+                        type="submit"
+                        name="add"
+                        class="product-form__submit {{ button_style_type }}{% if settings.color_events_button_bg_hover_gradient != blank and button_style_type == 'button btn-bg-transparent' %} gradient--hover {% endif %}{% if settings.product_quickview_button_style == 'btn_secondary' %} button-secondary{% endif %}{% if settings.link_icon != blank and button_icon == true %} button-with-icon{% endif %}{% if settings.product_quickview_button_style == 'btn_primary' and settings.color_primery_button_bg_gradient != blank %} gradient gradient--primary{% endif %}{% if settings.product_quickview_button_style == 'btn_secondary' and settings.color_secondary_button_bg_gradient != blank %} gradient gradient--secondary {% endif %}"
+                        style="margin-top: 2.5rem;"
+												{% if settings.product_quickview_form_style == 'b-style-4' %} data-initial-price="{{ product.selected_or_first_available_variant.price | money }}" {% endif %}
+                      >
+												{% if settings.product_quickview_form_style == 'b-style-4'  %}
+													{%- liquid
+                            assign target = product.selected_or_first_available_variant
+
+                            assign price = target.price | default: 1999
+                            assign money_price = price | money
+                            if settings.currency_code_enabled
+                              assign money_price = price | money_with_currency
+                            endif
+
+                            if target == product and product.price_varies
+                              assign money_price = 'products.product.price.from_price_html' | t: price: money_price
+                            endif
+
+                            if target == product and product.price_varies and settings.currency_code_enabled
+                              assign money_price_max = product.price_max | money_with_currency
+                            elsif target == product and product.price_varies
+                              assign money_price_max = product.price_max | money
+                            endif
+                          -%}
+                          <div class="price__regular">
+                            <span class="visually-hidden visually-hidden--inline">
+                              {{- 'products.product.price.regular_price' | t -}}
+                            </span>
+                            <span class="price-item price-item--regular">
+                              {{ money_price }}
+                              {% if target == product and product.price_varies %}
+                                - {{ money_price_max }}
+                              {% endif %}
+                            </span>
+                          </div>
+												{% endif %}                        
+												{% if settings.link_icon != blank and button_icon == true %}
+                          <span class="link-text add_to_cart_price" style="margin-right: 3px;"></span>
+                          <span class="link-text add_to_cart">{{ 'products.product.add_to_cart' | t }}</span>
+                          <span class="link-text sold_out">{{ 'products.product.sold_out' | t }}</span>
+                          <span class="link-text unavailable">{{ 'products.product.unavailable' | t }}</span>
+                          <span class="link-icon">
+                            {{ settings.link_icon }}
+                          </span>
+                        {% else %}
+                          <span class="add_to_cart_price" style="margin-right: 3px;"></span>
+                          <span class="add_to_cart">{{ 'products.product.add_to_cart' | t }}</span>
+                          <span class="sold_out">{{ 'products.product.sold_out' | t }}</span>
+                          <span class="unavailable">{{ 'products.product.unavailable' | t }}</span>
+                        {% endif %}
+                      </button>
+                    </div>
+                  </form>
+                </product-form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+
+  <script>
+    function runProductModal() {
+      const modal = document.querySelector('.modal-product-detail');
+      let btns_modal_open = document.querySelectorAll('.button-product-detail');
+      setTimeout(() => {
+        btns_modal_open = document.querySelectorAll(".button-product-detail");
+      }, "300");
+
+      const btn_modal_close = document.querySelector('.modal-product-detail .close');
+      const btnFormSubmit = document.querySelector('.modal-product-detail .product-form__submit');
+
+      var Shopify = Shopify || {};
+      Shopify.money_format = '${{ amount }}';
+      Shopify.formatMoney = function (cents, format) {
+        if (typeof cents == 'string') {
+          cents = cents.replace('.', '');
+        }
+        var value = '';
+        var placeholderRegex = /\{\{\s*(\w+)\s*\}\}/;
+        var formatString = format || this.money_format;
+
+        function defaultOption(opt, def) {
+          return typeof opt == 'undefined' ? def : opt;
+        }
+
+        function formatWithDelimiters(number, precision, thousands, decimal) {
+          precision = defaultOption(precision, 2);
+          thousands = defaultOption(thousands, ',');
+          decimal = defaultOption(decimal, '.');
+
+          if (isNaN(number) || number == null) {
+            return 0;
+          }
+
+          number = (number / 100.0).toFixed(precision);
+
+          var parts = number.split('.'),
+            dollars = parts[0].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1' + thousands),
+            cents = parts[1] ? decimal + parts[1] : '';
+          return dollars + cents;
+        }
+
+        switch (formatString.match(placeholderRegex)[1]) {
+          case 'amount':
+            value = formatWithDelimiters(cents, 2);
+            break;
+          case 'amount_no_decimals':
+            value = formatWithDelimiters(cents, 0);
+            break;
+          case 'amount_with_comma_separator':
+            value = formatWithDelimiters(cents, 2, '.', ',');
+            break;
+          case 'amount_no_decimals_with_comma_separator':
+            value = formatWithDelimiters(cents, 0, '.', ',');
+            break;
+        }
+        return formatString.replace(placeholderRegex, value);
+      };
+
+      function openProductModal() {
+        setTimeout(() => {
+          btns_modal_open = document.querySelectorAll(".button-product-detail");
+
+					btns_modal_open.forEach(function (btn_modal_open_item) {
+						btn_modal_open_item.addEventListener('click', function (event) {
+							event.preventDefault();
+							event.stopPropagation();
+
+							let product_url = this.dataset.productUrl.split('?')[0];
+							if (product_url.indexOf('.js') == -1) {
+								product_url += '.js';
+							}
+
+							fetch(product_url)
+								.then((response) => response.json())
+								.then((data) => {
+									// gallery
+									let mainGallery = document.querySelector('#Slider-Gallery-quickview .swiper-wrapper');
+									let thumbsGallery = document.querySelector('#Slider-Thumbnails-quickview .swiper-wrapper');
+									let formInputId = document.querySelector('#product-form-quickview input[name="id"]'); 
+									formInputId.value = data.variants[0].id;
+
+									if (data.media) {
+										data.media.forEach(function (dataMedia, index) {
+											document.querySelector('.slider-thumbs-wrapp').style.display = 'block';
+											document.querySelector('.swiper-button-next').style.display = 'flex';
+											document.querySelector('.swiper-button-prev').style.display = 'flex';
+
+											if (dataMedia.media_type == 'image') {
+												mainGallery.innerHTML += `
+														<div class="swiper-slide animate--fade-in" data-media-id="${dataMedia.id}">
+															<img srcset="${dataMedia.preview_image.src}"
+																src="${dataMedia.preview_image.src}"
+																sizes="(min-width: 320px) 500px"
+																loading="lazy"
+																width="${dataMedia.width}"
+																height="${dataMedia.height}"
+																alt="${data.title}">
+														</div>`;
+											} else if (dataMedia.media_type == 'video') {
+												mainGallery.innerHTML += `
+														<div class="swiper-slide animate--fade-in">
+																<deferred-media class="deferred-media media" style="height: 100%" data-media-id="${dataMedia.id}">
+																	<video class="video-url-${index}" controls></video>
+																</deferred-media>
+														</div>`;
+												let videoUrl = document.querySelector('.video-url-' + index + '');
+												dataMedia.sources.forEach(function (dataSources, index) {
+													videoUrl.innerHTML += `<source src="${dataSources.url}" type="${dataSources.mime_type}">`;
+												});
+											} else if (dataMedia.media_type == 'external_video') {
+												if (dataMedia.host == 'youtube') {
+													mainGallery.innerHTML += `
+														<div class="swiper-slide">
+															<img srcset="${dataMedia.preview_image.src}" class="video-preview-image" src="${dataMedia.preview_image.src}"
+																	loading="lazy" width="50" height="50" alt="${data.title}">
+
+															<div class="loading-overlay">
+																<div class="loading-overlay__spinner">
+																	{% render 'icon-spinner' %}
+																</div>
+															</div>
+
+															<deferred-media class="deferred-media media" style="height: 100%" data-media-id="${dataMedia.id}">
+																<iframe class="js-youtube externa-video-url-${index}" width="100%" height="100%" src="" loading="lazy"></iframe> 
+															</deferred-media>
+														</div>`;
+
+													let videoUrl = document.querySelector('.externa-video-url-' + index + '');
+													videoUrl.setAttribute(
+														'src',
+														'https://www.youtube.com/embed/' + dataMedia.external_id + '?controls=1'
+													);
+												} else if (dataMedia.host == 'vimeo') {
+													mainGallery.innerHTML += `
+														<div class="swiper-slide">
+																<deferred-media class="deferred-media media" style="height: 100%" data-media-id="${dataMedia.id}">
+																	<iframe class="externa-video-url-${index}" width="100%" height="100%" src=""></iframe> 
+																</deferred-media>
+														</div>`;
+
+													let videoUrl = document.querySelector('.externa-video-url-' + index + '');
+													videoUrl.setAttribute('src', 'https://player.vimeo.com/video/' + dataMedia.external_id + '');
+												} else {
+													mainGallery.innerHTML += `
+														<div class="swiper-slide">
+															<img srcset="${dataMedia.preview_image.src}"
+																src="${dataMedia.preview_image.src}"
+																sizes="(min-width: 320px) 500px"
+																loading="lazy"
+																width="${dataMedia.width}"
+																height="${dataMedia.height}"
+																alt="${data.title}">
+														</div>`;
+												}
+											} else if (dataMedia.media_type == 'model') {
+												const objectFormat = dataMedia.sources.find((element) => element.format === 'glb');
+												let objectUrl = false;
+												if (objectFormat) {
+													objectUrl = objectFormat.url;
+												}
+
+												mainGallery.innerHTML += `
+														<div class="swiper-slide">
+															<product-model class="deferred-media media media--transparent no-js-hidden" style="height:100%" data-media-id="${
+																dataMedia.id
+															}">
+																<button id="Deferred-Poster-${dataMedia.id}" class="deferred-media__poster" type="button">
+																	<span class="deferred-media__poster-button motion-reduce">
+																		<span class="visually-hidden">{{ 'products.product.media.play_model' | t }}</span>
+																		<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="presentation" class="icon icon-3d-model" fill="none" viewBox="0 0 18 21">
+																			<path d="M7.67998 20.629L1.28002 16.723C0.886205 16.4784 0.561675 16.1368 0.337572 15.731C0.113468 15.3251 -0.00274623 14.8686 -1.39464e-05 14.405V6.59497C-0.00238367 6.13167 0.113819 5.6755 0.33751 5.26978C0.561202 4.86405 0.884959 4.52227 1.278 4.27698L7.67796 0.377014C8.07524 0.131403 8.53292 0.000877102 8.99999 9.73346e-08C9.46678 -0.000129605 9.92446 0.129369 10.322 0.374024V0.374024L16.722 4.27399C17.1163 4.51985 17.4409 4.86287 17.6647 5.27014C17.8885 5.67742 18.0039 6.13529 18 6.59998V14.409C18.0026 14.8725 17.8864 15.3289 17.6625 15.7347C17.4386 16.1405 17.1145 16.4821 16.721 16.727L10.321 20.633C9.92264 20.8742 9.46565 21.0012 8.99999 21C8.53428 20.9998 8.07761 20.8714 7.67998 20.629V20.629ZM8.72398 2.078L2.32396 5.97803C2.22303 6.04453 2.14066 6.13551 2.08452 6.24255C2.02838 6.34959 2.00031 6.46919 2.00298 6.59003V14.4C2.00026 14.5205 2.02818 14.6396 2.08415 14.7463C2.14013 14.853 2.22233 14.9438 2.32298 15.01L7.99999 18.48V10.919C8.00113 10.5997 8.08851 10.2867 8.25292 10.0129C8.41732 9.73922 8.65267 9.51501 8.93401 9.36401L15.446 5.841L9.28001 2.08002C9.19614 2.02738 9.09901 1.99962 8.99999 2C8.90251 1.99972 8.8069 2.02674 8.72398 2.078V2.078Z" fill="currentColor"/>
+																		</svg>
+																	</span>
+																	<img srcset="${dataMedia.preview_image.src}"
+																		src="${dataMedia.preview_image.src}"
+																		sizes="(min-width: 320px) 500px"
+																		loading="lazy"
+																		width="576"
+																		height="${dataMedia.preview_image.height / 2}"
+																		alt="${data.title}">
+																</button>
+																<template>
+																	<model-viewer class="swiper-no-swiping" toggleable="true" src="${objectUrl}" ios-src="${objectUrl}" camera-controls="true" style="--poster-color: transparent;" data-shopify-feature="1.12" alt="Nick Test Product" poster="${
+													dataMedia.preview_image.src
+												}"></model-viewer>
+																</template>
+															</product-model>
+														</div>`;
+											} else {
+												mainGallery.innerHTML += `
+														<div class="swiper-slide">
+															<img srcset="${dataMedia.preview_image.src}"
+																src="${dataMedia.preview_image.src}"
+																sizes="(min-width: 320px) 500px"
+																loading="lazy"
+																width="${dataMedia.width}"
+																height="${dataMedia.height}"
+																alt="${data.title}">
+														</div>`;
+											}
+
+											if (data.media.length > 1) {
+												thumbsGallery.innerHTML += `
+														<div class="swiper-slide" data-media-id="${dataMedia.id}">
+															<img srcset="${dataMedia.preview_image.src}" src="${dataMedia.preview_image.src}"
+																loading="lazy" width="50" height="50" alt="${data.title}">
+														</div>`;
+											} else {
+												document.querySelector('.slider-thumbs-wrapp').style.display = 'none';
+												document.querySelector('.swiper-button-next').style.display = 'none';
+												document.querySelector('.swiper-button-prev').style.display = 'none';
+											}
+										});
+
+										var previewSlider = new Swiper('#Slider-Thumbnails-quickview', {
+											spaceBetween: 15,
+											slidesPerView: 4,
+											observer: true,
+											freeMode: true,
+											watchSlidesProgress: true,
+											slideToClickedSlide: true,
+										});
+
+										var previewSliderMain = new Swiper('#Slider-Gallery-quickview', {
+											spaceBetween: 10,
+											observer: true,
+											longSwipesRatio: 0.7,
+											focusableElements: 'input, select, option, textarea, button, video, label, canvas',
+											navigation: {
+												nextEl: '.quickview-next',
+												prevEl: '.quickview-prev',
+											},
+											thumbs: {
+												swiper: previewSlider,
+											},
+										});
+									} else {
+										mainGallery.innerHTML += `{{ 'product-1' | placeholder_svg_tag }}`;
+										document.querySelector('.slider-thumbs-wrapp').style.display = 'none';
+										document.querySelector('.swiper-button-next').style.display = 'none';
+										document.querySelector('.swiper-button-prev').style.display = 'none';
+									}
+
+									// title
+									document.querySelector('.modal-product-detail .product__title').innerHTML = data.title;
+									document.querySelector('.modal-product-detail .product__title-link').href = data.url;
+
+									// description
+									let modalDescriptionTrue = this.closest('a.full-unstyled-link[data-metafield]');
+									if (modalDescriptionTrue) {
+										let modalDescription = modalDescriptionTrue.dataset.metafield;
+										document.querySelector('.modal-product-detail .product__description').innerHTML = modalDescription;
+									}
+
+									// price
+									const priceSale = document.querySelector('.modal-product-detail .price-item--sale');
+									const priceRegular = document.querySelector('.modal-product-detail .price-item--regular');
+									const btnWithPrice = document.querySelector('.modal-product-detail [data-initial-price]');
+
+									priceSale.innerHTML = `${Shopify.formatMoney(data.variants[0].price, '{{ shop.money_format }}')}`;
+
+									if (btnWithPrice) {
+										btnWithPrice.dataset.initialPrice = `${Shopify.formatMoney(data.variants[0].price, '{{ shop.money_format }}')}`;
+										btnWithPrice.querySelector('.price-item--regular').innerHTML = `${Shopify.formatMoney(data.variants[0].price, '{{ shop.money_format }}')}`;
+									}
+
+									if ( data.variants[0].compare_at_price != null &&  data.variants[0].compare_at_price != data.variants[0].price) {
+										const price = document.querySelector('.modal-product-detail .price__compare--regular');
+										if (price) {
+											price.innerHTML = `-`;
+										}
+										priceRegular.innerHTML = `${Shopify.formatMoney(
+											data.variants[0].compare_at_price,
+											'{{ shop.money_format }}'
+										)}`;
+									}
+
+									// checkout button
+									const checkoutButton = document.querySelector('.modal-product-detail .shopify-payment-button__button');
+
+									if (data.variants[0].available == true) {
+										document.querySelector('.modal-product-detail .product-form__submit .add_to_cart').style.display = 'inline-block';
+										document.querySelector('.modal-product-detail .product-form__submit .sold_out').style.display = 'none';
+										document.querySelector('.modal-product-detail .product-form__submit').disabled = false;
+
+										if (checkoutButton) {
+											checkoutButton.disabled = false;
+										}
+
+										document.querySelector('.modal-product-detail .product-form__submit .unavailable').style.display = 'none';
+									} else {
+										document.querySelector('.modal-product-detail .product-form__submit .sold_out').style.display = 'inline-block';
+										document.querySelector('.modal-product-detail .product-form__submit').disabled = true;
+
+										if (checkoutButton) {
+											checkoutButton.disabled = true;
+										}
+
+										document.querySelector('.modal-product-detail .product-form__submit .add_to_cart').style.display = 'none';
+										document.querySelector('.modal-product-detail .product-form__submit .unavailable').style.display = 'none';
+									}
+
+									// options
+									const elemenOption = document.querySelector('.product-quickview .variant-selects');
+									const errorMessage = document.querySelector('.product-quickview .product-form__error-message-wrapper');
+									const variantColorName = elemenOption.dataset.colorOptionName.replace(/,\s*/g, ',').split(',');;
+									const variantSelecButon = elemenOption.dataset.selectType;
+									const variantSelecColortButon = elemenOption.dataset.selectColor;
+
+									if (data.variants.length > 1) {
+										data.options.forEach(function (dataOption, index) {
+
+											if (variantColorName.find(name => name == dataOption.name) && variantSelecColortButon == 'true') {
+												elemenOption.innerHTML += `<div class="hidden product-form__input product-form__input--dropdown variant-color variant-${dataOption.name.replace(/\s+/g, '-')}">
+													<label class="form__label" for="Option-quickview-${dataOption.name.replace(/\s+/g, '-')}">
+														${dataOption.name}
+													</label>
+													<div class="select">
+														<select id="Option-quickview-${dataOption.name.replace(/\s+/g, '-')}"
+															class="select__select {{ settings.picker_text_style }} select-${dataOption.name.replace(
+																/\s+/g,
+																'-'
+															)}"
+															name="options-${dataOption.name.replace(/\s+/g, '-')}"
+															form="product-form-quickview">
+														</select>
+														<svg width="14" height="8" viewBox="0 0 14 8" fill="none" aria-hidden="true" focusable="false" role="presentation" class="icon icon-caret"><path d="M1 1L7 7.13636L13 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+													</div>
+												</div>
+												<fieldset 
+														class="color-button-swiched product-form__input variant-color variant-${dataOption.name.replace(/\s+/g, '-')}">
+													<label class="form__label">
+														${dataOption.name} <span class="color-label"></span>
+													</label>
+													<div class="radio radio-js"></div>
+												</fieldset>`;
+											} else if (variantSelecButon == 'button') {
+												const variantLabel = variantColorName.find(name => name == dataOption.name.replace(/\s+/g, '-')) ? 'Color' : dataOption.name.replace(/\s+/g, '-');
+												elemenOption.innerHTML += 
+													`<div class="hidden product-form__input product-form__input--dropdown variant-${variantLabel}">
+														<label class="form__label" for="Option-quickview-${dataOption.name.replace(/\s+/g, '-')}">
+															${dataOption.name}
+														</label>
+														<div class="select">
+															<select id="Option-quickview-${dataOption.name.replace(/\s+/g, '-')}"
+																class="select__select {{ settings.picker_text_style }} select-${dataOption.name.replace(
+																	/\s+/g,
+																	'-'
+																)}"
+																name="options-${dataOption.name.replace(/\s+/g, '-')}"
+																form="product-form-quickview">
+															</select>
+															<svg width="14" height="8" viewBox="0 0 14 8" fill="none" aria-hidden="true" focusable="false" role="presentation" class="icon icon-caret"><path d="M1 1L7 7.13636L13 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+														</div>
+													</div>
+													<fieldset 
+															class="all-buttons product-form__input variant-${variantLabel}"
+															data-select-option="select-${dataOption.name.replace(/\s+/g, '-')}">
+														<label class="form__label">
+															${dataOption.name}
+														</label>
+														<div class="radio radio-js"></div>
+													</fieldset>`;
+											} else {
+												const variantLabel = variantColorName.find(name => name == dataOption.name.replace(/\s+/g, '-')) ? 'color' : dataOption.name.replace(/\s+/g, '-');
+												elemenOption.innerHTML += `<div class="all-selects product-form__input product-form__input--dropdown variant-${variantLabel}">
+															<label class="form__label" for="Option-quickview-${dataOption.name.replace(/\s+/g, '-')}">${
+													dataOption.name
+												}</label>
+													<div class="select">
+														<select id="Option-quickview-${dataOption.name.replace(/\s+/g, '-')}"
+															class="select__select {{ settings.picker_text_style }} select-${dataOption.name.replace(
+																/\s+/g,
+																'-'
+															)}"
+															name="options-${dataOption.name.replace(/\s+/g, '-')}"
+															form="product-form-quickview">
+														</select>
+														<svg width="14" height="8" viewBox="0 0 14 8" fill="none" aria-hidden="true" focusable="false" role="presentation" class="icon icon-caret"><path d="M1 1L7 7.13636L13 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+													</div>
+												</div>`;
+											}
+
+											let elemenOptionValues = document.querySelector(
+												'.product-quickview .select-' + dataOption.name.replace(/\s+/g, '-') + ''
+											);
+
+											dataOption.values.forEach(function (dataValue) {
+												elemenOptionValues.innerHTML += `<option value="${dataValue}">${dataValue}</option>`;
+											});
+
+											if (variantSelecButon == 'button' || variantSelecButon == 'dropdown') {
+												let elemenLabelValues = document.querySelector(
+													`.product-quickview fieldset.variant-${dataOption.name.replace(/\s+/g, '-')} .form__label .color-label`
+												);
+
+												const checkIsColorOption = () => {
+													let isColorOption = false;
+													variantColorName.forEach(name => {
+														if (elemenOptionValues.classList.contains(`select-${name}`)) {
+															isColorOption = true;
+														}
+													})
+													return isColorOption;
+												}
+
+												if (elemenLabelValues && checkIsColorOption()) {
+													elemenLabelValues.innerHTML = `(${elemenOptionValues.value})`;
+												}
+
+												let elemenRadiosValues = document.querySelector(`.product-quickview fieldset.variant-${dataOption.name.replace(/\s+/g, '-')} .radio`);
+
+												if (variantColorName.find(name => {
+													return name == dataOption.name 
+												}) && variantSelecColortButon == 'true') {
+													elemenRadiosValues = document.querySelector(`.product-quickview fieldset.variant-color .radio`);
+													dataOption.values.forEach(function (dataValue) {
+														elemenRadiosValues.innerHTML += `
+																<span class="color-variant color--${dataValue.toLowerCase().replace(/\s+/g, '-')}" 
+																			id="id-${dataValue.replace(/\s+/g, '-')}" 
+																			data-value="${dataValue}" 
+																			style='background-color:${dataValue.toLowerCase().replace(/\s/g, '')};'>
+																</span>`;
+														document
+															.querySelector('#id-' + elemenOptionValues.value.replace(/\s+/g, '-') + '')
+															.classList.add('checked');
+													});
+												} else if (variantSelecButon == 'button') {
+													let elemenRadiosValuesButton = document.querySelector(
+														`.product-quickview fieldset.variant-${dataOption.name.replace(/\s+/g, '-')} .radio`
+													);
+
+													dataOption.values.forEach(function (dataValue) {
+														if (elemenRadiosValuesButton) {
+															elemenRadiosValuesButton.innerHTML += `
+																<span class="option--${dataValue.toLowerCase().replace(/\s+/g, '-')}" 
+																			id="id-${dataValue.replace(/\s+/g, '-')}" 
+																			data-value="${dataValue}">
+																	${dataValue}
+																</span>`;
+														}
+														const btn =  document
+														.querySelector('#id-' + elemenOptionValues.value.replace(/\s+/g, '-') + '')
+														if (btn) {
+															btn.classList.add('checked');
+														}
+													});
+												}
+											}
+
+											let radioItem = document.querySelectorAll('.product-quickview .radio-js span');
+											if (radioItem.length >= 1) {
+												radioItem.forEach(function (item) {
+													item.addEventListener('click', function (event) {
+														let elemenLabelValues = document.querySelector(`.product-quickview fieldset.variant-${dataOption.name.replace(/\s+/g, '-')} .form__label .color-label`);
+														if (elemenLabelValues && this.classList.contains('color-variant')) {
+															elemenLabelValues.innerHTML = `(${this.dataset.value})`;
+														}
+
+														let getClosestFieldset = this.closest('.product-form__input');
+														let getSelectName = getClosestFieldset.dataset.selectOption;
+
+														let setSelect = document.querySelector(`.product-quickview .select__select.select-${variantColorName}`);
+														if (getSelectName) {
+															setSelect = document.querySelector(`.product-quickview .select__select.${getSelectName}`);
+														}
+														setSelect.value = item.dataset.value;
+
+														let thisRadioItems = getClosestFieldset.querySelectorAll('.radio-js span');
+														thisRadioItems.forEach(function (itemClass) {
+															itemClass.classList.remove('checked');
+														});
+														item.classList.add('checked');
+
+														if ('createEvent' in document) {
+															var evt = document.createEvent('HTMLEvents');
+															evt.initEvent('change', false, true);
+															setSelect.dispatchEvent(evt);
+														} else {
+															setSelect.fireEvent('onchange');
+														}
+													});
+												});
+											}
+										});
+									}
+
+									function closeModal(event) {
+										elemenOption.innerHTML = '';
+										mainGallery.innerHTML = '';
+										thumbsGallery.innerHTML = '';
+										document.querySelector('.modal-product-detail .product__description').innerHTML = '';
+										if(errorMessage) {
+											errorMessage.setAttribute('hidden', '');
+										}
+									}
+
+									btn_modal_close.addEventListener('click', closeModal);
+
+									let allSelects = document.querySelectorAll('.product-quickview .select__select');
+									allSelects.forEach((item, index) => {
+										const selectedObj = getSelectedOptions(allSelects);
+										let variantsArr = data.variants;
+										let cloneVariantsArr = variantsArr;
+										let filteredvariantsArr = [];
+
+										for (key in selectedObj) {
+											filteredvariantsArr = cloneVariantsArr.filter((variant) => variant[key] === selectedObj[key]);
+											cloneVariantsArr = filteredvariantsArr;
+										}
+
+										if (!filteredvariantsArr[0]) return;
+										const activeVariantId = filteredvariantsArr[0].id;
+										let formInputId = document.querySelector('#product-form-quickview input[name="id"]');
+
+										formInputId.value = activeVariantId;
+										item.addEventListener('change', (event) => {
+											let selectedOptions = item.options[item.selectedIndex].value;
+											selectedObj[index] = selectedOptions;
+
+											let updatedSelectedObj = getSelectedOptions(allSelects);
+											let updatedcloneVariantsArr = variantsArr;
+											let updatedfilteredvariantsArr = [];
+
+											for (key in updatedSelectedObj) {
+												updatedfilteredvariantsArr = updatedcloneVariantsArr.filter(
+													(variant) => variant[key] === updatedSelectedObj[key]
+												);
+												updatedcloneVariantsArr = updatedfilteredvariantsArr;
+											}
+
+											if (updatedfilteredvariantsArr.length > 0) {
+												const updatedactiveVariantId = updatedfilteredvariantsArr[0].id;
+												formInputId.value = updatedactiveVariantId;
+												document.querySelector('.modal-product-detail .product-form__submit').disabled = false;
+
+												if (checkoutButton) {
+													checkoutButton.disabled = false;
+												}
+
+												if (updatedfilteredvariantsArr[0].available == true) {
+													document.querySelector('.modal-product-detail .price').style.display = 'flex';
+													document.querySelector(
+														'.modal-product-detail .product-form__submit .add_to_cart'
+													).style.display = 'inline-block';
+													document.querySelector(
+														'.modal-product-detail .product-form__submit .unavailable'
+													).style.display = 'none';
+													document.querySelector('.modal-product-detail .product-form__submit .sold_out').style.display =
+														'none';
+												} else {
+													document.querySelector('.modal-product-detail .price').style.display = 'flex';
+													document.querySelector('.modal-product-detail .product-form__submit').disabled = true;
+
+													if (checkoutButton) {
+														checkoutButton.disabled = true;
+													}
+													document.querySelector('.modal-product-detail .product-form__submit .sold_out').style.display =
+														'inline-block';
+													document.querySelector(
+														'.modal-product-detail .product-form__submit .add_to_cart'
+													).style.display = 'none';
+													document.querySelector(
+														'.modal-product-detail .product-form__submit .unavailable'
+													).style.display = 'none';
+												}
+
+												if (updatedfilteredvariantsArr[0].featured_media != undefined) {
+													let activeSlide = document.querySelector(
+														'#Slider-Gallery-quickview [data-media-id="' +
+															updatedfilteredvariantsArr[0].featured_media.id +
+															'"]'
+													);
+													activeSlide.parentElement.insertBefore(activeSlide, activeSlide.parentElement.firstChild);
+
+													let activeSlideThumbs = document.querySelector(
+														'#Slider-Thumbnails-quickview [data-media-id="' +
+															updatedfilteredvariantsArr[0].featured_media.id +
+															'"]'
+													);
+
+													if (activeSlideThumbs) {
+														activeSlideThumbs.parentElement.insertBefore(
+															activeSlideThumbs,
+															activeSlideThumbs.parentElement.firstChild
+														);
+
+														let previewSlider = new Swiper('#Slider-Thumbnails-quickview', {
+															spaceBetween: 15,
+															slidesPerView: 4,
+															freeMode: true,
+															observer: true,
+															watchSlidesProgress: true,
+															slideToClickedSlide: true,
+														});
+
+														let previewSliderMain = new Swiper('#Slider-Gallery-quickview', {
+															spaceBetween: 10,
+															observer: true,
+															longSwipesRatio: 0.7,
+															focusableElements: 'input, select, option, textarea, button, video, label, canvas',
+															navigation: {
+																nextEl: '.quickview-next',
+																prevEl: '.quickview-prev',
+															},
+															thumbs: {
+																swiper: previewSlider,
+															},
+														});
+													} else {
+														let previewSliderMain = new Swiper('#Slider-Gallery-quickview', {
+															spaceBetween: 10,
+															observer: true,
+															navigation: {
+																nextEl: '.quickview-next',
+																prevEl: '.quickview-prev',
+															},
+														});
+													}
+												}
+
+												let newModalPrice = `${Shopify.formatMoney(
+													updatedfilteredvariantsArr[0].price,
+													'{{ shop.money_format }}'
+												)}`;
+												
+												priceSale.innerHTML = newModalPrice;
+
+												let btnWithPriceNew = document.querySelector('.modal-product-detail [data-initial-price]');
+												if (btnWithPriceNew) {
+													let priceButtonReplace = btnWithPriceNew.querySelector('.price-item--regular');
+													if (priceButtonReplace) {
+														priceButtonReplace.innerHTML = newModalPrice;
+														btnWithPriceNew.dataset.initialPrice = newModalPrice;
+													}
+												}
+
+												if ( updatedfilteredvariantsArr[0].compare_at_price != null && updatedfilteredvariantsArr[0].compare_at_price != updatedfilteredvariantsArr[0].price ) {
+													const price = document.querySelector('.modal-product-detail .price__compare--regular');
+
+													if (price) {
+														price.innerHTML = `-`;
+													}
+													priceRegular.innerHTML = `${Shopify.formatMoney(
+														updatedfilteredvariantsArr[0].compare_at_price,
+														'{{ shop.money_format }}'
+													)}`;
+												} else {
+													const comparePrices = document.querySelectorAll('.modal-product-detail .price__compare--regular, .modal-product-detail .price__compare .price-item--regular');
+													if (comparePrices.length) {
+														comparePrices.forEach((price) => {
+															price.innerHTML = ``;
+														}) 
+													}
+													priceRegular.innerHTML = ``;
+												}
+											} else {
+												document.querySelector('.modal-product-detail .price').style.display = 'none';
+												document.querySelector('.modal-product-detail .product-form__submit').disabled = true;
+												if (checkoutButton) {
+													checkoutButton.disabled = true;
+												}
+												document.querySelector('.modal-product-detail .product-form__submit .add_to_cart').style.display =
+													'none';
+												document.querySelector('.modal-product-detail .product-form__submit .sold_out').style.display =
+													'none';
+												document.querySelector('.modal-product-detail .product-form__submit .unavailable').style.display =
+													'inline-block';
+											}
+										});
+									});
+
+									function getSelectedOptions(allSelects) {
+										let selectedObj = {};
+										allSelects.forEach((item, index) => {
+												let selectedOptions = item.options[item.selectedIndex]?.value;
+												selectedObj[`option${index + 1}`] = selectedOptions;
+										});
+										return selectedObj;
+									}
+
+									modal.style.display = 'flex';
+									document.querySelector('body').classList.add('overflow-hidden');
+								});
+						});
+					});
+        }, 1000);
+      }
+
+      const checkRecommentains = document.querySelector('product-recommendations');
+      if (checkRecommentains) {
+        let checkButtons = setInterval(() => {
+          btns_modal_open = document.querySelectorAll('.button-product-detail');
+          if (btns_modal_open.length > 0) {
+            openProductModal();
+            clearInterval(checkButtons);
+          } else {
+            openProductModal();
+          }
+        }, 300);
+      } else {
+        openProductModal();
+      }
+
+			const quantity = modal.querySelector('.quantity__input');
+			const reduceQuantity = () => quantity.value = 1;
+
+      btn_modal_close.addEventListener('click', function (event) {
+        modal.style.display = 'none';
+				setTimeout(reduceQuantity, 250)
+        document.querySelector('body').classList.remove('overflow-hidden');
+      });
+			
+      window.click = function (event) {
+        if (event.target == modal) {
+          modal.style.display = 'none';
+					setTimeout(reduceQuantity, 250)
+          document.querySelector('body').classList.remove('overflow-hidden');
+        }
+      };
+    }
+
+    document.addEventListener('DOMContentLoaded', runProductModal);
+    document.addEventListener('shopify:section:load', runProductModal);
+  </script>
+
+  <script type="application/json" id="ProductJSON-{{ product.id }}">
+    {{ product.media | where: 'media_type', 'model' | json }}
+  </script>
+
+  <script src="{{ 'product-model.js' | asset_url }}" defer></script>
+</div>

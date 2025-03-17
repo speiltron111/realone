@@ -1,0 +1,176 @@
+<link rel="stylesheet" href="{{ 'component-grid-layout.css' | asset_url }}" media="print" onload="this.media='all'">
+
+<nav class="navigation-layout">
+    <ul>
+        <li class="navigation-layout__button layout-2-col">
+            <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="8" height="8" fill="currentcolor"/>
+                <rect x="12.2428" width="8" height="8" fill="currentcolor"/>
+                <rect y="12" width="8" height="8" fill="currentcolor"/>
+                <rect x="12.2428" y="12" width="8" height="8" fill="currentcolor"/>
+            </svg>
+        </li>
+        <li class="navigation-layout__button layout-3-col">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="7.34839" width="5" height="5" fill="currentcolor"/>
+                <rect x="15" width="5" height="5" fill="currentcolor"/>
+                <rect y="7.5" width="5" height="5" fill="currentcolor"/>
+                <rect width="5" height="5" fill="currentcolor"/>
+                <rect x="7.34839" y="7.5" width="5" height="5" fill="currentcolor"/>
+                <rect x="15" y="7.5" width="5" height="5" fill="currentcolor"/>
+                <rect x="15" y="15" width="5" height="5" fill="currentcolor"/>
+                <rect x="7.34839" y="15" width="5" height="5" fill="currentcolor"/>
+                <rect x="0.0756836" y="15" width="5" height="5" fill="currentcolor"/>
+            </svg>
+        </li>
+        <li class="navigation-layout__button layout-4-col">
+            <svg width="25" height="20" viewBox="0 0 25 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect        width="4" height="5" fill="currentcolor"/>
+                <rect x="7"  width="4" height="5" fill="currentcolor"/>
+                <rect x="14" width="4" height="5" fill="currentcolor"/>
+                <rect x="21" width="4" height="5" fill="currentcolor"/>
+                
+                <rect         y="7.5" width="4" height="5" fill="currentcolor"/>
+                <rect x="7"   y="7.5" width="4" height="5" fill="currentcolor"/>
+                <rect x="14"  y="7.5" width="4" height="5" fill="currentcolor"/>
+                <rect x="21"  y="7.5" width="4" height="5" fill="currentcolor"/>
+
+                <rect         y="15" width="4" height="5" fill="currentcolor"/>
+                <rect x="7"   y="15" width="4" height="5" fill="currentcolor"/>
+                <rect x="14"  y="15" width="4" height="5" fill="currentcolor"/>
+                <rect x="21"  y="15" width="4" height="5" fill="currentcolor"/>
+            </svg>
+        </li>
+    </ul>
+</nav>
+
+<script>
+	
+	let colInRowSetting = localStorage.getItem('colInRowSetting');
+	const initialColInRowSetting = '{{ section.settings.col_in_row }}';
+	if ( !colInRowSetting | colInRowSetting != initialColInRowSetting) {
+		localStorage.setItem('gridProductActiveButton', initialColInRowSetting);
+		localStorage.setItem('colInRowSetting', initialColInRowSetting);
+	}
+
+	const deleteActiveClass = elem => {
+		let siblings = Array.from(elem.parentElement.children);
+		siblings.forEach(function(sibling) {
+			if (sibling !== elem) {
+				sibling.classList.remove('active');
+			}
+		});
+	}
+
+	function gridsystem() {
+		let layout_buttons = document.querySelectorAll('.navigation-layout__button');
+		let layout_button_1 = document.querySelector('.layout-1-col');
+		let layout_button_2 = document.querySelector('.layout-2-col');
+		let layout_button_3 = document.querySelector('.layout-3-col');
+		let layout_button_4 = document.querySelector('.layout-4-col');
+		let list_of_products = document.querySelector('.main-collection__list');
+
+		{% if section.settings.col_in_row == 'col-1' %}
+			if (layout_button_1) {
+				layout_button_1.classList.add('active');
+			};
+		{% elsif section.settings.col_in_row == 'col-2' %}
+			if (layout_button_2) {
+				layout_button_2.classList.add('active');
+			};
+		{% elsif section.settings.col_in_row == 'col-3' %}
+			if (layout_button_3) {
+				layout_button_3.classList.add('active');
+			};
+		{% elsif section.settings.col_in_row == 'col-4' %}
+			if (layout_button_4) {
+				layout_button_4.classList.add('active');
+			};
+		{% endif %}
+
+		layout_buttons.forEach(function(item) {
+			item.addEventListener("click", function() {
+				layout_buttons = document.querySelectorAll('.navigation-layout__button');
+				list_of_products = document.querySelector('.main-collection__list');
+				layout_buttons.forEach(function(element) {
+					list_of_products.classList.remove("col-1", "col-2", "col-3", "col-4");
+					element.classList.remove('active');
+				});
+			})
+		});
+		const gridClasses = [
+			'col-md-2', 
+			'col-md-3', 
+			'col-lg-2', 
+			'col-lg-3', 
+			'col-lg-4'
+		];
+	
+			if (layout_button_1) {
+					layout_button_1.addEventListener("click", function() {
+						list_of_products.classList.remove(...gridClasses);
+						deleteActiveClass(layout_button_1);
+						list_of_products.classList.add('col-1');
+						layout_button_1.classList.add('active');
+						localStorage.setItem('gridProductActiveButton', 'layout_button_1');
+					});
+			};
+			if (layout_button_2) {
+					layout_button_2.addEventListener("click", function() {
+						list_of_products.classList.remove(...gridClasses);
+						deleteActiveClass(layout_button_2);
+						list_of_products.classList.add('col-md-2','col-lg-2', 'col-2');
+						layout_button_2.classList.add('active');
+						localStorage.setItem('gridProductActiveButton', 'layout_button_2');
+					});
+			};
+			if (layout_button_3) {
+					layout_button_3.addEventListener("click", function() {
+						list_of_products.classList.remove(...gridClasses);
+						deleteActiveClass(layout_button_3);
+						list_of_products.classList.add('col-md-3','col-lg-3', 'col-3');
+						layout_button_3.classList.add('active');
+						localStorage.setItem('gridProductActiveButton', 'layout_button_3');
+					});
+			};
+			if (layout_button_4) {
+					layout_button_4.addEventListener("click", function() {
+						list_of_products.classList.remove(...gridClasses);
+						deleteActiveClass(layout_button_4);
+						list_of_products.classList.add('col-md-3','col-lg-4', 'col-4');
+						layout_button_4.classList.add('active');
+						localStorage.setItem('gridProductActiveButton', 'layout_button_4');
+					});
+			};
+
+			let gridSavedButton = localStorage.getItem('gridProductActiveButton');
+			if ('layout_button_2' === gridSavedButton){
+				layout_button_2.click()
+			};
+			if ('layout_button_3' === gridSavedButton){
+				layout_button_3.click()
+			};
+			if ('layout_button_4' === gridSavedButton){
+				layout_button_4.click()
+			}
+
+			{% if section.settings.collection_style == 'style-3' %}
+					let navElement = document.querySelectorAll('.navigation-layout__button');
+					let navWrapper = document.querySelector('.navigation-layout');
+					let startElement = document.querySelector('.navigation-layout__button.active');
+
+					startElement.closest("ul").prepend(startElement);
+
+					navWrapper.addEventListener('click', function (evt){
+							let target = evt.target.closest(".navigation-layout__button");
+							target.closest("ul").prepend(target);
+					})
+			{% endif %}
+	};
+
+
+	document.addEventListener('DOMContentLoaded', gridsystem);
+	document.addEventListener('shopify:section:load', gridsystem);
+	window.addEventListener('resize', gridsystem);
+
+</script> 

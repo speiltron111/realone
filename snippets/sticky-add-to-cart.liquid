@@ -1,0 +1,151 @@
+<div class="sticky-atc-bar">
+    <div class="page-width">
+        <sticky-atc-bar class="atc-bar-product">
+
+            <div class="atc-product-media">
+                {% if product.selected_or_first_available_variant.featured_media != nil %}
+                    <img id="atc-{{ section.id }}" src="{{ product.selected_or_first_available_variant.featured_media | image_url: width: 80 }}" alt="{{ product.selected_or_first_available_variant.featured_media.alt | escape }}" height="80" width="80" loading="lazy">
+                {% elsif product.featured_media != nil %}
+                    <img id="atc-{{ section.id }}" src="{{ product.featured_media | image_url: width: 80 }}" alt="{{ product.featured_media.alt | escape }}" height="80" width="80" loading="lazy">
+                {% endif %}
+            </div>
+
+            <div class="atc-product-info">
+                <p class="atc-product-title">
+                    {{ product.title | escape }}
+                </p>
+        
+                {% render 'price', 
+                    product: product, 
+                    use_variant: true, 
+                    show_prices: true, 
+                    show_badges: false 
+                %}
+            </div>
+
+            <div class="atc-product-form">
+
+                <product-form class="product-form" data-template="{% if settings.cart_type == "drawer" %}drawer{% else %}page{% endif %}" data-cart-type="{% if settings.cart_type == "drawer" %}drawer{% else %}page{% endif %}">
+
+                    <div class="product-form__error-message-wrapper" role="alert" hidden>
+                        <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-error" viewBox="0 0 13 13">
+                        <circle cx="6.5" cy="6.50049" r="5.5" stroke="white" stroke-width="2"/>
+                        <circle cx="6.5" cy="6.5" r="5.5" fill="#EB001B" stroke="#EB001B" stroke-width="0.7"/>
+                        <path d="M5.87413 3.52832L5.97439 7.57216H7.02713L7.12739 3.52832H5.87413ZM6.50076 9.66091C6.88091 9.66091 7.18169 9.37267 7.18169 9.00504C7.18169 8.63742 6.88091 8.34917 6.50076 8.34917C6.12061 8.34917 5.81982 8.63742 5.81982 9.00504C5.81982 9.37267 6.12061 9.66091 6.50076 9.66091Z" fill="white"/>
+                        <path d="M5.87413 3.17832H5.51535L5.52424 3.537L5.6245 7.58083L5.63296 7.92216H5.97439H7.02713H7.36856L7.37702 7.58083L7.47728 3.537L7.48617 3.17832H7.12739H5.87413ZM6.50076 10.0109C7.06121 10.0109 7.5317 9.57872 7.5317 9.00504C7.5317 8.43137 7.06121 7.99918 6.50076 7.99918C5.94031 7.99918 5.46982 8.43137 5.46982 9.00504C5.46982 9.57872 5.94031 10.0109 6.50076 10.0109Z" fill="white" stroke="#EB001B" stroke-width="0.7">
+                        </svg>
+                        <span class="product-form__error-message"></span>
+                    </div>
+                    {%- assign product_form_id = 'product-form-' | append: product.id -%}
+
+                    {%- form 'product', product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+                      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                      
+                      {%- unless product.has_only_default_variant -%}
+                        <div class="select">
+                            <select name="id" class="select__select">
+                                {% for variant in product.variants %}
+                                    <option value="{{ variant.id }}" 
+																			{% if variant == current_variant %}selected="selected"{% endif %} 
+																			data-price="{{ variant.price | money }}"
+																			{% if variant.featured_image != blank %}data-media="{{ variant.featured_image | image_url: width: 80 }}"{% endif %}>
+                                        {{ variant.title }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            {% render 'icon-caret' %}
+                        </div>
+                      {%- endunless -%}
+
+                      <quantity-input class="quantity">
+
+                        <button class="quantity__button no-js-hidden" name="minus" type="button">
+                          <span class="visually-hidden">{{ 'products.product.quantity.decrease' | t: product: product.title | escape }}</span>
+                          {% render 'icon-minus' %}
+                        </button>
+
+                        <input class="quantity__input" type="number" name="quantity" id="Quantity-{{ section.id }}-sticky"
+													min="1"
+													{% if item.variant.quantity_rule.max != null %}
+														max="{{ item.variant.quantity_rule.max }}"
+													{% endif %} 
+													value="1" form="{{ product_form_id }}" 
+                            product-price="{{ product.selected_or_first_available_variant.price }}">
+
+                        <button class="quantity__button no-js-hidden" name="plus" type="button">
+                            <span class="visually-hidden">
+                                {{ 'products.product.quantity.increase' | t: product: product.title | escape }}
+                            </span>
+                            {% render 'icon-plus' %}
+                        </button>
+
+                      </quantity-input>
+
+                      <button type="submit" name="add" class="button button-secondary button-add-card {% if settings.color_secondary_button_bg_gradient != blank %} gradient gradient--secondary {% endif %}"
+                        {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}>
+                        {%- if product.selected_or_first_available_variant.available -%}
+                            {{ 'products.product.add_to_cart' | t }}
+                        {%- else -%}
+                            {{ 'products.product.sold_out' | t }}
+                        {%- endif -%}
+                      </button>
+
+                    {%- endform -%}
+                </product-form>
+            </div>
+        </sticky-atc-bar>
+    </div>
+
+    <script>
+        if (!customElements.get('sticky-atc-bar')) {
+            function checkBarVisibility() {
+                const stickyAtcBar = document.querySelector(".sticky-atc-bar");
+                const productVisible = document.querySelector("#shopify-section-{{ section.id }} .product__info-wrapper");
+                document.addEventListener("scroll", (e) => {
+                    let productVisibleHeight = productVisible.offsetHeight / 2;
+                    let scrolled = document.scrollingElement.scrollTop;
+                
+                    if (scrolled > productVisibleHeight) {
+                        stickyAtcBar.classList.add('atc-visible');
+                    } else {
+                        stickyAtcBar.classList.remove('atc-visible');
+                    }
+                });
+            }
+
+            document.addEventListener('DOMContentLoaded', checkBarVisibility);
+            document.addEventListener('shopify:section:load', checkBarVisibility);
+
+            function addStickySpace() {
+                const checkMobileStickyBar = document.querySelector('#shopify-section-mobile-sticky-bar');
+                const stickyAtcBar = document.querySelector(".sticky-atc-bar");
+
+                if ( window.innerWidth < 750 && checkMobileStickyBar ) {
+                    const mobileStickyBarHeight = checkMobileStickyBar.offsetHeight;
+                    stickyAtcBar.style.bottom = `${mobileStickyBarHeight}px`;
+                } else {
+                    stickyAtcBar.style.bottom = `0px`;
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', addStickySpace);
+            document.addEventListener('shopify:section:load', addStickySpace);
+            window.addEventListener('resize', addStickySpace);
+
+            const stickyAtcSelect = document.querySelector('sticky-atc-bar .select__select');
+            let atcPrice = document.querySelector('sticky-atc-bar .price-item--regular');
+            let atcImage = document.querySelector('sticky-atc-bar img');
+            if (stickyAtcSelect) {
+                stickyAtcSelect.onchange = function(){
+                    const getNewPrice = stickyAtcSelect.options[this.selectedIndex].getAttribute('data-price');
+                    atcPrice.innerHTML = getNewPrice;
+                    
+                    const getNewImage = stickyAtcSelect.options[this.selectedIndex].getAttribute('data-media');
+                    if ( getNewImage != null ) {
+                        atcImage.src = getNewImage;
+                    }
+                };
+            }
+        }
+    </script>
+</div>

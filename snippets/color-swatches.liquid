@@ -1,0 +1,21 @@
+<style>
+    {% assign colorSwatchesList = settings.swatches_textarea | newline_to_br | strip_newlines | split: '<br />' %}
+    {% for colorSwatchesItem in colorSwatchesList %}
+      {% liquid
+          assign colorSwatchesValue = colorSwatchesItem | split: ':'
+          assign colorSwatchesName = colorSwatchesValue[0] | escape | downcase | replace: " ", "-"
+          assign colorSwatchesColor = colorSwatchesValue[1] 
+      %}
+
+      body .ab-featured-product .variant-color input[type='radio']:checked + label.color--{{ colorSwatchesName }},
+      body .ab-featured-product .variant-color input[type='radio'] + label.color--{{ colorSwatchesName }},
+      body .product-quickview .color--{{ colorSwatchesName }},
+      .color--{{ colorSwatchesName }},
+      body .facets__form .color--{{ colorSwatchesName }},
+      body .mobile-facets__label .color-icon.color--{{ colorSwatchesName }},
+      body .variant-color .color--{{ colorSwatchesName }} {
+        background-color: {{ colorSwatchesColor }} !important;
+        color: {{ colorSwatchesColor }} !important;
+      }
+    {% endfor %}
+  </style>

@@ -1,0 +1,85 @@
+{% comment %}
+  Renders share button.
+  Accepts:
+  - block: {Object} passes in the block information.
+  - share_link: {String} url to be added to the input the user will get/copy.
+
+  Usage:
+  {% render 'share-button',
+    block: block,
+    share_link: share_url
+  %}
+{% endcomment %}
+<script src="{{ 'share.js' | asset_url }}" defer="defer"></script>
+
+
+<share-button class="share-button product-share {% if settings.theme_animations != 'no-animation' %} aside-text scroll-animation{% endif %}" {{ block.shopify_attributes }}>
+	<button class="share-button__button hidden">
+		{{ block.settings.share_label | escape }}
+		{% render 'icon-share' %}
+	</button>
+	<details>
+		<summary class="share-button__button">
+			{{ block.settings.share_label | escape }}
+			{% render 'icon-share' %}
+		</summary>
+		<div id="Product-share-{{ section.id }}" class="share-button__fallback motion-reduce">
+			<div class="field">
+				<span id="ShareMessage-{{ section.id }}" class="share-button__message hidden" role="status">
+				</span>
+				<input type="text"
+							class="field__input"
+							id="url"
+							value="{{ shop.url | append: product.url }}"
+							placeholder="{{ 'general.share.share_url' | t }}"
+							onclick="this.select();"
+							readonly
+				>
+				<label class="field__label" for="url">{{ 'general.share.share_url' | t }}</label>
+			</div>
+			<button class="share-button__close hidden no-js-hidden">
+				{% render 'icon-close' %}
+				<span class="visually-hidden">{{ 'general.share.close' | t }}</span>
+			</button>
+			<button class="share-button__copy no-js-hidden">
+				{% render 'icon-clipboard' %}
+				<span class="visually-hidden">{{ 'general.share.copy_to_clipboard' | t }}</span>
+			</button>
+		</div>
+	</details>
+	{%- if block.settings.social_linkedin_link -%}
+		<a href="https://www.linkedin.com/sharing/share-offsite/?url={{ canonical_url }}" class="link link--text list-social__link" aria-describedby="a11y-external-message" rel="noopener noreferrer" target="_blank">
+			{%- render 'icon-linkedin' -%}
+		</a>
+  {%- endif -%}
+  {%- if block.settings.social_facebook_link -%}
+		<a href="https://www.facebook.com/sharer.php?u={{ canonical_url }}" class="link link--text list-social__link" aria-describedby="a11y-external-message" rel="noopener noreferrer" target="_blank">
+			{%- render 'icon-facebook' -%}
+		</a>
+  {%- endif -%}
+  {%- if block.settings.social_twitter_link -%}
+		<a href="https://twitter.com/intent/tweet?text={{ product.title | escape }}&url={{ canonical_url }}" class="link link--text list-social__link" aria-describedby="a11y-external-message" rel="noopener noreferrer" target="_blank">
+			{%- render 'icon-twitter' -%}
+		</a>
+  {%- endif -%}
+  {%- if block.settings.social_pinterest_link -%}
+		<a href="https://www.pinterest.com/pin/create/button/?guid=w7dEew2ynTe1-1&url={{ canonical_url }}&media={{ product.featured_image | image_url: width: 1500 }}&description={{ product.title | escape }}" class="link link--text list-social__link" aria-describedby="a11y-external-message" rel="noopener noreferrer" target="_blank">
+			{%- render 'icon-pinterest' -%}
+		</a>
+  {%- endif -%}
+  {%- if block.settings.social_tumblr_link -%}
+		<a href="https://www.tumblr.com/widgets/share/tool?canonicalUrl={{ canonical_url }}&title={{ product.title | escape }}&caption={{ product.excerpt | escape }}" class="link link--text list-social__link" aria-describedby="a11y-external-message" rel="noopener noreferrer" target="_blank">
+			{%- render 'icon-tumblr' -%}
+		</a>
+  {%- endif -%}
+	{% if block.settings.show_telegram_share %}
+    <a class="link link--text list-social__link" href="https://t.me/share/url?url={{ canonical_url }}&text={{ product.title | escape }}" target="_blank" rel="noopener noreferrer">
+      {% render 'icon-telegram' %}
+    </a>
+  {% endif %}
+  {%- if block.settings.social_snapchat_link -%}
+		<a href="https://www.snapchat.com/scan?attachmentUrl={{ canonical_url }}&utm_source=sharethis" class="link link--text list-social__link" aria-describedby="a11y-external-message" rel="noopener noreferrer" target="_blank">
+			{%- render 'icon-snapchat' -%}
+		</a>
+  {%- endif -%}
+</share-button>

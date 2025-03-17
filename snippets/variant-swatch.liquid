@@ -1,0 +1,66 @@
+{% comment %}
+  Renders product card variant-picker
+
+  Accepts:
+  - product: {Object} product object.
+
+  Usage:
+  {% render 'variant-swatch', product: product, %}
+{% endcomment %}
+
+{%- unless product.has_only_default_variant -%}
+{%- assign clean_url = product.url | split: '?' | first -%}
+
+  <variant-swatch
+    id="variant-swatch-{{ section.id }}-{{ product.id }}"
+    class="variant-swatch no-js-hidden"
+		data-product-id="{{ product.id }}"
+    data-section="{{ section.id }}"
+    data-url="{{ clean_url }}"
+  >
+			{%- for option in product.options_with_values -%}
+				{%- liquid
+					assign swatch_count = option.values | map: 'swatch' | compact | size
+					assign picker_type = 'button'
+					if swatch_count > 0 
+						assign picker_type = 'swatch'
+					endif
+				-%}
+
+				<div class="variant-swatch__option-wrapper">
+					{%- if picker_type == 'swatch' -%}
+						<variant-swatch-input class="js variant-swatch__input variant-swatch__input--swatch">
+							<div class="variant-swatch__option-name h6 hidden">
+								{{ option.name }}:
+								<span data-selected-swatch-value="{{ option.name }}">
+									{{- option.selected_value -}}
+								</span>
+							</div>
+							<div class="variant-swatch__wrapper">
+								{% render 'variant-swatch-options',
+									product: product,
+									option: option,
+									picker_type: picker_type,
+								%}
+							</div>
+						</variant-swatch-input>
+					{%- elsif picker_type == 'button' -%}
+						<variant-swatch-input class="js variant-swatch__input variant-swatch__input--pill">
+							<div class="variant-swatch__option-name h6 hidden">{{ option.name }}</div>
+							<div class="variant-swatch__wrapper">
+								{% render 'variant-swatch-options',
+									product: product,
+									option: option,
+									picker_type: picker_type
+								%}
+							</div>
+						</variant-swatch-input>
+					{%- endif -%}
+
+				</div>
+			{%- endfor -%}
+    <script type="application/json">
+      {{ product.variants | json }}
+    </script>
+  </variant-swatch>
+{%- endunless -%}

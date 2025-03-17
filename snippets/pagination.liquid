@@ -1,0 +1,223 @@
+{% comment %}
+    Renders a set of links for paginated results. Must be used within paginate tags.
+
+    Usage:
+    {% paginate results by 2 %}
+      {% render 'pagination', paginate: paginate, anchor: '#yourID' %}
+    {% endpaginate %}
+
+    Accepts:
+    - paginate: {Object}
+    - anchor: {String} (optional) This can be added so that on page reload it takes you to wherever you've placed your anchor tag.
+{% endcomment %}
+
+<link rel="stylesheet" href="{{ 'component-pagination.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'component-pagination.css' | asset_url | stylesheet_tag }}</noscript>
+
+{%- if paginate.pages > 1 and section.settings.load_pagination == 'pagination' and paginate.parts.size > 0 -%}
+
+  <div class="pagination-wrapper">
+    <nav class="pagination" aria-label="{{ 'general.pagination.label' | t }}">
+      <ul class="pagination__list list-unstyled{% if section.settings.pagination_style == 'style-2' %} style-2{% endif %}" role="list">
+      {%- if paginate.previous -%}
+          {% if section.settings.pagination_style == 'style-1' %}
+            <li>
+              <a href="{{ paginate.previous.url }}{{ anchor }}" class="pagination__item pagination__item--next pagination__item-arrow link motion-reduce" aria-label="{{ 'general.pagination.previous' | t }}">
+                {% render 'icon-caret' %}
+              </a>
+            </li>
+          {% elsif section.settings.pagination_style == 'style-2' %}
+            <li class="pag-style-2">
+              <a href="{{ paginate.previous.url }}{{ anchor }}" class="pagination__item pagination__item--next link motion-reduce" aria-label="{{ 'general.pagination.previous' | t }}">
+                {{ 'general.pagination.previous' | t }}
+              </a>
+            </li>
+          {% endif %}
+      {%- endif -%}
+
+      {%- for part in paginate.parts -%}
+        <li>
+          {%- if part.is_link -%}
+            <a href="{{ part.url }}{{ anchor }}" class="pagination__item link" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">{{ part.title }}</a>
+          {%- else -%}
+            {%- if part.title == paginate.current_page -%}
+              <span class="pagination__item pagination__item--current" aria-current="page" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">{{ part.title }}</span>
+            {%- else -%}
+              <span class="pagination__item">{{ part.title }}</span>
+            {%- endif -%}
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+
+      {%- if paginate.next -%}
+        {% if section.settings.pagination_style == 'style-1' %}
+          <li>
+            <a href="{{ paginate.next.url }}{{ anchor }}" class="pagination__item pagination__item--prev pagination__item-arrow link motion-reduce" aria-label="{{ 'general.pagination.next' | t }}" >
+              {% render 'icon-caret' %}
+            </a>
+          </li>
+        {% elsif section.settings.pagination_style == 'style-2' %}
+          <li class="pag-style-2">
+            <a href="{{ paginate.next.url }}{{ anchor }}" class="pagination__item pagination__item--prev link motion-reduce" aria-label="{{ 'general.pagination.next' | t }}" >
+              {{ 'general.pagination.next' | t }}
+            </a>
+          </li>
+        {% endif %}
+      {%- endif -%}
+      </ul>
+    </nav>
+  </div>
+
+{%- elsif paginate.pages > 1 and article.comments -%}
+
+  <div class="pagination-wrapper">
+    <nav class="pagination" aria-label="{{ 'general.pagination.label' | t }}">
+      <ul class="pagination__list list-unstyled{% if section.settings.pagination_style == 'style-2' %} style-2{% endif %}" role="list">
+      {%- if paginate.previous -%}
+          {% if section.settings.pagination_style == 'style-1' %}
+            <li>
+              <a href="{{ paginate.previous.url }}{{ anchor }}" class="pagination__item pagination__item--next pagination__item-arrow link motion-reduce" aria-label="{{ 'general.pagination.previous' | t }}">
+                {% render 'icon-caret' %}
+              </a>
+            </li>
+          {% elsif section.settings.pagination_style == 'style-2' %}
+            <li class="pag-style-2">
+              <a href="{{ paginate.previous.url }}{{ anchor }}" class="pagination__item pagination__item--next link motion-reduce" aria-label="{{ 'general.pagination.previous' | t }}">
+                {{ 'general.pagination.previous' | t }}
+              </a>
+            </li>
+          {% endif %}
+      {%- endif -%}
+
+      {%- for part in paginate.parts -%}
+        <li>
+          {%- if part.is_link -%}
+            <a href="{{ part.url }}{{ anchor }}" class="pagination__item link" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">{{ part.title }}</a>
+          {%- else -%}
+            {%- if part.title == paginate.current_page -%}
+              <span class="pagination__item pagination__item--current" aria-current="page" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">{{ part.title }}</span>
+            {%- else -%}
+              <span class="pagination__item">{{ part.title }}</span>
+            {%- endif -%}
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+
+      {%- if paginate.next -%}
+        {% if section.settings.pagination_style == 'style-1' %}
+          <li>
+            <a href="{{ paginate.next.url }}{{ anchor }}" class="pagination__item pagination__item--prev pagination__item-arrow link motion-reduce" aria-label="{{ 'general.pagination.next' | t }}" >
+              {% render 'icon-caret' %}
+            </a>
+          </li>
+        {% elsif section.settings.pagination_style == 'style-2' %}
+          <li class="pag-style-2">
+            <a href="{{ paginate.next.url }}{{ anchor }}" class="pagination__item pagination__item--prev link motion-reduce" aria-label="{{ 'general.pagination.next' | t }}" >
+              {{ 'general.pagination.next' | t }}
+            </a>
+          </li>
+        {% endif %}
+      {%- endif -%}
+      </ul>
+    </nav>
+  </div>
+
+{%- elsif paginate.pages > 1 -%}
+  <div class="load-more-wrapper">
+
+    {% liquid
+      assign button_style_type = 'button'
+			assign button_icon = false
+			if section.settings.button_type_lm == 'button_icon'
+				assign button_icon = true
+			elsif section.settings.button_type_lm == 'button_outline'
+        assign button_style_type = 'button btn-bg-transparent'
+				assign button_icon = false
+			elsif section.settings.button_type_lm == 'button_outline_icon'
+				assign button_style_type = 'button btn-bg-transparent'
+				assign button_icon = true
+      elsif section.settings.button_type_lm == 'inline_button'
+        assign button_style_type = 'link link-no-underline'
+				assign button_icon = true
+			elsif section.settings.button_type_lm == 'button_with_underline'
+				assign button_style_type = 'link link-with-underline'
+				assign button_icon = false
+      elsif section.settings.button_type_lm == 'button_underline'
+        assign button_style_type = 'link underlined-link'
+				assign button_icon = true
+      endif 
+    %}
+
+    <a href="javascript:void(0);" class="load-more_btn {{ button_style_type }}{% if settings.color_events_button_bg_hover_gradient != blank and button_style_type == 'button btn-bg-transparent' %} gradient--hover {% endif %}{% if section.settings.load_more_button_style == 'btn_secondary' %} button-secondary{% endif %}{% if settings.link_icon != blank and button_icon == true %} button-with-icon{% endif %}{% if section.settings.load_more_button_style == 'btn_primary' and settings.color_primery_button_bg_gradient != blank %} gradient gradient--primary{% endif %} {% if section.settings.load_more_button_style == 'btn_secondary' and settings.color_secondary_button_bg_gradient != blank %} gradient gradient--secondary {% endif %}">
+     
+			{% if settings.link_icon != blank and button_icon == true %} 
+				<span class="link-text">
+					{% if section.settings.load_more_label %}
+						{{ section.settings.load_more_label | escape }}
+					{% else %}
+						Load more
+					{% endif %}
+				</span>
+				<span class='link-icon'>
+					{{ settings.link_icon }}
+				</span>
+			{% else %}
+				{% if section.settings.load_more_label %}
+					{{ section.settings.load_more_label | escape }}
+				{% else %}
+					Load more
+				{% endif %}
+			{% endif %}
+    </a>
+
+    <div class="loading-overlay__spinner load-more_spinner" style="display: none;">
+      {% render 'icon-spinner' %}
+    </div>
+  </div>
+
+  <script>
+			document.addEventListener('DOMContentLoaded', function () {
+				const cards_on_page = document.querySelector('.load_list');
+				const load_more_btn = document.getElementsByClassName('load-more_btn');
+				const load_more_spinner = document.getElementsByClassName('load-more_spinner');
+				let next_url = cards_on_page.dataset.nextUrl;
+	
+				function loadMoreCards() {
+					fetch(next_url)
+						.then((response) => response.text())
+						.then((responseText) => {
+	
+							const html = new DOMParser().parseFromString(responseText, 'text/html');
+							const new_cards = html.querySelector('.load_list');
+							const new_items = new_cards.querySelectorAll('.load_item');
+							const new_url = new_cards.dataset.nextUrl;
+	
+							new_items.forEach(function (newItem) {
+								cards_on_page.append(newItem);
+							});
+	
+							if (next_url) {
+								load_more_btn[0].style.display = 'none';
+								load_more_spinner[0].style.display = 'inline-flex';
+	
+								next_url = new_url;
+	
+								load_more_spinner[0].style.display = 'none';
+								load_more_btn[0].style.display = 'inline-flex';
+	
+								if (!new_url) {
+									load_more_btn[0].style.display = 'none';
+								}
+							} else if (!next_url) {
+								load_more_btn[0].style.display = 'none';
+							}
+						});
+				}
+	
+				load_more_btn[0].addEventListener("click", function () {
+					loadMoreCards();
+				});
+			});
+  </script>
+
+{%- endif -%}

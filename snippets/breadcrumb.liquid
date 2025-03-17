@@ -1,0 +1,182 @@
+{% comment %}
+  Renders breadcrumbs.
+  Accepts:
+  - title: {String}
+	- space: {String}
+	-product: {Object} Used on product detail page
+	-product_collection: {String} Used on product detail page
+	-custom_collection: {Object} Used on product detail page
+{% endcomment %}
+{{ 'component-breadcrumb.css' | asset_url | stylesheet_tag }}
+
+{%- unless template == 'index' or template == '404' -%}
+    {%- assign t = template | split: '.' | first -%}
+    <nav class="breadcrumbs {{ color }} {{ settings.breadcrumbs_style }} {{ settings.breadcrumbs_weight }} {{ settings.breadcrumbs_font_family }} {{ settings.breadcrumbs_size }} {{ space }} {% if settings.breadcrumbs_active %} focused-active-link {% endif %}" aria-label="breadcrumbs">
+        <ol class="breadcrumbs__list">
+            <li class="breadcrumbs__item">
+                <a class="breadcrumbs__link" href="{{ routes.root_url }}">
+                    {{ 'fixes.home' | t }}
+                </a>
+            </li>
+
+            {%- case t -%}
+                {%- when 'cart' -%}
+                    <li class="breadcrumbs__item">
+                        <span class="breadcrumbs__link {{ settings.breadcrumbs_active_weight }}" aria-current="page">
+                            {{ 'sections.cart.title' | t }}
+                        </span>
+                    </li>
+
+                {%- when 'page' -%}
+                    <li class="breadcrumbs__item">
+                        <span class="breadcrumbs__link {{ settings.breadcrumbs_active_weight }}" aria-current="page">
+                            {%- if section.settings.title != blank -%}
+                                {{ section.settings.title }}
+                            {% else %}
+                                {{ page.title }}
+                            {% endif %}
+                        </span>
+                    </li>
+
+                {%- when 'list-collections' -%}
+                    <li class="breadcrumbs__item">
+                        {%- if title != blank -%}
+                            <span class="breadcrumbs__link {{ settings.breadcrumbs_active_weight }}" aria-current="page">
+                                {{ title }}
+                            </span>
+                        {%- else -%}
+                            <span class="breadcrumbs__link {{ settings.breadcrumbs_active_weight }}" aria-current="page">
+                                {{ 'fixes.collections' | t }}
+                            </span>
+                        {%- endif -%}
+                    </li>
+
+                {%- when 'product' -%}
+
+                    {% if show_products %}
+                        {%- if collection.url -%}
+                            <li class="breadcrumbs__item">
+                                {{ collection.title | link_to: collection.url }}
+                            </li>
+                        {%- else -%}
+                            <li class="breadcrumbs__item">
+                                <a class="breadcrumbs__link" href="/collections/all">
+                                    {{ 'fixes.products' | t }}
+                                </a>
+                            </li>
+                        {%- endif -%}
+                    {% endif %}
+
+                    {%- if product_collection == 'first_collection'-%}
+                        {% for collection in product.collections %}
+                            {%- if forloop.first -%}
+                                <li class="breadcrumbs__item">
+                                    <a class="breadcrumbs__link" href="{{ collection.url }}">
+                                        {{ collection.title }}
+                                    </a>
+                                </li>
+                            {%- endif -%}
+                        {% endfor %}
+                    {%- elsif product_collection == 'custom' and custom_collection.title != blank -%}
+                        <li class="breadcrumbs__item">
+                            <a class="breadcrumbs__link" href="{{ custom_collection.url }}">
+                                {{- custom_collection.title -}}
+                            </a>
+                        </li> 
+                    {%- elsif product_collection == 'custom_list' -%}
+                        {% if custom_collections != blank %}
+                            {% for custom_collection in custom_collections %}
+                                <li class="breadcrumbs__item breadcrumbs__item-list">
+                                    <a class="breadcrumbs__link" href="{{ custom_collection.url }}">
+                                        {{- custom_collection.title -}}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        {% endif %}
+                    {%- endif -%}
+
+                    <li class="breadcrumbs__item">
+                        <span class="breadcrumbs__link {{ settings.breadcrumbs_active_weight }}" aria-current="page">
+                            {{ product.title }}
+                        </span>
+                    </li>
+
+                {%- when 'collection' and collection.handle -%}
+                    {%- if current_tags -%}
+                        <li class="breadcrumbs__item">
+                            {{ collection.title | link_to: collection.url }}
+                        </li>
+                        <li class="breadcrumbs__item">
+                            {%- capture tag_url -%}{{ collection.url }}/{{ current_tags | join: "+" }}{%- endcapture -%}
+                            <a class="breadcrumbs__link {{ settings.breadcrumbs_active_weight }}" href="{{ tag_url }}" aria-current="page">
+                                {{ current_tags | join: " + " }}
+                            </a>
+                        </li>
+                    {%- else -%}
+                        <li class="breadcrumbs__item">
+                            <span class="breadcrumbs__link {{ settings.breadcrumbs_active_weight }}" href="{{ collection.url }}" aria-current="page">
+                                {{ collection.title }}
+                            </span>
+                        </li>
+                    {%- endif -%}
+
+                {%- when 'blog' -%}
+                    {%- if current_tags -%}
+                        <li class="breadcrumbs__item">
+                            <a class="breadcrumbs__link {{ settings.breadcrumbs_active_weight }}" href="{{ blog.url }}" aria-current="page">
+                                {{ blog.title }}
+                            </a>
+                        </li>
+                        <li class="breadcrumbs__item {{ settings.breadcrumbs_active_weight }}">
+                            <span class="breadcrumbs__link" aria-current="page">
+                                {{ current_tags | join: " + " }}
+                            </span>
+                        </li>
+                    {%- else -%}
+                        <li class="breadcrumbs__item">
+                            {%- if title != blank -%}
+                                <span class="breadcrumbs__link {{ settings.breadcrumbs_active_weight }}" aria-current="page">
+                                    {{ title }}
+                                </span>
+                            {%- else -%}
+                                <span class="breadcrumbs__link {{ settings.breadcrumbs_active_weight }}" aria-current="page">
+                                    {{ blog.title }}
+                                </span>
+                            {%- endif -%}
+                        </li>
+                    {%- endif -%}
+
+                {%- when 'article' -%}
+                    {%- if blog.url -%}
+                        <li class="breadcrumbs__item">
+                            <a class="breadcrumbs__link" href="{{ blog.url }}" aria-current="page">
+                                {{ blog.title }}
+                            </a>
+                        </li>
+                        <li class="breadcrumbs__item {{ settings.breadcrumbs_active_weight }}">
+                            <span class="breadcrumbs__link" aria-current="page">
+                                {{ article.title }}
+                            </span>
+                        </li>
+                    {%- else -%}
+                        <li class="breadcrumbs__item">
+                            <a class="breadcrumbs__link {{ settings.breadcrumbs_active_weight }}" href="{{ request.path }}" aria-current="page">
+                                {{ page_title }}
+                            </a>
+                        </li>
+                    {%- endif -%}
+
+                {%- when 'search' -%}
+                    <li class="breadcrumbs__item">
+                        <span class="breadcrumbs__link {{ settings.breadcrumbs_active_weight }}" aria-current="page">
+                            {%- if search.performed -%}
+                                {{ 'templates.search.title' | t }}
+                            {%- else -%}
+                                {{ 'general.search.search' | t }}
+                            {%- endif -%}
+                        </span>
+                    </li>
+            {%- endcase -%}
+        </ol>
+    </nav>
+{%- endunless -%}

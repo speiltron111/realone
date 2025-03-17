@@ -1,0 +1,596 @@
+{% if settings.theme_preloader == 'birch-preloader' %}
+    <style>
+        body {
+            --preloader-birch-animation-speed: 1.4s;
+        }
+        .preloader {
+            left: 0; top: 0;
+            width: 100vw; height: 100vh;
+            background-color: {{ settings.preloader_background }};
+            position: fixed;
+            z-index: 11;
+            transform: translateY(0);
+            transition: opacity .7s linear 1.3s, transform .1s linear 3s;
+            overflow: hidden;
+            display: none;
+        }
+        .preloader.active {
+            display: block;
+        }
+        .preloader.hide-loader {
+            background-color: {{ settings.preloader_background }};
+            opacity: 0;
+            transform: translateY(-100%);
+        }
+        .preloader-holder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .preloader-logo {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            display: none;
+        }
+        .preloader-logo-image {
+            max-width: 20rem;
+            max-height: 10rem;
+            color: {{ settings.preloader_color }};
+            margin-bottom: 2rem;
+        }
+        .preloader-logo-image h2 {
+            max-width: 20rem;
+            max-height: 10rem;
+            margin-bottom: 0;
+            color: {{ settings.preloader_color }};
+        }
+        .preloader-logo-image img {
+            max-width: 20rem;
+            max-height: 10rem;
+            object-fit: contain;
+        }
+        .logo-loader {
+            color: {{ settings.preloader_color }};
+        }
+        .preloader-logo-image svg {
+            width: 100%;
+        }
+        .preloader-logo-image .logo-title {
+            font-size: 2.8rem;
+            text-align: center;
+        }
+        .preloader-images {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+        .preloader-images span {
+            position: absolute;
+            max-width: 30rem;
+            clip-path: inset(100%);
+        }
+        .images-placeholder {
+            width: 100%;
+            background-color: rgb(0, 0, 0, .1);
+        }
+        .preloader-images span:nth-child(1) {
+            top: 20%; left: 30%;
+            animation: var(--preloader-birch-animation-speed) preloaderImagesLoading .1s forwards;
+        }
+        .preloader-images span:nth-child(2) {
+            top: 25%; left: 55%;
+            max-width: 25rem;
+            animation: var(--preloader-birch-animation-speed) preloaderImagesLoading .25s forwards;
+        }
+        .preloader-images span:nth-child(3) {
+            top: 67%; left: 41%;
+            max-width: 20rem;
+            animation: var(--preloader-birch-animation-speed) preloaderImagesLoading .4s forwards;
+        }
+        .preloader-images span:nth-child(4) {
+            top: 67%; left: 21%;
+            max-width: 20rem;
+            animation: var(--preloader-birch-animation-speed) preloaderImagesLoading .55s forwards;
+        }
+        .preloader-images span:nth-child(5) {
+            top: 17%; left: 11%;
+            max-width: 30rem;
+            animation: var(--preloader-birch-animation-speed) preloaderImagesLoading .7s forwards;
+        }
+        .preloader-images span:nth-child(6) {
+            top: 1%; left: 65%;
+            max-width: 22.5rem;
+            animation: var(--preloader-birch-animation-speed) preloaderImagesLoading .85s forwards;
+        }
+        .preloader-images span:nth-child(7) {
+            top: 28%; left: 73%;
+            max-width: 30rem;
+            animation: var(--preloader-birch-animation-speed) preloaderImagesLoading 1s forwards;
+        }
+        .preloader-images span:nth-child(8) {
+            top: 70%; left: 55%;
+            max-width: 35rem;
+            animation: var(--preloader-birch-animation-speed) preloaderImagesLoading 1.15s forwards;
+        }
+        @media screen and (max-width: 949px) {
+            .preloader-images span:nth-child(1) {
+                top: 20%;
+                max-width: 22.5rem;
+            }
+            .preloader-images span:nth-child(2) {
+                top: 35%;
+                max-width: 18.5rem;
+            }
+            .preloader-images span:nth-child(3) {
+                top: 67%;
+                max-width: 15rem;
+            }
+            .preloader-images span:nth-child(4) {
+                top: 47%;
+                max-width: 15rem;
+            }
+            .preloader-images span:nth-child(5) {
+                top: 17%;
+                max-width: 22.5rem;
+            }
+            .preloader-images span:nth-child(6) {
+                top: 1%;
+                max-width: 16.5rem;
+            }
+            .preloader-images span:nth-child(7) {
+                top: 28%;
+                max-width: 22.5rem;
+            }
+            .preloader-images span:nth-child(8) {
+                top: 70%;
+                max-width: 22.5rem;
+            }
+        }
+        @media screen and (max-width: 749px) {
+            .preloader-images span:nth-child(1) {
+                max-width: 15rem;
+                left: 18%;
+                top: 18%;
+            }
+            .preloader-images span:nth-child(2) {
+                max-width: 12rem;
+                left: 52%;
+                top: 25%;
+            }
+            .preloader-images span:nth-child(3) {
+                max-width: 10rem;
+                left: 22%;
+                top: 77%;
+            }
+            .preloader-images span:nth-child(4) {
+                max-width: 10rem;
+                left: 8%;
+                top: 62%;
+            }
+            .preloader-images span:nth-child(5) {
+                max-width: 15rem;
+                left: 1%;
+                top: 37%;
+            }
+            .preloader-images span:nth-child(6) {
+                max-width: 11rem;
+                left: 55%;
+                top: 1%;
+            }
+            .preloader-images span:nth-child(7) {
+                max-width: 15rem;
+                left: 61%;
+                top: 48%;
+            }
+            .preloader-images span:nth-child(8) {
+                max-width: 15rem;
+                left: 45%;
+                top: 70%;
+            }
+        }
+        .preloader.hide-loader .preloader-images span {
+            clip-path: inset(0);
+            animation: 1.4s preloaderImagesHide .5s forwards;
+        }
+        @keyframes preloaderImagesLoading {
+            0% {
+                clip-path: inset(100%);
+            }
+            100% {
+                clip-path: inset(0);
+            }
+        }
+        @keyframes preloaderImagesHide {
+            0% {
+                clip-path: inset(0);
+            }
+            100% {
+                clip-path: inset(100%);
+            }
+        }
+        .preloader-logo.active {
+            display: flex;
+        }
+        .preloader-images.active {
+            display: block;
+        }
+    </style>
+
+    <div class="preloader">
+        <div class="preloader-holder">
+            <div class="preloader-logo active">
+                <div class="preloader-logo-image">
+                    {% if settings.preloader_logo != blank %}
+                        <h2 class="logo-title">{{ settings.preloader_logo }}</h2>
+                    {% elsif settings.preloader_logo_image != blank %}
+                        <h2>
+                            <img srcset="{{ settings.preloader_logo_image | image_url: width: 300 }} 300w" src="{{ settings.preloader_logo_image | image_url: width: 300 }}" loading="lazy" class="header__heading-logo" width="300" height="{{ settings.preloader_logo_image.height }}" alt="{{ settings.preloader_logo_image.alt | default: shop.name | escape }}">
+                        </h2>
+                    {% else %}
+                        <h2 class="logo-title">{{ shop.name }}</h2>
+                    {% endif %}
+                </div>
+                <div class="logo-loader">100%</div>
+            </div>
+
+            {% assign countIcon = 0 %}
+            <div class="preloader-images">
+                {% if settings.preloader_image1 != blank or settings.preloader_image2 != blank or 
+                    settings.preloader_image3 != blank or settings.preloader_image4 != blank or 
+                    settings.preloader_image5 != blank or settings.preloader_image6 != blank or 
+                    settings.preloader_image7 != blank or settings.preloader_image8 != blank %}
+
+                {% if settings.preloader_image1 != blank %}
+                    <span class="preloader-images-item">
+                        <img srcset="{{ settings.preloader_image1 | image_url: width: 300 }} 300w"
+                            src="{{ settings.preloader_image1 | image_url: width: 300 }}"
+                            loading="lazy" class="header__heading-logo"
+                            width="300" height="{{ settings.preloader_image1.height }}" alt="{{ settings.preloader_image1.alt | default: shop.name | escape }}">
+                    </span>
+                {% endif %}
+                {% if settings.preloader_image2 != blank %}
+                    <span class="preloader-images-item">
+                        <img srcset="{{ settings.preloader_image2 | image_url: width: 250 }} 250w"
+                            src="{{ settings.preloader_image2 | image_url: width: 300 }}"
+                            loading="lazy" class="header__heading-logo"
+                            width="250" height="{{ settings.preloader_image2.height }}" alt="{{ settings.preloader_image2.alt | default: shop.name | escape }}">
+                    </span>
+                {% endif %}
+                {% if settings.preloader_image3 != blank %}
+                    <span class="preloader-images-item">
+                        <img srcset="{{ settings.preloader_image3 | image_url: width: 200 }} 200w"
+                            src="{{ settings.preloader_image3 | image_url: width: 200 }}"
+                            loading="lazy" class="header__heading-logo"
+                            width="200" height="{{ settings.preloader_image3.height }}" alt="{{ settings.preloader_image3.alt | default: shop.name | escape }}">
+                    </span>
+                {% endif %}
+                {% if settings.preloader_image4 != blank %}
+                    <span class="preloader-images-item">
+                        <img srcset="{{ settings.preloader_image4 | image_url: width: 200 }} 200w"
+                            src="{{ settings.preloader_image4 | image_url: width: 200 }}"
+                            loading="lazy" class="header__heading-logo"
+                            width="200" height="{{ settings.preloader_image4.height }}" alt="{{ settings.preloader_image4.alt | default: shop.name | escape }}">
+                    </span>
+                {% endif %}
+                {% if settings.preloader_image5 != blank %}
+                    <span class="preloader-images-item">
+                        <img srcset="{{ settings.preloader_image5 | image_url: width: 300 }} 300w"
+                            src="{{ settings.preloader_image5 | image_url: width: 300 }}"
+                            loading="lazy" class="header__heading-logo"
+                            width="300" height="{{ settings.preloader_image5.height }}" alt="{{ settings.preloader_image5.alt | default: shop.name | escape }}">
+                    </span>
+                {% endif %}
+                {% if settings.preloader_image6 != blank %}
+                    <span class="preloader-images-item">
+                        <img srcset="{{ settings.preloader_image6 | image_url: width: 225 }} 225"
+                            src="{{ settings.preloader_image6 | image_url: width: 225 }}"
+                            loading="lazy" class="header__heading-logo"
+                            width="225" height="{{ settings.preloader_image6.height }}" alt="{{ settings.preloader_image6.alt | default: shop.name | escape }}">
+                    </span>
+                {% endif %}
+                {% if settings.preloader_image7 != blank %}
+                    <span class="preloader-images-item">
+                        <img srcset="{{ settings.preloader_image7 | image_url: width: 300 }} 300w"
+                            src="{{ settings.preloader_image7 | image_url: width: 300 }}"
+                            loading="lazy" class="header__heading-logo"
+                            width="300" height="{{ settings.preloader_image7.height }}" alt="{{ settings.preloader_image7.alt | default: shop.name | escape }}">
+                    </span>
+                {% endif %}
+                {% if settings.preloader_image8 != blank %}
+                    <span class="preloader-images-item">
+                        <img srcset="{{ settings.preloader_image8 | image_url: width: 350 }} 350"
+                            src="{{ settings.preloader_image8 | image_url: width: 350 }}"
+                            loading="lazy" class="header__heading-logo"
+                            width="350" height="{{ settings.preloader_image8.height }}" alt="{{ settings.preloader_image8.alt | default: shop.name | escape }}">
+                    </span>
+                {% endif %}
+            {% else %}
+                {%- for i in (1..8) -%}
+                    {% if i < 7 %}
+                        {% assign countIcon = countIcon | plus: 1 %}
+                    {% else %}
+                        {% assign countIcon = countIcon | minus: 2 %}
+                    {% endif %}
+                    <span class="preloader-images-item images-placeholder">
+                        {{ 'product-' | append: countIcon | placeholder_svg_tag }}
+                    </span>
+                {%- endfor -%}
+            {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        "use strict";
+        let preloaderHomepageReloades = parseInt(sessionStorage.getItem('birchPreloaderCounter') || 0);
+
+        {% if settings.show_images == 'hide_images' %}
+            const showImages = false;
+        {% elsif settings.show_images == 'first_load' %}
+            const showImages = 'first_load';
+        {% elsif settings.show_images == 'all_load' %}
+            const showImages = 'all_load';
+        {% endif %}
+
+        if ( showImages != false && preloaderHomepageReloades === 0 ) {
+
+            window.onbeforeunload = function() {
+                sessionStorage.removeItem('birchPreloaderCounter');
+                {% if settings.show_images == 'first_load' %}
+                    window.onunload = function () {
+                        sessionStorage.setItem('birchPreloaderCounter', ++preloaderHomepageReloades);
+                    }
+                {% elsif settings.show_images == 'all_load' %}
+                    window.onunload = function () {
+                        sessionStorage.setItem('birchPreloaderCounter', 0);
+                    }
+                {% endif %}
+            };
+
+            const loader = document.querySelector('.preloader');
+            const loaderLogo = document.querySelector('.preloader-logo');
+            const loaderLogoPercent = document.querySelector('.preloader-logo');
+            const loaderImages = document.querySelector('.preloader-images');
+            const startTime = new Date().getTime();
+
+            loader.classList.add('active');
+
+            function birchLoaderStart(_success) {
+                const inner = document.querySelector('.logo-loader');
+
+                let w = 0,
+                    t = setInterval(function() {
+                        w = w + 2;
+                        inner.textContent = w+'%';
+                        if (w === 100) {
+                            clearInterval(t);
+                            w = 0;
+                        }
+                    }, 17);
+            }
+
+            birchLoaderStart();
+
+            function birchLoaderEnd() {
+                let endTime = new Date().getTime();
+                const loadTime = endTime - startTime;
+
+                function showPreloadImages() {
+                    loaderLogo.classList.remove('active');
+                    loaderImages.classList.add('active');
+                    setTimeout(() => {
+                        loader.classList.add('hide-loader');
+                    }, 3000);
+                }
+
+                window.addEventListener("load", event => {
+                    if (loadTime > 1400) {
+                        showPreloadImages();
+                    } else {
+                        setTimeout(() => {
+                            showPreloadImages();
+                        }, 1400 - loadTime);
+                    }
+                });
+            }
+
+            document.addEventListener('DOMContentLoaded', birchLoaderEnd);
+            document.addEventListener('shopify:section:load', birchLoaderEnd);
+
+        } else {
+
+            window.onbeforeunload = function() {
+                sessionStorage.removeItem('birchPreloaderCounter');
+                {% if settings.show_images == 'first_load' %}
+                    window.onunload = function () {
+                        sessionStorage.setItem('birchPreloaderCounter', ++preloaderHomepageReloades);
+                    }
+                {% elsif settings.show_images == 'all_load' %}
+                    window.onunload = function () {
+                        sessionStorage.setItem('birchPreloaderCounter', 0);
+                    }
+                {% endif %}
+            };
+
+            const loader = document.querySelector('.preloader');
+            loader.classList.add('active');
+            function birchLoaderStart(_success) {
+                const inner = document.querySelector('.logo-loader');
+                let w = 0,
+                    t = setInterval(function() {
+                        w = w + 2;
+                        inner.textContent = w+'%';
+                        if (w === 100) {
+                            clearInterval(t);
+                            w = 0;
+                            loader.classList.add('hide-loader');
+                        }
+                    }, 5);
+
+                function birchLoaderEnd() {
+                    setTimeout(() => {
+                        loader.classList.add('hide-loader');
+                    }, 300);
+                }
+                document.addEventListener('DOMContentLoaded', birchLoaderEnd);
+                document.addEventListener('shopify:section:load', birchLoaderEnd);
+            }
+
+            birchLoaderStart();
+        }
+    </script>
+{% endif %}
+
+{% if settings.theme_preloader == 'poppy-preloader' %}
+    <style>
+        .preloader {
+            left: 0; top: 0;
+            display: none;
+            width: 100vw;
+            height: 100vh;
+            background-color: {{ settings.preloader_background }};
+            position: fixed;
+            z-index: 11;
+            transition: opacity .4s ease, transform .3s ease 1s;
+            overflow: hidden;
+        }
+        .preloader.active {
+            display: block;
+        }
+        .preloader.hide-loader {
+            background-color: {{ settings.preloader_background }};
+            opacity: 0;
+            transform: translateY(-100%);
+        }
+        .preloader-holder {
+            width: 100%; height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .preloader-logo {
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            display: none;
+        }
+        .preloader-logo.active {
+            display: flex;
+        }
+        .logo-loader {
+            padding: 0 1rem;
+            text-align: center;
+            color: {{ settings.preloader_color }};
+        }
+        .loader-progres-words span {
+            display: none;
+        }
+        .loader-progres-words span.active {
+            display: inline-block;
+        }
+    </style>
+
+    <div class="preloader">
+        <div class="preloader-holder">
+            <div class="preloader-logo active">
+                <h2 class="logo-loader">
+                    <span class="loader-progres-prefix">{{ settings.poppy_preloader_prefix }}</span>
+                    <span class="loader-progres">100%</span>
+                    {% if settings.poppy_preloader_text1 != blank or settings.poppy_preloader_text2 != blank or settings.poppy_preloader_text3 != blank or settings.poppy_preloader_text4 != blank or settings.poppy_preloader_text5 != blank %}
+                      <span class="loader-separator">/</span>    
+                      <span class="loader-progres-words">
+                        {% if settings.poppy_preloader_text1 != blank %}
+                            <span class="active">{{ settings.poppy_preloader_text1 }}</span>
+                        {% endif %}
+                        {% if settings.poppy_preloader_text2 != blank %}
+                            <span>{{ settings.poppy_preloader_text2 }}</span>
+                        {% endif %}
+                        {% if settings.poppy_preloader_text3 != blank %}
+                            <span>{{ settings.poppy_preloader_text3 }}</span>
+                        {% endif %}
+                        {% if settings.poppy_preloader_text4 != blank %}
+                            <span>{{ settings.poppy_preloader_text4 }}</span>
+                        {% endif %}
+                        {% if settings.poppy_preloader_text5 != blank %}
+                            <span>{{ settings.poppy_preloader_text5 }}</span>
+                        {% endif %}
+                    </span>
+                  {% endif %}
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        "use strict";
+        const preloaderOtherPage = document.referrer;
+        const preloaderHomePage = window.location.href;
+        let preloaderHomepageReloades = parseInt(sessionStorage.getItem('poppyPreloaderCounter') || 0);
+
+        function addPoppyBaner() {
+            let poppyBanner = document.querySelectorAll('.scroll-animation-banner');
+            if (poppyBanner.length) {
+                poppyBanner.forEach(function(item) {
+                    item.classList.add('active');
+                });
+            }
+        }
+        window.onbeforeunload = function() {
+            sessionStorage.removeItem('poppyPreloaderCounter');
+            window.onunload = function () {
+                sessionStorage.setItem('poppyPreloaderCounter', ++preloaderHomepageReloades);
+            }
+        };
+    
+        const loader = document.querySelector('.preloader');
+        const loaderLogo = document.querySelector('.preloader-logo');
+        
+        loader.classList.add('active');
+        function poppyLoaderStart(_success) {
+            const innerPerc = document.querySelector('.logo-loader .loader-progres');
+            const innerWord = document.querySelector('.logo-loader .loader-progres-words');
+            const innerWordCount = document.querySelectorAll('.logo-loader .loader-progres-words span:not(.active)');
+            const innerWordCountAll = document.querySelectorAll('.logo-loader .loader-progres-words span');
+
+            let percentStart = 0,
+                percentInterval = setInterval(function() {
+                    percentStart = percentStart + 1;
+                    innerPerc.textContent = percentStart + '%';
+                    if (percentStart === 100) {
+                        clearInterval(percentInterval);
+                        percentStart = 0;
+                    }
+                }, 3000 / 100);
+
+            let wordStart = 0,
+                wordInterval = setInterval(function() {
+                    innerWordCountAll.forEach(function(item) {
+                        item.classList.remove('active');
+                    });
+                    innerWordCount[wordStart].classList.add('active');
+                    wordStart = wordStart + 1;
+                    if (wordStart === (innerWordCountAll.length - 1)) {
+                        clearInterval(wordInterval);
+                        wordStart = 0;
+                    }
+                }, 3000 / (innerWordCountAll.length - 1));
+        }
+
+        poppyLoaderStart();
+
+        function poppyLoaderEnd() {
+            setTimeout(() => {
+                loader.classList.add('hide-loader');
+                addPoppyBaner();
+            }, 3300);
+        }
+
+        document.addEventListener('DOMContentLoaded', poppyLoaderEnd);
+        document.addEventListener('shopify:section:load', poppyLoaderEnd);
+    </script>
+{% endif %}

@@ -1,0 +1,38 @@
+{% liquid
+  assign button_style_type = 'button'
+  assign button_icon = false
+  if button_type == 'button_icon'
+		assign button_icon = true
+  elsif button_type == 'button_outline'
+		assign button_style_type = 'button btn-bg-transparent'
+		assign button_icon = false
+  elsif button_type == 'button_outline_icon'
+    assign button_style_type = 'button btn-bg-transparent'
+    assign button_icon = true
+  elsif button_type == 'inline_button'
+    assign button_style_type = 'link link-no-underline'
+    assign button_icon = true
+	elsif button_type == 'button_with_underline'
+    assign button_style_type = 'link link-with-underline'
+    assign button_icon = false
+  elsif button_type == 'button_underline'
+    assign button_style_type = 'link underlined-link'
+    assign button_icon = true
+  endif 
+%}
+
+<a href="{{ button_url }}"  
+   class="{{ button_style_type }}{% if settings.color_events_button_bg_hover_gradient != blank and button_style_type == 'button btn-bg-transparent' %} gradient--hover {% endif %}{% if button_style == 'btn_secondary' %} button-secondary{% endif %}{% if settings.link_icon != blank and button_icon == true %} button-with-icon{% endif %} {{ custom_button_class }}
+	 {% if button_style == 'btn_primary' and settings.color_primery_button_bg_gradient != blank %} gradient gradient--primary{% endif %} {% if button_style == 'btn_secondary' and settings.color_secondary_button_bg_gradient != blank %} gradient gradient--secondary {% endif %}">
+
+  {% if settings.link_icon != blank and button_icon == true %} 
+    <span class="link-text">
+      {{ button_label | escape }}
+    </span>
+    <span class='link-icon'>
+      {{ settings.link_icon }}
+    </span>
+  {% else %}
+    {{ button_label | escape }}
+  {% endif %}
+</a>

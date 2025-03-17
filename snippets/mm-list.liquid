@@ -1,0 +1,164 @@
+{% capture mega_menu_img_ratio %}
+    header__submenu-img--{{ section.settings.image_ratio }}
+{% endcapture %}
+
+<ul class="list-menu list-menu--inline">
+    {%- for link in linklists[section.settings.menu].links -%}
+      <li>
+        {%- if link.links != blank -%}
+          {% if section.settings.menu_dropdown == 'menu-click' %}
+            <details-disclosure>
+              <details>
+          {% endif %}
+
+                <{% if section.settings.menu_dropdown == 'menu-hover' %}a role="link"{% else %}summary{% endif %} class="header__menu-item list-menu__item link focus-inset{% if link.child_active %} header__active-menu-item{% endif %}{% if section.settings.show_dropdown_icon %} dropdown{% endif %}">
+                  <span class="link{% if section.settings.show_underline %} underlined-link{% else %} link-no-underline{% endif %}">{{ link.title | escape }}</span>
+                  {%- if section.settings.show_dropdown_icon -%}
+                    {% render 'icon-caret' %}
+                  {%- endif -%}
+                </{% if section.settings.menu_dropdown == 'menu-hover' %}a{% else %}summary{% endif %}>
+
+                    <div class="header__submenu header__submenu-main list-menu list-menu--disclosure caption-large motion-reduce color-{{ section.settings.mega_menu_bg }} {% if section.settings.hide_mega_menu_image == false %} header__submenu-img{% endif %} {{ mega_menu_img_ratio }}{% if section.settings.menu_dropdown == 'menu-hover' %} on-hover{% endif %}{% if section.settings.menu_animation == 'menu-shadow' %} header-shadow{%- endif -%}" {% if section.settings.menu_dropdown == 'menu-hover' %} style="display: none;"{% endif %} tabindex="-1">
+
+                        <ul class="{% if section.settings.mm_style == 'style-2' and link.links.size == 2 or link.links.size == 4 %}cols-2{% elsif section.settings.mm_style == 'style-2' and link.links.size == 3 or link.links.size > 4 %}cols-3{% endif %}">
+                            {%- for childlink in link.links -%}
+                                <li>
+                                    {%- if childlink.links == blank -%}
+                                        {%- liquid
+                                            if childlink.object.image != blank
+                                                assign menu_image = childlink.object.image
+                                            else
+                                                assign menu_image = childlink.object.featured_image
+                                            endif
+                                        %}
+                                        {% if section.settings.mm_style == 'style-2' %}
+                                            <a href="{{ childlink.url }}" class="header__menu-item list-menu__item link link--text focus-inset caption-large{% if childlink.current %} list-menu__item--active{% endif %} color-{{ section.settings.mega_menu_color_text }} mm-style-2"{% if childlink.current %} aria-current="page"{% endif %}>
+                                                {% if menu_image != blank %}
+                                                    <img srcset="{{ menu_image | image_url: width: 350 }}" src="{{ menu_image | image_url: width: 350 }}"
+                                                        loading="lazy" width="350" height="180" alt="{{ childlink.title | escape }} image">
+                                                {% endif %}
+
+                                                {{ childlink.title | escape }}
+                                            </a>
+                                        {% else %}
+                                            <a href="{{ childlink.url }}" class="header__menu-item list-menu__item link link--text focus-inset caption-large{% if childlink.current %} list-menu__item--active{% endif %} color-{{ section.settings.mega_menu_color_text }}{% if section.settings.mm_style == 'style-2' %} mm-style-2{% endif %}"  {% if menu_image != blank %} data-image="{{ menu_image | image_url: width: 600 }}"{% endif %} {% if childlink.current %} aria-current="page"{% endif %}>
+                                                {{ childlink.title | escape }}
+                                            </a>
+                                        {% endif %}
+
+                                    {%- else -%}
+
+                                        <div class="header__submenu-sub">
+                                            <summary class="header__menu-item link link--text list-menu__item focus-inset caption-large color-{{ section.settings.mega_menu_color_text }}">
+                                                {{ childlink.title | escape }}
+                                            </summary>
+                                            <ul class="header__submenu list-menu motion-reduce">
+                                                {%- for grandchildlink in childlink.links -%}
+                                                    <li>
+                                                        <a href="{{ grandchildlink.url }}" class="header__menu-item list-menu__item link link--text focus-inset caption-large{% if grandchildlink.current %} list-menu__item--active{% endif %} color-{{ section.settings.mega_menu_color_text }}"{% if grandchildlink.current %} aria-current="page"{% endif %} {% if grandchildlink.object.featured_image != blank %} data-image="{{ grandchildlink.object.featured_image | image_url: width: 600 }}"{% endif %}>
+                                                            {{ grandchildlink.title | escape }}
+                                                        </a>
+                                                    </li>
+                                                {%- endfor -%}
+                                            </ul>
+                                        </div>
+                                    {%- endif -%}
+                                </li>
+                            {%- endfor -%}
+                        </ul>
+
+                        {% if section.settings.hide_mega_menu_image == false and section.settings.mm_style == 'style-1' %}
+                            <variant-megamenu-img class="menu-drawer__image js-megaMenuImgWrp">
+                                {% if section.settings.mega_menu_image != blank %}
+                                    {{
+                                        section.settings.mega_menu_image
+                                        | image_url: width: 550
+                                        | image_tag: 
+                                            loading: 'lazy',
+                                            widths: '280, 380, 480, 550, 650'
+                                    }}
+                                {% else %}
+                                    {{ 'product-1' | placeholder_svg_tag }}
+                                {% endif %}
+                            </variant-megamenu-img>
+                            <noscript class="mega-menu-image-default">
+                                {% if section.settings.mega_menu_image %}
+                                    <img srcset="{{ section.settings.mega_menu_image | image_url }}" src="{{ section.settings.mega_menu_image | image_url }}" loading="lazy" width="{{ section.settings.mega_menu_image.width }}" height="{{ section.settings.mega_menu_image.height }}" alt="{{ section.settings.mega_menu_image.alt | escape }}">
+                                {% endif %}
+                            </noscript>
+                        {% endif %}
+
+                        {% if section.settings.mm_style == 'style-3' %}
+                            <div class="mm-collections color-{{ section.settings.mega_menu_color_text }}">
+                                {% if section.settings.mm_collection != blank %}
+                                    <a href="{{ section.settings.mm_collection.url }}" class="mm-collections__link">
+                                        {{ section.settings.mm_collection.featured_image | image_url: width: 255, height: 200 | image_tag }}
+                                        <span class="mm-collections__title">
+                                            {{ section.settings.mm_collection.title }}
+                                        </span>
+                                        <span class="mm-collections__arrow">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M7.998 0L6.58835 1.41L12.167 7H0V9H12.167L6.58835 14.59L7.998 16L15.996 8L7.998 0Z" fill="currentColor"/>
+                                            </svg>                                
+                                        </span>
+                                    </a>
+                                {% endif %}
+                                {% if section.settings.mm_collection2 != blank %}
+                                    <a href="{{ section.settings.mm_collection2.url }}" class="mm-collections__link">
+                                        {{ section.settings.mm_collection2.featured_image | image_url: width: 255, height: 200 | image_tag }}
+                                        <span class="mm-collections__title">
+                                            {{ section.settings.mm_collection2.title }}
+                                        </span>
+                                        <span class="mm-collections__arrow">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M7.998 0L6.58835 1.41L12.167 7H0V9H12.167L6.58835 14.59L7.998 16L15.996 8L7.998 0Z" fill="currentColor"/>
+                                            </svg>                                
+                                        </span>
+                                    </a>
+                                {% endif %}
+                                {% if section.settings.mm_collection == blank and section.settings.mm_collection2 == blank %}
+                                    <div class="mm-collections__link">
+                                        {{ 'product-1' | placeholder_svg_tag }}
+                                        <span class="mm-collections__title">
+                                            {{ 'onboarding.collection_title' | t }}
+                                        </span>
+                                        <span class="mm-collections__arrow">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M7.998 0L6.58835 1.41L12.167 7H0V9H12.167L6.58835 14.59L7.998 16L15.996 8L7.998 0Z" fill="currentColor"/>
+                                            </svg>                                
+                                        </span>
+                                    </div>
+                                    <div class="mm-collections__link">
+                                        {{ 'product-1' | placeholder_svg_tag }}
+                                        <span class="mm-collections__title">
+                                            {{ 'onboarding.collection_title' | t }}
+                                        </span>
+                                        <span class="mm-collections__arrow">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M7.998 0L6.58835 1.41L12.167 7H0V9H12.167L6.58835 14.59L7.998 16L15.996 8L7.998 0Z" fill="currentColor"/>
+                                            </svg>                                
+                                        </span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    {% if section.settings.menu_animation == 'menu-overlay' %}
+                        <div class="header-overlay" style="opacity: 0;"></div>
+                    {%- endif -%}
+
+                {% if section.settings.menu_dropdown == 'menu-click' %}
+                        </details>
+                    </details-disclosure>
+                {% endif %}
+            {%- else -%}
+                <a href="{{ link.url }}" class="header__menu-item header__menu-item list-menu__item link link--text focus-inset"{% if link.current %} aria-current="page"{% endif %}>
+                    <span class="link{% if section.settings.show_underline %} underlined-link{% else %} link-no-underline{% endif %}{% if link.current %} header__active-menu-item{% endif %}">
+                        {{ link.title | escape }}
+                    </span>
+                </a>
+            {%- endif -%}
+        </li>
+    {%- endfor -%}
+</ul>

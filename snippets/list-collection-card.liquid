@@ -1,0 +1,307 @@
+{% comment %}
+	Renders a list collection card
+
+	Accepts:
+		- card_collection {Object} Collection Liquid object
+
+	Usage:
+		{% render 'list-collection-card' %}
+{% endcomment %}
+
+
+{%- if section.settings.grid_scheme == 'columns-1' and section.settings.col_1_style == 'c-style-1' -%}
+	<div class="card{% if card_collection.featured_image != blank %} card--media{% endif %} {{ section.settings.card_hover }}">
+{%- else -%}
+	<a
+		href="{{ card_collection.url }}"
+		class="card{% if card_collection.featured_image != blank %} card--media{% endif %} {{ section.settings.card_hover }}"
+	>
+{%- endif -%}
+
+	{%- if section.settings.grid_scheme == 'columns-1' and section.settings.col_1_style == 'c-style-1' -%}
+		<div class="card__text">
+			<div class="cart__title-wrap">
+				<h2 class="card__title h2 {{ section.settings.card_heading_color }} {{ section.settings.card_heading_style }} {{ section.settings.card_heading_weight }}">
+					{{- card_collection.title -}}
+				</h2>
+				{% if card_collection.description != blank %}
+					<div class="rte">
+						{{- card_collection.description -}}
+					</div>
+				{% endif %}
+			</div>
+			{%- if section.settings.show_button -%}
+				<div class="button-wrapp">
+					{% liquid
+						assign button_style_type = 'button'
+						assign button_icon = false
+						if section.settings.button_type == 'button_icon'
+							assign button_icon = true
+						elsif section.settings.button_type == 'button_outline'
+							assign button_style_type = 'button btn-bg-transparent'
+							assign button_icon = false
+						elsif section.settings.button_type == 'button_outline_icon'
+							assign button_style_type = 'button btn-bg-transparent'
+							assign button_icon = true
+						elsif section.settings.button_type == 'inline_button'
+							assign button_style_type = 'link link-no-underline'
+							assign button_icon = true
+						elsif section.settings.button_type == 'button_with_underline'
+							assign button_style_type = 'link link-with-underline'
+							assign button_icon = false
+						elsif section.settings.button_type == 'button_underline'
+							assign button_style_type = 'link underlined-link'
+							assign button_icon = true
+						endif
+					%}
+					<a
+						href="{{ card_collection.url }}"
+						class="collection-button {{ button_style_type }}{% if settings.color_events_button_bg_hover_gradient != blank and button_style_type == 'button btn-bg-transparent' %} gradient--hover {% endif %}{% if section.settings.button_style == 'btn_secondary' %} button-secondary{% endif %} {% if settings.link_icon != blank and button_icon == true %} button-with-icon{% endif %}{% if section.settings.button_style == 'btn_primary' and settings.color_primery_button_bg_gradient != blank %} gradient gradient--primary{% endif %} {% if section.settings.button_style == 'btn_secondary' and settings.color_secondary_button_bg_gradient != blank %} gradient gradient--secondary {% endif %}"
+						{{ block.shopify_attributes }}
+					>
+						{% if settings.link_icon != blank and button_icon == true %}
+							<span class="link-text">
+								{{ section.settings.button_label | escape }}
+							</span>
+							<span class="link-icon">
+								{{ settings.link_icon }}
+							</span>
+						{% else %}
+							{{ section.settings.button_label | escape }}
+						{% endif %}
+					</a>
+				</div>
+			{%- endif -%}
+		</div>
+	{%- endif -%}
+
+	{%- unless section.settings.grid_scheme == 'columns-1' and section.settings.col_1_style == 'c-style-1' -%}
+		<div class="card--stretch card-colored">
+			{%- if card_collection.featured_image != blank -%}
+				<div>
+					<div
+						class="media media--{{ section.settings.image_ratio }} media--hover-effect overflow-hidden-light"
+						{% if section.settings.image_ratio == 'adapt' %}
+							style="padding-bottom: {{ 1 | divided_by: card_collection.featured_image.aspect_ratio | times: 100 }}%;"
+						{% endif %}
+					>
+						<img
+							srcset="
+								{%- if card_collection.featured_image.width >= 165 -%}{{ card_collection.featured_image | image_url: width: 165 }} 165w,{%- endif -%}
+								{%- if card_collection.featured_image.width >= 360 -%}{{ card_collection.featured_image | image_url: width: 360 }} 360w,{%- endif -%}
+								{%- if card_collection.featured_image.width >= 535 -%}{{ card_collection.featured_image | image_url: width: 535 }} 535w,{%- endif -%}
+								{%- if card_collection.featured_image.width >= 635 -%}{{ card_collection.featured_image | image_url: width: 635 }} 635w,{%- endif -%}
+								{%- if card_collection.featured_image.width >= 750 -%}{{ card_collection.featured_image | image_url: width: 750 }} 750w,{%- endif -%}
+								{%- if card_collection.featured_image.width >= 850 -%}{{ card_collection.featured_image | image_url: width: 850 }} 850w,{%- endif -%}
+								{%- if card_collection.featured_image.width >= 1000 -%}{{ card_collection.featured_image | image_url: width: 1000 }} 1000w,{%- endif -%}
+								{%- if card_collection.featured_image.width >= 1300 -%}{{ card_collection.featured_image | image_url: width: 1300 }} 1300w,{%- endif -%}
+								{%- if card_collection.featured_image.width >= 1500 -%}{{ card_collection.featured_image | image_url: width: 1500 }} 1500w{%- endif -%}
+							"
+							src="{{ card_collection.featured_image | image_url: width: 1500 }}"
+							sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 3 }}px, (min-width: 750px) calc((100vw - 130px) / 3), calc(100vw - 30px)"
+							alt="{{ card_collection.title | escape }}"
+							height="{{ card_collection.featured_image.height }}"
+							width="{{ card_collection.featured_image.width }}"
+							loading="lazy"
+						>
+					</div>
+				</div>
+	
+				<div class="card__text">
+					<div class="overlay-card"></div>
+					<h2 class="card__title {{ section.settings.card_heading_size }} {{ section.settings.card_heading_color }} {{ section.settings.card_heading_style }} {{ section.settings.card_heading_weight }}">
+						{{- card_collection.title -}}
+	
+						{%- if section.settings.card_hover == 'image-icon' and settings.link_icon != blank -%}
+							<span class="link-icon">
+								{{ settings.link_icon }}
+							</span>
+						{%- endif -%}
+					</h2>
+					{% if section.settings.grid_scheme == 'columns-1' and card_collection.description != blank %}
+						<div class="rte">
+							{{- card_collection.description -}}
+						</div>
+					{% endif %}
+					{%- if section.settings.show_button -%}
+						<div class="button-wrapp">
+							{% liquid
+								assign button_style_type = 'button'
+								assign button_icon = false
+								if section.settings.button_type == 'button_icon'
+									assign button_icon = true
+								elsif section.settings.button_type == 'button_outline'
+									assign button_style_type = 'button btn-bg-transparent'
+									assign button_icon = false
+								elsif section.settings.button_type == 'button_outline_icon'
+									assign button_style_type = 'button btn-bg-transparent'
+									assign button_icon = true
+								elsif section.settings.button_type == 'inline_button'
+									assign button_style_type = 'link link-no-underline'
+									assign button_icon = true
+								elsif section.settings.button_type == 'button_with_underline'
+									assign button_style_type = 'link link-with-underline'
+									assign button_icon = false
+								elsif section.settings.button_type == 'button_underline'
+									assign button_style_type = 'link underlined-link'
+									assign button_icon = true
+								endif
+							%}
+							<span
+								href="{{ card_collection.url }}"
+								class="collection-button {{ button_style_type }}{% if settings.color_events_button_bg_hover_gradient != blank and button_style_type == 'button btn-bg-transparent' %} gradient--hover {% endif %}{% if section.settings.button_style == 'btn_secondary' %} button-secondary{% endif %} {% if settings.link_icon != blank and button_icon == true %} button-with-icon{% endif %}{% if section.settings.button_style == 'btn_primary' and settings.color_primery_button_bg_gradient != blank %} gradient gradient--primary{% endif %} {% if section.settings.button_style == 'btn_secondary' and settings.color_secondary_button_bg_gradient != blank %} gradient gradient--secondary {% endif %}"
+								{{ block.shopify_attributes }}
+							>
+								{% if settings.link_icon != blank and button_icon == true %}
+									<span class="link-text">
+										{{ section.settings.button_label | escape }}
+									</span>
+									<span class="link-icon">
+										{{ settings.link_icon }}
+									</span>
+								{% else %}
+									{{ section.settings.button_label | escape }}
+								{% endif %}
+							</span>
+						</div>
+					{%- endif -%}
+				</div>
+			{%- else -%}
+				<div>
+					<div
+						class="media media--{{ section.settings.image_ratio }} media--hover-effect overflow-hidden-light"
+						{% if section.settings.image_ratio == 'adapt' %}
+							style="padding-bottom: {{ 1 | divided_by: card_collection.featured_image.aspect_ratio | times: 100 }}%;"
+						{% endif %}
+					>
+						{{ 'collection-6' | placeholder_svg_tag }}
+					</div>
+				</div>
+	
+				<div class="card__text">
+					<div class="overlay-card"></div>
+					<h2 class="card__title {{ section.settings.card_heading_size }} {{ section.settings.card_heading_color }} {{ section.settings.card_heading_style }} {{ section.settings.card_heading_weight }}">
+						{{- card_collection.title -}}
+						{%- if section.settings.card_hover == 'image-icon' and settings.link_icon != blank -%}
+							<span class="link-icon">
+								{{ settings.link_icon }}
+							</span>
+						{%- endif -%}
+					</h2>
+					{% if section.settings.grid_scheme == 'columns-1' and card_collection.description != blank %}
+						<div class="rte">
+							{{- card_collection.description | truncatewords: 20 -}}
+						</div>
+					{% endif %}
+					{%- if section.settings.show_button -%}
+						<div class="button-wrapp">
+							{% liquid
+								assign button_style_type = 'button'
+								assign button_icon = false
+								if section.settings.button_type == 'button_icon'
+									assign button_icon = true
+								elsif section.settings.button_type == 'button_outline'
+									assign button_style_type = 'button btn-bg-transparent'
+									assign button_icon = false
+								elsif section.settings.button_type == 'button_outline_icon'
+									assign button_style_type = 'button btn-bg-transparent'
+									assign button_icon = true
+								elsif section.settings.button_type == 'inline_button'
+									assign button_style_type = 'link link-no-underline'
+									assign button_icon = true
+								elsif section.settings.button_type == 'button_with_underline'
+									assign button_style_type = 'link link-with-underline'
+									assign button_icon = false
+								elsif section.settings.button_type == 'button_underline'
+									assign button_style_type = 'link underlined-link'
+									assign button_icon = true
+								endif
+							%}
+							<span
+								class="collection-button {{ button_style_type }} {% if settings.color_events_button_bg_hover_gradient != blank and button_style_type == 'button btn-bg-transparent' %} gradient--hover {% endif %} {% if section.settings.button_style == 'btn_secondary' %} button-secondary{% endif %} {% if settings.link_icon != blank and button_icon == true %} button-with-icon{% endif %} {% if section.settings.button_style == 'btn_primary' and settings.color_primery_button_bg_gradient != blank %} gradient gradient--primary{% endif %} {% if section.settings.button_style == 'btn_secondary' and settings.color_secondary_button_bg_gradient != blank %} gradient gradient--secondary {% endif %}"
+								{{ block.shopify_attributes }}
+							>
+								{% if settings.link_icon != blank and button_icon == true %}
+									<span class="link-text">
+										{{ section.settings.button_label | escape }}
+									</span>
+									<span class="link-icon">
+										{{ settings.link_icon }}
+									</span>
+								{% else %}
+									{{ section.settings.button_label | escape }}
+								{% endif %}
+							</span>
+						</div>
+					{%- endif -%}
+				</div>
+			{%- endif -%}
+		</div>
+	{%- endunless -%}
+
+	{%- if section.settings.grid_scheme == 'columns-1' and section.settings.col_1_style == 'c-style-1' -%}
+		<ul id="main-collection-product-grid" data-id="{{ section.id }}" class="main-collection__list grid-main grid_list grid col-lg-4 col-md-2 col-sm-2 {{ section.settings.product_style }} {{ section.settings.rows_gap }} {{ section.settings.rows_gap_mb }} {{ section.settings.columns_gap }} {{ section.settings.columns_gap_mb }}">
+			{%- if card_collection != blank -%}
+				{%- for product in card_collection.products limit: 5 -%}
+					<li class="collection__item grid-main__item">
+						{% render 'product-card',
+							product_card_product: product,
+							product_style: section.settings.product_style,
+							media_size: section.settings.p_image_ratio,
+							show_secondary_image: section.settings.show_secondary_image,
+							secondary_image: section.settings.secondary_image,
+							zoom_image: section.settings.zoom_image,
+							show_image_outline: section.settings.show_image_outline,
+							section_show_badges: section.settings.section_show_badges,
+							show_quick_view: section.settings.show_quick_view,
+							show_add_to_card: section.settings.show_add_to_card,
+							product_info_align: section.settings.product_info_align,
+							heading_font: section.settings.heading_font,
+							heading_color: section.settings.heading_color,
+							heading_size: section.settings.p_heading_size,
+							heading_style: section.settings.heading_style,
+							button_style: section.settings.p_button_style
+						%}
+					</li>
+				{%- endfor -%}
+			{%- else -%}
+				{% liquid assign countIcon = 0 %}
+				{%- for i in (1..5) -%}
+					{% assign countIcon = countIcon | plus: 1 %}
+					<li class="collection__item grid-main__item">
+						<div class="card-wrapper card-blog-placeholder">
+							<span class="visually-hidden">{{ 'onboarding.product_title' | t }}</span>
+						
+							<div class="card card--text-only card--soft card--product">
+								<div class="card__inner">
+									{{ 'product-' | append: countIcon | placeholder_svg_tag }}
+								</div>
+							</div>
+							
+							<div class="card-information">
+								<div class="card-information__wrapper {{ section.settings.product_info_align }}">
+									<h3 class="card__text h3">
+										<span class="link link-no-underline">
+											{{ 'onboarding.product_title' | t }}
+										</span>
+									</h3>
+									{% render 'price', 
+										product: product, 
+										price_class: '', 
+										show_prices: true,
+										product_info_align: section.settings.product_info_align
+									%}
+								</div>
+							</div>
+						</div>
+					</li>
+				{%- endfor -%}
+			{%- endif -%}
+		</ul>
+	{%- endif -%}
+
+{%- if section.settings.grid_scheme == 'columns-1' and section.settings.col_1_style == 'c-style-1' -%}
+</div>
+{%- else -%}
+</a>
+{%- endif -%}

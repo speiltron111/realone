@@ -1,0 +1,129 @@
+{% comment %}
+    Renders an article card for a given blog with settings to either show the image or not.
+
+    Accepts:
+    - blog: {Object} Blog object
+    - article: {Object} Article object
+    - show_image: {String} The setting either show the article image or not. If it's not included it will show the image by default
+    - show_date: {String} The setting either show the article date or not. If it's not included it will not show the image by default
+    - show_author: {String} The setting either show the article author or not. If it's not included it will not show the author by default
+    - gap: {String} Change gap between title and excerpt
+		- button_space: {String}
+
+    Usage:
+    {% render 'article-card' blog: blog, article: article, show_image: section.settings.show_image %}
+{% endcomment %}
+
+<article class="ab-article-card article-card{% if article.image == blank or show_image == false %} article-card--no-image{% endif %} {{ section.settings.card_style }}" aria-labelledby="Article-{{ article.id }}">
+  <a href="{{ article.url }}" class="article-content motion-reduce">
+    {%- if show_image == true and article.image -%}
+      <div class="article-card__image-wrapper">
+        <div class="article-card__image media media--{{ section.settings.image_ratio }} {% if settings.theme_animations != 'no-animation' %} aside-media scroll-animation active{% endif %}" 
+          {% if section.settings.image_ratio == 'adapt' %} style="padding-bottom: {{ 1 | divided_by: article.image.aspect_ratio | times: 100 }}%;" {% endif %}>
+          <img srcset="{%- if article.image.src.width >= 165 -%}{{ article.image.src | image_url: width: 165 }} 165w,{%- endif -%}
+              {%- if article.image.src.width >= 260 -%}{{ article.image.src | image_url: width: 260 }} 260w,{%- endif -%}
+              {%- if article.image.src.width >= 360 -%}{{ article.image.src | image_url: width: 360 }} 360w,{%- endif -%}
+              {%- if article.image.src.width >= 533 -%}{{ article.image.src | image_url: width: 533 }} 533w,{%- endif -%}
+              {%- if article.image.src.width >= 720 -%}{{ article.image.src | image_url: width: 720 }} 720w,{%- endif -%}
+              {%- if article.image.src.width >= 850 -%}{{ article.image.src | image_url: width: 850 }} 850w,{%- endif -%}
+              {%- if article.image.src.width >= 1000 -%}{{ article.image.src | image_url: width: 1000 }} 1000w,{%- endif -%}
+              {%- if article.image.src.width >= 1200 -%}{{ article.image.src | image_url: width: 1200 }} 1200w,{%- endif -%}"
+            src="{{ article.image.src | image_url: width: 533 }}"
+            sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px, (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)"
+            alt="{{ article.image.src.alt | escape }}"
+            width="{{ article.image.width }}"
+            height="{{ article.image.height }}"
+            loading="lazy"
+            class="motion-reduce">
+        </div>
+      </div>
+    {%- elsif show_image == true and article.image == blank -%}
+      <div class="article-card__image-wrapper">
+        <div class="placeholder media media--landscape">
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        </div>
+      </div>
+    {%- endif -%}
+    {%- if show_badge and article.tags != blank -%}
+      <div class="card__badge">
+        {% for tag in article.tags %}
+          <span class="badge color-background-1 {% if settings.color_label_bg_gradient != blank %} gradient{% endif %}">
+            {{ tag }}
+          </span>
+        {% endfor %}
+      </div>
+    {%- endif -%}
+
+    <div class="article-card__info {% if settings.theme_animations != 'no-animation' %} aside-text scroll-animation active{% endif %}">
+      <header class="article-card__header">
+        <h3 class="article-card__title{% if show_above_heading and show_date or show_author %} order-2{% endif %} {{ heading_style }} {{ heading_color }} {% if heading_font == 'hf-heading' %} heading-font{% endif %} {{ heading_size }}" id="Article-{{ article.id }}">
+          <span>{{ article.title | escape }}</span>
+					{%- if card_hover == 'image-icon' and settings.link_icon != blank -%}
+						<span class="link-icon">
+							{{ settings.link_icon }}
+						</span>
+					{%- endif -%}
+        </h3>
+        {%- if show_date -%}
+          <span class="caption-with-letter-spacing{% if show_above_heading %} order-1{% endif %}">
+            {{- article.published_at | time_tag: format: 'date' -}}
+          </span>
+        {%- endif -%}
+        {%- if show_author -%}
+          <span class="caption-with-letter-spacing{% if show_above_heading %} order-1{% endif %}">
+            {{ article.author -}}
+          </span>
+        {%- endif -%}
+      </header>
+      {%- if show_description and article.excerpt.size > 0 or article.content.size > 0 -%}
+        <p class="article-card__excerpt rte-width {{ gap }} {{ description_size }} {{ description_color }}">
+          {%- if article.excerpt.size > 0 -%}
+            {{ article.excerpt | strip_html | truncatewords: 24 }}
+          {%- else -%}
+            {{ article.content | strip_html | truncatewords: 24 }}
+          {%- endif -%}
+        </p>
+      {%- endif -%}
+      {%- if show_comments -%}
+        {%- if article.comments_count > 0 and blog.comments_enabled? -%}
+          <div class="article-card__footer">
+            <span>{{ 'blogs.article.comments' | t: count: article.comments_count }}</span>
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+      {%- if section.settings.show_read_more and section.settings.button_label != blank -%}
+
+        {% liquid
+          assign button_style_type = 'button'
+          assign button_icon = false
+					if button_type == 'button_icon'
+						assign button_icon = true
+					elsif button_type == 'button_outline'
+            assign button_style_type = 'button btn-bg-transparent'
+						assign button_icon = false
+					elsif button_type == 'button_outline_icon'
+						assign button_style_type = 'button btn-bg-transparent'
+						assign button_icon = true
+          elsif button_type == 'inline_button'
+            assign button_style_type = 'link link-no-underline'
+            assign button_icon = true
+					elsif button_type == 'button_with_underline'
+						assign button_style_type = 'link link-with-underline'
+						assign button_icon = false
+          elsif button_type == 'button_underline'
+            assign button_style_type = 'link underlined-link'
+            assign button_icon = true
+          endif 
+        %}
+
+        <span class="article_link {{ button_style_type }}{% if settings.color_events_button_bg_hover_gradient != blank and button_style_type == 'button btn-bg-transparent' %} gradient--hover {% endif %}{% if button_style == 'btn_secondary' %} button-secondary{% endif %}{% if settings.link_icon != blank and button_icon == true %} button-with-icon{% endif %}{% if button_style == 'btn_primary' and settings.color_primery_button_bg_gradient != blank %} gradient gradient--primary{% endif %} {% if button_style == 'btn_secondary' and settings.color_secondary_button_bg_gradient != blank %} gradient gradient--secondary {% endif %} {{ button_space }}">
+					<span class='link-text'>{{ section.settings.button_label }}</span>
+          {% if settings.link_icon != blank and button_icon == true %} 
+            <span class='link-icon'>{{ settings.link_icon }}</span>
+          {% endif %}
+        </span>
+      {%- endif -%}
+    </div>
+  </a>
+  
+</article>
