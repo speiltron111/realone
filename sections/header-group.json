@@ -1,12 +1,12 @@
 /*
-* ------------------------------------------------------------
-* IMPORTANT: The contents of this file are auto-generated.
-*
-* This file may be updated by the Shopify admin theme editor
-* or related systems. Please exercise caution as any changes
-* made to this file may be overwritten.
-* ------------------------------------------------------------
-*/
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "name": "Header",
   "type": "header",
@@ -38,9 +38,7 @@
         "68032e4a-f66c-4911-8d4a-716c6b2fb7a3",
         "c0a56a1e-851f-4e02-a42d-23b5cb042240"
       ],
-      "custom_css": [
-
-      ],
+      "custom_css": [],
       "settings": {
         "hide_announcement": false,
         "color_bg": "background-4",
@@ -59,9 +57,7 @@
     },
     "header": {
       "type": "header",
-      "custom_css": [
-
-      ],
+      "custom_css": [],
       "settings": {
         "color_bg": "background-1",
         "color_text": "text-main",
@@ -73,7 +69,7 @@
         "counter_bg": "#c49d84",
         "counter_color": "#ffffff",
         "show_dropdown_icon": true,
-        "show_link_underline": false,
+        "show_link_underline": true,
         "switch_line_separator": "",
         "separator_color": "",
         "enable_sticky_header": true,
