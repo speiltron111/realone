@@ -9,6 +9,42 @@
  */
 {
   "sections": {
+    "banner_gGqJUw": {
+      "type": "banner",
+      "settings": {
+        "show_title": true,
+        "title": "<h1><strong>RULE THE STREETS<br/> IN STYLE</strong></h1>",
+        "heading_letter_spacing": 5,
+        "heading_color": "color-text-main",
+        "heading_style": "",
+        "text": "STYLE",
+        "text_color_2": "#f88454",
+        "enable_custom_heading_size": false,
+        "custom_heading_size": 73,
+        "show_description": true,
+        "description": "<p>Experience the superior fit and exceptional quality of our apparels.</p>",
+        "description_color": "color-text-main",
+        "show_button": false,
+        "button_label": "Button label",
+        "button_link": "",
+        "button_style": "btn_primary",
+        "button_type": "inline_button",
+        "show_breadcrumb": true,
+        "breadcrumb_color": "color-text-main",
+        "horizontal_align": "center",
+        "enable_max_width": false,
+        "heading_max_width": 360,
+        "horizontal_content_align": "content-center",
+        "show_image": true,
+        "image": "shopify://shop_images/elijah_6498.jpg",
+        "image_size": "image-cover",
+        "image_position_mobile": "cover",
+        "image_overlay_opacity": 40,
+        "padding_top": 230,
+        "padding_bottom": 205,
+        "color_bg": ""
+      }
+    },
     "163411882497c72cc8": {
       "type": "slideshow-banner",
       "blocks": {
@@ -29,6 +65,7 @@
       "block_order": [
         "163411882497c72cc8-0"
       ],
+      "disabled": true,
       "settings": {
         "banner_paralax": true,
         "image_overlay_opacity": 50,
@@ -884,6 +921,7 @@
     }
   },
   "order": [
+    "banner_gGqJUw",
     "163411882497c72cc8",
     "1663063733fe0a70f1",
     "16335070523b6e47a2",
