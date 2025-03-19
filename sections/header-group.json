@@ -74,7 +74,7 @@
         "separator_color": "",
         "enable_sticky_header": true,
         "items_with_icons_style": "default",
-        "enable_search": true,
+        "enable_search": false,
         "menu_dropdown": "menu-click",
         "color_transparent": true,
         "color_bg_transparent": "background-1-transparent",
@@ -113,8 +113,8 @@
         "mobile_color_text": "text-main",
         "enable_mobile_social": false,
         "mobile_link_background": "",
-        "padding_top": 15,
-        "padding_bottom": 15
+        "padding_top": 1,
+        "padding_bottom": 5
       }
     }
   },
