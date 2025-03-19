@@ -12,21 +12,8 @@
     "163411882497c72cc8": {
       "type": "slideshow-banner",
       "blocks": {
-        "image_nhYdaj": {
-          "type": "image",
-          "settings": {
-            "image_link": "",
-            "heading": "<h1>RULE THE STREETS IN</h1>",
-            "description": "",
-            "button_label": "Button label",
-            "button_link": "",
-            "button_style": "btn_secondary",
-            "button_type": "inline_button"
-          }
-        },
         "163411882497c72cc8-0": {
           "type": "image",
-          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/elijah_6498.jpg",
             "image_link": "",
@@ -40,7 +27,6 @@
         }
       },
       "block_order": [
-        "image_nhYdaj",
         "163411882497c72cc8-0"
       ],
       "settings": {
