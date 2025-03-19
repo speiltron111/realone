@@ -934,5 +934,11 @@
       "colors_background_1": "#ffffff",
       "colors_background_2": "#9EAEA7"
     }
+  },
+  "platform_customizations": {
+    "custom_css": [
+      ".slideshow__text {color: white; /* Default text color */ font-weight: bold; text-transform: uppercase;}",
+      ".slideshow__text span {color: #F88454; /* Change this to your brand’s accent color */}"
+    ]
   }
 }
