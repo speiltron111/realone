@@ -17,11 +17,11 @@
           "settings": {
             "image": "shopify://shop_images/elijah_6498.jpg",
             "image_link": "",
-            "heading": "<p>Slideshow banner</p>",
+            "heading": "<p><strong>RULE THE STREETS IN</strong></p>",
             "description": "",
             "button_label": "EXPLORE NOW",
             "button_link": "",
-            "button_style": "btn_secondary",
+            "button_style": "btn_primary",
             "button_type": "inline_button"
           }
         }
