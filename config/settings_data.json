@@ -936,9 +936,6 @@
     }
   },
   "platform_customizations": {
-    "custom_css": [
-      ".slideshow__text {color: white; /* Default text color */ font-weight: bold; text-transform: uppercase;}",
-      ".slideshow__text span {color: #F88454; /* Change this to your brand’s accent color */}"
-    ]
+    "custom_css": []
   }
 }
