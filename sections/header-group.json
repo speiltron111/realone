@@ -17,19 +17,19 @@
         "announcement-bar-0": {
           "type": "announcement",
           "settings": {
-            "text": "<p>Use this for a short announcement</p>"
+            "text": "<p>🎁 <strong>FREE Shipping</strong> on orders over <strong>₹1999 </strong></p>"
           }
         },
         "68032e4a-f66c-4911-8d4a-716c6b2fb7a3": {
           "type": "announcement",
           "settings": {
-            "text": "<p>Promote free shipping</p>"
+            "text": "<p>🚨 <strong>Limited-Time Sale!</strong> Get up to <strong>50% OFF</strong> – Shop Now!</p>"
           }
         },
         "c0a56a1e-851f-4e02-a42d-23b5cb042240": {
           "type": "announcement",
           "settings": {
-            "text": "<p>Promote discount savings</p>"
+            "text": "<p>🛍️ <strong>New Arrivals Just Dropped!</strong> Shop the latest styles now.</p>"
           }
         }
       },
