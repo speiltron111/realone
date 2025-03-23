@@ -131,7 +131,7 @@
         "button_label": "get notified",
         "button_link": "",
         "button_style": "btn_secondary",
-        "button_type": "button",
+        "button_type": "button_outline",
         "show_popup": false,
         "enable_in_customizer": false,
         "popup_heading": "<p>Add campaign or promotional text here.</p>",
@@ -141,9 +141,9 @@
         "popup_button_style": "btn_secondary",
         "popup_button_type": "button",
         "section_top_padding": 62,
-        "section_bottom_padding": 70,
+        "section_bottom_padding": 34,
         "background_color": "#111111",
-        "color_bg_gradient": "linear-gradient(111deg, rgba(0, 0, 0, 1), rgba(226, 213, 197, 1) 100%)"
+        "color_bg_gradient": ""
       }
     },
     "16335070523b6e47a2": {
