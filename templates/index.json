@@ -87,44 +87,52 @@
     "1663063733fe0a70f1": {
       "type": "scrolling-text",
       "blocks": {
-        "1663063733c484f92c-0": {
-          "type": "item",
-          "settings": {
-            "section_title": "<p>Add campaign or promotional text here</p>",
-            "text_color": "#964949"
-          }
-        },
         "1663063733c484f92c-1": {
           "type": "item",
           "settings": {
-            "section_title": "<p>Add campaign or promotional text here</p>",
-            "text_color": "#ffffff"
+            "section_title": "<p>✶ NEXT DROP IS COMING SOON ✶</p>",
+            "text_color": "#ebe5cf"
+          }
+        },
+        "1663063733c484f92c-0": {
+          "type": "item",
+          "settings": {
+            "section_title": "<p>NEXT DROP IS COMING SOON  </p>",
+            "text_color": "#f58156"
           }
         },
         "1663063733c484f92c-2": {
           "type": "item",
           "settings": {
-            "section_title": "<p>Add campaign or promotional text here</p>",
-            "text_color": "#ffffff"
+            "section_title": "<p>✶ NEXT DROP IS COMING SOON ✶</p>",
+            "text_color": "#ebe5cf"
+          }
+        },
+        "item_BhtWqg": {
+          "type": "item",
+          "settings": {
+            "section_title": "<p>NEXT DROP IS COMING SOON  </p>",
+            "text_color": "#f58156"
           }
         }
       },
       "block_order": [
-        "1663063733c484f92c-0",
         "1663063733c484f92c-1",
-        "1663063733c484f92c-2"
+        "1663063733c484f92c-0",
+        "1663063733c484f92c-2",
+        "item_BhtWqg"
       ],
       "settings": {
-        "scroll_speed": 15,
+        "scroll_speed": 35,
         "heading_font": "hf-heading",
-        "text_size": 60,
+        "text_size": 80,
         "heading_letter_spacing": 0,
-        "text_weight": "weight-normal",
+        "text_weight": "weight-bold",
         "button_label": "get notified",
         "button_link": "",
         "button_style": "btn_secondary",
         "button_type": "button",
-        "show_popup": true,
+        "show_popup": false,
         "enable_in_customizer": false,
         "popup_heading": "<p>Add campaign or promotional text here.</p>",
         "popup_description": "<p>Add descriptive text to invite your users to sign up for your newsletter.</p>",
@@ -132,10 +140,10 @@
         "popup_background_color": "#f9f5f0",
         "popup_button_style": "btn_secondary",
         "popup_button_type": "button",
-        "section_top_padding": 100,
+        "section_top_padding": 62,
         "section_bottom_padding": 70,
-        "background_color": "#f9f5f0",
-        "color_bg_gradient": "linear-gradient(180deg, rgba(202, 175, 142, 1), rgba(226, 213, 197, 1) 100%)"
+        "background_color": "#111111",
+        "color_bg_gradient": "linear-gradient(111deg, rgba(0, 0, 0, 1), rgba(226, 213, 197, 1) 100%)"
       }
     },
     "16335070523b6e47a2": {
