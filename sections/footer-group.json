@@ -1,12 +1,12 @@
 /*
-* ------------------------------------------------------------
-* IMPORTANT: The contents of this file are auto-generated.
-*
-* This file may be updated by the Shopify admin theme editor
-* or related systems. Please exercise caution as any changes
-* made to this file may be overwritten.
-* ------------------------------------------------------------
-*/
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "name": "Footer",
   "type": "footer",
@@ -16,28 +16,23 @@
       "blocks": {
         "mobile-sticky-bar-0": {
           "type": "home",
-          "settings": {
-          }
+          "settings": {}
         },
         "mobile-sticky-bar-1": {
           "type": "collection",
-          "settings": {
-          }
+          "settings": {}
         },
         "mobile-sticky-bar-2": {
           "type": "cart",
-          "settings": {
-          }
+          "settings": {}
         },
         "mobile-sticky-bar-3": {
           "type": "search",
-          "settings": {
-          }
+          "settings": {}
         },
         "af0f5ca3-ef0f-477a-9dcd-5ae31d445ea8": {
           "type": "account",
-          "settings": {
-          }
+          "settings": {}
         }
       },
       "block_order": [
@@ -144,20 +139,20 @@
         "heading_font_weight": "normal",
         "selectors_font_size": "",
         "newsletter_enable": true,
-        "newsletter_heading": "Newsletter",
-        "newsletter_description": "Add descriptive text to invite your users to sign up for your newsletter.",
+        "newsletter_heading": "Don’t Miss Out! 🚀",
+        "newsletter_description": "Join our newsletter for exclusive drops, special deals, and early access! 🔥",
         "newsletter_placeholder": "Enter your email",
         "newsletter_button": "Sign Up",
         "button_style": "btn_primary",
         "button_type": "button",
-        "newsletter_note": "Write a short sentence about what customers can expect from subcribing your newsletter.",
+        "newsletter_note": "Subscribe for exclusive drops, early access, special discounts, and VIP perks—delivered straight to your inbox!",
         "show_social": true,
         "social_heading": "Follow Us",
         "enable_follow_on_shop": true,
-        "enable_country_selector": true,
-        "enable_country_selector_label": true,
-        "enable_language_selector": true,
-        "enable_language_selector_label": true,
+        "enable_country_selector": false,
+        "enable_country_selector_label": false,
+        "enable_language_selector": false,
+        "enable_language_selector_label": false,
         "theme_policy": "",
         "note_style": "",
         "payment_enable": true,
