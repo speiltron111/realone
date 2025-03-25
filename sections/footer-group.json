@@ -165,7 +165,7 @@
         "add_menu_color_text": "text-secondary",
         "add_top_line": true,
         "add_copyright_line": false,
-        "padding_top": 100,
+        "padding_top": 126,
         "padding_bottom": 0
       }
     }
